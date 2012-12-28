@@ -1,0 +1,8 @@
+{% load i18n %}
+{% for community in communities %}
+    <li><a href="http://community.{{ community.meta.domain }}{{ port }}/" onmouseover="this.style.backgroundColor = '#4b6f1a';" onmouseout="this.style.backgroundColor = '#4a6525';">
+            <span class="community_name">{{ community }}</span><br />
+            <span class="unread_info">{% if community.number_of_notifications %}{% blocktrans with community.number_of_notifications as number_of %}{{ number_of }} notifications{% endblocktrans %}{% endif %}{% if community.number_of_notifications and community.number_of_new_objects %}, {% endif %}{% if community.number_of_new_objects %}{% blocktrans with community.number_of_new_objects as number_of %}{{ number_of }} new{% endblocktrans %}{% endif %}{% if community.number_of_notifications or community.number_of_new_objects %}.{% endif %}&nbsp;</span>
+        </a>
+    </li>
+{% endfor %}

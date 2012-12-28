@@ -1,0 +1,8 @@
+{% extends "debts/base.html" %}
+{% load auth %}{% load i18n %}
+
+{% block content %}
+	{% for account in accounts %}
+		{{ account }}<br />
+	{% endfor %}
+{% endblock %}

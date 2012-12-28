@@ -1,0 +1,63 @@
+{% extends "lightbox.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title %} {{ image.title }} {% endblock %}
+{% block header %}{{ image.title }} {% endblock %}
+
+{% block content %}
+{% if image.deleted and not user.is_staff %}
+	<div>{{ _("This image was deleted at") }} {{ image.deletion_time }} {{ _("by") }} <a href="{{ image.deleted_by.get_absolute_url }}">{{ image.deleted_by }}.</a></div>
+{% else %}
+	{% if image.deleted %}
+		<div>{{ _("This image was deleted at") }} {{ image.deletion_time }} {{ _("by") }} <a href="{{ image.deleted_by.get_absolute_url }}">{{ image.deleted_by }}.</a></div>
+	{% endif %}
+	<script type="text/javascript">
+
+		function redirect(id)
+		{
+			{% if image.owner_group %}
+				window.location = "/images/groups/{{ image.owner_group.id }}"
+			{% else %}
+				window.location = "/images/users/{{ image.owner_user.id }}"
+			{% endif %}
+		}
+
+		function delete_image(id)
+		{
+			show_dialog(
+				{
+					header: "{{ _("Are you sure you want to delete this image?") }}",
+					explanation: "",
+					buttons:
+					[
+						{
+							name: "{{ _("Don't delete") }}",
+							hotkey: "escape"
+						},
+						{
+							name: "{{ _("Delete") }}",
+							hotkey: "return",
+							action: function()
+							{
+								call_function_with_data_from(redirect, '/images/'+id+'/delete/');
+							}
+						}
+					]
+				});
+		}
+
+	</script>
+
+	{% curia_include 'labels/labels.html' object=image %}
+	{% has_permission obj=image command="change" %}<a href="/images/{{ image.id }}/edit/" class="change"><img src="{{ MEDIA_URL }}commands/change.png" alt="{{ _("Edit") }}" /></a>{% endhas_permission %}
+	{% has_permission obj=image command="delete" %}<a href="#" onClick="delete_image({{ image.id }}); return false;"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></a>{% endhas_permission %}
+	{% has_permission obj=image command="edit" %}<a href="{{ image.get_absolute_url }}permissions/"><img src="{{ MEDIA_URL }}commands/permissions.gif" alt="{{ _("Permissions") }}" /></a>{% endhas_permission %}
+	<br />
+	<img src="{{ image.image.url }}" /><br />
+	{{ image.description|sanitize }}
+
+
+{% endif %}
+{% load times %}
+{% set_last_viewed image %}
+{% endblock %}

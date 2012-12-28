@@ -1,0 +1,110 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{{ event }}{% endblock %}
+{% block header  %}{{ event }}{% endblock %}
+
+{% block content %}
+	
+	<script type="text/javascript" defer="true">
+		function remove_event_from_view(events)
+		{
+			document.location = '/calendars/groups/{{ event.owner_group.id }}/agenda/';
+		}
+
+		function delete_event()
+		{
+			show_dialog(
+				{
+					header: "{% blocktrans %}Do you want to delete the event \"{{ event }}\"?{% endblocktrans %}",
+					explanation: "{{ _("Deleted events will still be viewable by administrators.") }}",
+					buttons:
+					[
+						{
+							name: "{{ _("Don't delete") }}",
+							hotkey: "escape"
+						},
+						{
+							name: "{{ _("Delete") }}",
+							hotkey: "return",
+							action: function()
+							{
+								call_function_with_data_from(remove_event_from_view, '{{ event.get_absolute_url }}delete/');
+							}
+						}
+					]
+				});
+		}
+	</script>
+
+	<div class="panel">
+		{% has_permission obj=event command="edit" %}
+			{% if not event.event_parent %}
+				<a href="{{ event.get_absolute_url }}edit/"><img src="{{ MEDIA_URL }}commands/change.png" alt="{{ _("Edit") }}" /></a>
+			{% endif %}
+		{% endhas_permission %}
+		{% has_permission obj=event command="delete" %}
+			<a href="#" onClick="delete_event()"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></a>
+			{% if event.event_parent %}
+				({{ _("Changes your answer to no.") }})
+			{% endif %}
+		{% endhas_permission %}
+	</div>
+
+	<div>{{ event.description|sanitize }}</div><br \>
+
+	<div><strong>{{ event.start_time.date }}</strong></div>
+
+	{% if event.all_day %}
+		<div>
+			{{ _("All day event.") }}
+		</div><br \>
+	{% else %}
+		<div>
+			{{ _("Starts at") }} {{ event.start_time|date:"H:i" }}<br \>
+			{{ _("Ends at") }} {{ event.end_time|date:"H:i" }}
+		</div><br \>
+	{% endif %}
+
+	{% if yes_replies %}
+		<h2>{{ _("Answered yes") }}</h2>
+		{% for reply in yes_replies %}
+			<div>{% link obj=reply.user %}: {{ reply.comment }}</div>
+		{% endfor %}
+	{% endif %}
+
+	{% if no_replies %}
+		<h2>{{ _("Answered no") }}</h2>
+		{% for reply in no_replies %}
+			<div>{% link obj=reply.user %}: {{ reply.comment }}</div>
+		{% endfor %}
+	{% endif %}
+
+	{% if unsure_replies %}
+		<h2>{{ _("Are unsure") }}</h2>
+		{% for reply in unsure_replies %}
+			<div>{% link obj=reply.user %}: {{ reply.comment }}</div>
+		{% endfor %}
+	{% endif %}
+
+	{% if not_answered %}
+		<h2>{{ _("Hasn't answered") }}</h2>
+		{% for reply in not_answered %}
+			<div>{% link obj=reply.user %}: {{ reply.comment }}</div>
+		{% endfor %}
+	{% endif %}
+
+	{% load times %}
+	{% set_last_viewed event %}
+
+	{% ifnotequal form 'None' %}
+		<h3>{{ _("Change your answer:") }}<h3>
+		<form method="post">
+			<table>
+				{% include "form.html" %}
+				<tr><td></td><td><input type="submit" value="{{ _("Reply") }}"/></td></tr>
+			</table>
+		</form>
+	{% endifnotequal %}
+
+{% endblock %}

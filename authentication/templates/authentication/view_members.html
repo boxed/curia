@@ -1,0 +1,19 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{{ _("Members") }}{% endblock %}
+{% block header %}{{ _("Members") }}{% endblock %}
+
+{% block content %}
+
+    {% has_permission obj=community command="administrate users" %}
+    	<a href="/registration/" class="button">{{ _("Invite a new user") }}</a><p />
+    {% endhas_permission %}
+
+    {% include "authentication/user_list.html" %}
+
+	{% digg_paginator %}
+
+{% endblock %}
+
+

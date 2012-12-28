@@ -1,0 +1,37 @@
+#header {
+    margin:0;
+    padding:0;
+    text-align: right;
+}
+#header ul {
+    list-style:none;
+    margin:0;
+    padding:0;
+    text-align: right;
+    display: inline;
+}
+#header img {
+    border: 0;
+    vertical-align: bottom;
+    background: #AAA;
+}
+#header li {
+    margin:0;
+    padding:0;
+    display: inline;
+}
+#header a:hover {
+}
+#header #current img {
+    background: white;
+}
+
+#id_tab_presentation   {visibility:hidden;}
+#id_tab_groups         {visibility:hidden;}
+#id_tab_forums  {visibility:hidden;}
+#id_tab_friends        {visibility:hidden;}
+#id_tab_members        {visibility:hidden;}
+#id_tab_documents      {visibility:hidden;}
+#id_tab_images         {visibility:hidden;}
+#id_tab_files	       {visibility:hidden;}
+#id_tab_calendar       {visibility:hidden;}

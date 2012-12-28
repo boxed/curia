@@ -1,0 +1,34 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{% blocktrans with event.title as title %}Reply to {{ title }}{% endblocktrans %}{% endblock %}
+{% block header  %}{% blocktrans with event.title as title %}Reply to {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+	<strong>{{ event.start_time.date }}</strong>
+
+	{% if event.all_day %}
+		<div>
+			Aktiviteten g&auml;ller hela dagen.
+		</div><br \>
+	{% else %}
+		<div>
+			Startar klockan {{ event.start_time|date:"H:i" }}<br \>
+			Slutar klockan {{ event.end_time|date:"H:i" }}
+		</div><br \>
+	{% endif %}
+
+	<div>{{ event.description|sanitize }}</div><br \>
+
+	<form method="post">
+		<table>
+			{% include "form.html" %}
+			<tr><td></td><td><input type="submit" value="{{ _("Reply") }}"/></td></tr>
+		</table>
+	</form>
+
+    <script type="text/javascript">
+        document.getElementById('id_choice').focus()
+    </script>
+{% endblock %}

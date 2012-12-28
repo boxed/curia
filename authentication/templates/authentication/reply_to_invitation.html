@@ -1,0 +1,28 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}
+    {% blocktrans with group as group %}You have been invited to {{ group }}.{% endblocktrans %}
+{% endblock %}
+{% block header  %}
+{% if group.meta.friend_group %}
+	{% blocktrans with group.meta.created_by as inviter %}{{ inviter }} wants to become your friend.{% endblocktrans %}
+{% else %}
+	{% blocktrans with group as group %}You have been invited to {{ group }}.{% endblocktrans %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+    <style>
+        th {
+            display: none;
+        }
+    </style>
+	<form method="post">
+		<a href="?answer=Y" class="button"><img src="{{ MEDIA_URL }}commands/add.png"> {{ _("Accept") }}</a>
+		<a href="?answer=N" class="button"><img src="{{ MEDIA_URL }}commands/delete.png"> {{ _("Ignore") }}</a>
+	</form>
+    <script type="text/javascript">
+        document.getElementById('id_choice').focus()
+    </script>
+{% endblock %}

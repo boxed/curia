@@ -1,0 +1,62 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ _("Invite") }}{% endblock %}
+{% block header %}{{ _("Invite") }}{% endblock %}
+
+{% block content %}
+	<form method="post">
+		<table>
+			{% include "form.html" %}
+			<tr><td></td><td><input type="submit" value="{{ _("Send") }}" /></td></tr>
+		</table>
+	</form>
+    <script type="text/javascript">
+        document.getElementById('id_emails').focus()
+    </script>
+
+	<br />
+	{% if invited %}
+		<h3>{% blocktrans %}The following people have been invited, but have not answered yet:{% endblocktrans %}</h3>
+	{% endif %}
+	
+	{% for invite in invited %}
+		<div id="invite_{{ invite.id }}">{{ invite.user }}       
+		{% has_permission obj=community command="administrate users" %}<span class="button" onClick="delete_invitation({{ invite.id }});"><img src="{{ MEDIA_URL }}commands/delete.png" alt=""/> {{ _("Delete") }}</span>{% endhas_permission %}</div>
+	{% endfor %}
+	
+	<script type="text/javascript">
+		function remove_invitation_from_view(invite_ids)
+	    {
+	        invite_ids.each(function(id)
+	            {
+	                new Effect.BlindUp('invite_'+id, {duration:0.2});
+	            })
+	    }
+    
+		function delete_invitation(id)
+			{
+		    	show_dialog(
+		        	{
+		            	header: "{{_("Do you want to delete this invitation?")}}",
+		                explanation: "{{_("This user will no longer be able to join your community.")}}",
+		                buttons:
+		                [
+		                	{
+		                    	name: "{{ _("Don't delete") }}",
+		                        hotkey: "escape"
+		                    },
+		                    {
+		                        name: "{{ _("Delete") }}",
+		                        hotkey: "return",
+		                        action: function()
+		                        {
+		                            call_function_with_data_from(remove_invitation_from_view, '/registration/invite/'+id+'/delete/');
+		                        }
+		                    }
+		                ]
+		            });
+		}
+	</script>
+
+{% endblock %}

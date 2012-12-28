@@ -1,0 +1,18 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block header %}{{ _("Parent groups") }}{% endblock %}
+
+{% block content %}
+    {% for metagroup in owner.meta.parents.all %}
+        {% if not object.meta.friend_group and not object.meta.deleted %}
+            <div><a href="{{ metagroup.group.get_absolute_url }}">{{ metagroup }}</a></div>
+        {% endif %}
+    {% endfor %}
+    <h2>{{ _("Subgroups") }}</h2>
+    {% for child in owner.meta.children.all %}
+        {% if not object.meta.friend_group and not object.meta.deleted %}
+            <div><a href="{{ child.group.get_absolute_url }}">{{ child }}</a></div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

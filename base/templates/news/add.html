@@ -1,0 +1,23 @@
+{% extends "images/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{{ _("Add news") }}{% endblock %}
+{% block header %}{{ _("Add news") }}{% endblock %}
+
+{% block content %}
+	<style>
+	table {
+		width: 100%;
+	}
+	#id_title {
+		width: 99%;
+	}
+	</style>
+
+    <form method="post" enctype="multipart/form-data">
+		<table>
+	        {% include "form.html" %}
+	        <tr><td></td><td><input type="submit" value="{{ _("Add") }}"/></td></tr>
+		</table>
+	</form>
+{% endblock %}

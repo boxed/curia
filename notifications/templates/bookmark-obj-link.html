@@ -1,0 +1,2 @@
+{% load times %}{% load i18n %}{% load auth %}
+<a href="/bookmarks/{% if_bookmarked object %}remove{% else %}add{% endif_bookmarked %}/?app_label={{ object.get_content_type.app_label }}&amp;model={{ object.get_content_type.mode l}}&amp;id={{ object.id }}">{% if_bookmarked object %}{{ _("Remove") }}{% else %}{{ _("add") }}{% endif_bookmarked %} {{ _("bookmark") }}</a>

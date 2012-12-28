@@ -1,0 +1,23 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block header %}{{ _("Documents") }}{% endblock %}
+
+{% block content %}
+	<div class="panel">
+		{% link obj=owner command="add document" %}
+	</div>
+	{% for document in objects %}
+		{% has_permission obj=document command="view" %}            
+			<div><a href="{{ document.get_absolute_url }}">{{ document }}</a></div>
+		{% endhas_permission %}
+	{% endfor %}
+	{% if not objects %}
+		{% ifequal owner user %}
+			{{ _("You have not created any documents yet.") }}
+		{% else %}
+			{{ _("There are no documents here.") }}
+		{% endifequal %}
+	{% endif %}
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{% load i18n %}{% load auth %}{% blocktrans %}You have created {{ community }} at Eldmyra.se{% endblocktrans %}
+{% if message %}
+    {{ message|sanitize }}
+{% endif %}
+{% if password %}
+    {{ _("Complete the registration at ") }} <a href="http://{{ domain }}/registration/accept/?code={{ password }}&amp;email={{ email }}">http://{{ domain }}/registration/accept/?code={{ password }}&amp;email={{ email }}</a><p>{% blocktrans %}Once you have completed the registration you will be able to log in at <a href="http://{{ domain }}">http://{{ domain }}</a>{% endblocktrans %}</p>
+{% else %}
+    {{ _("Complete the registration at ") }} <a href="http://{{ domain }}/registration/accept/?email={{ email }}">http://{{ domain }}/registration/accept/?email={{ email }}</a><p>{% blocktrans %}Once you have completed the registration you will be able to log in at <a href="http://{{ domain }}">http://{{ domain }}</a>{% endblocktrans %}</p>
+{% endif %}

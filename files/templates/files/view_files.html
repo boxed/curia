@@ -1,0 +1,84 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block header %}{{ _("Files") }}{% endblock %}
+{% block title %}{{ _("Files") }}{% endblock %}
+
+{% block content %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/dialogs.js"></script>
+
+	{% has_permission obj=community command="administrate file" %}
+	    <div class="panel">
+			<a href="/files/{{ group.id }}/add_suggested_label/" class="button"><img src="{{ MEDIA_URL }}commands/add.png" alt="" /> {{ _("Edit tabs")}}</a>
+	    </div>
+	{% endhas_permission %}
+	{% if suggested_labels %}
+		<ul class="tabs">
+			<li{% if on_all %} class="current"{% endif %}><a href="/files/groups/{{ group.id }}/">{{ _("All") }}</a></li>
+			{% for suggested_label in suggested_labels %}
+				<li{% ifequal fastsearch suggested_label.title %} class="current"{% endifequal %}><a href="/files/groups/{{ group.id }}/?fastsearch={{ suggested_label.title|urlencode }}">{{ suggested_label }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+	<div class="tab_content_container">
+    	<div class="tab_content">
+            <form method="post">
+                <table style="width:auto;">
+        			<tr><td>{{ form.search }}</td>
+        			<td><span class="button" onClick="$('id_search_button').click();"><img src="{{ MEDIA_URL }}commands/search.png" alt="" /> {{ _("Search") }}</span></td>
+        			{% has_permission obj=community command="add file" %}
+        				<td><span class="button" onClick="$('id_upload_button').click();"><img src="{{ MEDIA_URL }}commands/add.png" alt="" /> {{ _("Upload file") }}</span></td>
+        			{% endhas_permission %}
+        			</tr>
+        			<tr style="display: none;"><td></td>
+        				<td><input id="id_search_button" type="submit" name="button" value="{{ _("Search") }}"/></td>
+        				{% has_permission obj=community command="add file" %}
+        					<td><input id="id_upload_button" type="submit" name="upload_file" value="{{ _("Upload file") }}"</td>
+        				{% endhas_permission %}
+        			</tr>
+        		</table>
+            </form>
+        </div>
+	</div>
+
+	{% include "files/file_list.html" %}
+
+	<script type="text/javascript">
+		function delete_suggested_label(title)
+		{
+			show_dialog(
+				{
+					header: '{% blocktrans %}Do you want to delete the suggested label "'+title+'"?{% endblocktrans %}',
+					explanation: "{% blocktrans %}Deleting a suggested label will not delete any files.{% endblocktrans %}",
+					buttons:
+					[
+						{
+							name: "{{_("Don't delete")}}",
+							hotkey: "escape"
+						},
+						{
+							name: "{{_("Delete")}}",
+							hotkey: "return",
+							action: function()
+							{
+								new Ajax.Request('/files/{{ group.id }}/delete_suggested_label/'+title+'/',
+							        {
+							            method:'post',
+							            onSuccess: function(request)
+							    		{
+							    		    window.location = "/files/groups/{{ group.id }}/";
+							    		},
+										onFailure: function(request)
+										{
+											alert('Failed to delete suggested label');
+										}
+							        });
+							}
+						}
+					]
+				});
+		}
+	</script>
+
+	{% digg_paginator %}
+{% endblock %}

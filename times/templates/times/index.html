@@ -1,0 +1,16 @@
+{% extends "times/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ _("Bookmarks") }}{% endblock %}
+{% block header %}{{ _("Bookmarks") }}{% endblock %}
+
+{% block content %}
+    {% if times %}
+        {% for time in times %}
+            <div{% curia_include "unread.html" %}><a href="{{ time.get_absolute_url }}">{{ time }}</a></div>
+        {% endfor %}
+    {% else %}
+        <p>{{ _("No bookmarks are available.") }}</p>
+    {% endif %}
+
+{% endblock %}

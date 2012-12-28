@@ -1,0 +1,216 @@
+{% load i18n %}{% load auth %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <title>{% if user.is_authenticated %}{% if notifications %}* {% endif %} {{ community }} - {{ user }}{% endif %}</title>
+        <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}lightbox.css" />
+        {% block extra_head %}{% endblock %}
+        {% if user_agent|contains:"webkit" and user_agent|contains:"mobile" %}
+            <meta name="viewport" content="width=device-width, user-scalable=no" />
+        {% endif %}
+        <link rel="stylesheet" media="screen" type="text/css" href="/community.css" />
+        <script type="text/javascript">AC_FL_RunContent = 0;</script><script src="{{ MEDIA_URL }}js/AC_RunActiveContent.js" type="text/javascript"></script>
+        <script type="text/javascript" src="/jsi18n/"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/prototype.js"></script>
+        <script src="{{ MEDIA_URL }}js/scriptaculous/scriptaculous.js"></script>
+        <script src="{{ MEDIA_URL }}js/scriptaculous/effects.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/core.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/lightbox.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/dialogs.js"></script>
+        <script type="text/javascript" src="/site-media/js/tiny_mce/tiny_mce.js"></script>
+        <script type="text/javascript">
+            {% if not user_agent|contains:"mobile" %}
+              tinyMCE.init({
+                    mode : "textareas",
+                    theme : "advanced",
+                    theme_advanced_buttons1 : "bold,italic,underline,separator,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,link,unlink",
+                    theme_advanced_buttons2 : "image",
+                    theme_advanced_buttons3 : "",
+					cleanup : true,
+					plugins : "safari",
+                    theme_advanced_toolbar_location : "top",
+                    theme_advanced_toolbar_align : "left",
+                    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
+                    width: "100%",
+                    tab_focus: ':next'
+                });
+            {% endif %}
+
+            function navigate(selectList) {
+                var number = selectList.selectedIndex;
+                location.href = selectList.options[number].value;
+            }
+
+            function thanks(foo)
+            {
+                alert('{{_("Thank you for helping us improve the site")}}');
+            }
+
+            function report_bug()
+            {
+                show_dialog(
+                    {
+                        header: "{{ _("Report bug") }}",
+                        explanation: '{% blocktrans %}<ul><li>What did you do?</li><li>What happened?</li><li>What did you expect?</li></ul>{% endblocktrans %}<textarea id="id_report_bug_field" style="height: 300px; width: 500px;"></textarea>',
+                        buttons:
+                        [
+                            {
+                                name: "{{ _("Cancel") }}",
+                                hotkey: "escape"
+                            },
+                            {
+                                name: "{{ _("Report") }}",
+                                action: function()
+                                {
+                                    call_function_with_data_from(thanks, '/bugs/report/', {urls:document.location, description:$('id_report_bug_field').value});
+                                }
+                            }
+                        ]
+                    });
+            }
+
+            function refresh()
+            {
+                call_function_with_data_from(update_navigation, '/navigation_ajax/', {'current_url':'{{ current_url }}'});
+            }
+
+            function update_navigation(data)
+            {
+                if (typeof data[2] == 'string' && $('id_community_selector'))
+                {
+                    $('id_community_selector').innerHTML = data[0];
+                    $('id_community_selector_button').innerHTML = data[1];
+                    $('id_navigation_reload').innerHTML = data[2];
+                }
+                /*else // lost connection
+                    document.getElementById('id_navigation_reload').innerHTML = data.message;*/
+                // TODO: we should handle if the session times out here too
+
+                if ($('notifications_exist') || $('new_items_exist'))
+                    document.title = '* {{ community }} - {{ user }}';
+                else
+                    document.title = '{{ community }} - {{ user }}';
+
+                fix_button_behavior();
+            }
+
+            setInterval(refresh, 30*1000); // refresh every 30 seconds
+        </script>
+    </head>
+    <body>
+        <div id="main">
+            {% block body %}
+                <div id="header">
+                    <div id="header-util-links">
+                        <ul id="utils-menu" class="menu">
+                            <li style="position: relative;"><span style="cursor: pointer;" onclick="new Effect.toggle($('id_community_selector_container'), 'appear', {duration: 0.4});" id="id_community_selector_button"></span>
+                                <div id="id_community_selector_container" style="display: none;">
+                                    <div onclick="new Effect.toggle($('id_community_selector_container'), 'appear', {duration: 0.4});" id="id_community_selector_header"><img src="{{ MEDIA_URL }}commands/collapse.png" alt="Collapse community-selector" />
+                                    </div>
+                                    <ul id="id_community_selector"></ul>
+                                </div>
+                            </li>
+                            {% if user.is_staff %}
+                                <li><a href="/admin/" >{{ _("Database administration") }}</a></li>
+                            {% endif %}
+                            {% has_permission obj=community command="administrate community" %}
+                                <li><a href="/administration/" >{{ _("Administration") }}</a></li>
+                            {% endhas_permission %}
+                            <li><a href="/users/{{ user.id }}/settings/">{{ _("Settings") }}</a></li>
+                            <li><a href="/logout/" target="_top">{{ _("Log out") }}</a></li>
+                        </ul>
+                    </div>
+                    <div id="header-right">
+                        <div id="header-report-bug">
+                            <a href="#" onClick="report_bug(); return false;">{{ _("Report bug") }}</a>
+                        </div>
+                        {% comment %}
+                        <div id="header-search">
+                            <form action="/search/" method="get" id="searchform">
+                                <input id="id_index_header_search" type="search" placeholder="{{ _("Search") }}" autosave="net.eldmyra.quicksearch" results="10" incremental="true" name="search" style="width:150px" class="foo" onFocus="javascript:document.getElementById('id_index_header_search_overlay').style.display = 'none';"/>
+                            </form>
+                        </div>
+                        {% endcomment %}
+                    </div>
+                    <h1 id="header-title" alt=""><a href="/">{{ community }}</a></h1>
+                    <ul id="global-menu" class="menu">
+                        {% comment %}<li><a href="/portal/">{{ _("Portal") }}</a></li>{% endcomment %}
+                        <li><a href="/forums/">{{ _("Forum") }}</a></li>
+                        <li><a href="/calendars/agenda/">{{ _("Calendar") }}</a></li>
+                        <li><a href="/images/sets/">{{ _("Pictures") }}</a></li>
+                        <li><a href="/files/">{{ _("Files") }}</a></li>
+                        <li><a href="/members/">{{ _("Members") }}</a></li>
+                    </ul>
+                </div>
+                <div id="body">
+                    <table style="width: 100%;" cellspacing="0">
+                        <tr>
+                            <td id="body-left">
+                                {% include "navigation.html" %}
+                                {% block navigation %}{% endblock %}
+                            </td>
+                            <td id="body-center">
+                                <h1>{% block title %}{% endblock %}</h1>
+                                <div id="body-center-content">
+                                    {% block content %}{% endblock %}
+                                </div>
+                            </td>
+                            <td id="body-right">
+                                <script type="text/javascript" src="{{ MEDIA_URL }}js/AC_OETags.js"></script>
+                                <script language="JavaScript" type="text/javascript">     
+                                  <!--
+                                      var requiredMajorVersion = 9;
+                                      var requiredMinorVersion = 0;
+                                      var requiredRevision = 0;
+                                  -->
+                                </script>
+                                <script language="JavaScript" type="text/javascript">
+                                  <!--
+                                  var hasReqestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+                                  if (hasReqestedVersion) {
+                                      AC_FL_RunContent(
+                                          "src", "{{ MEDIA_URL }}banners/eldmyra1.swf",
+                                          "width", "120",
+                                          "height", "600",
+                                          "align", "middle",
+                                          "id", "banner",
+                                          "quality", "high",
+                                          "wmode", "window",
+                                          "name", "banner",
+                                          "menu", "false",
+                                          "movie","{{ MEDIA_URL }}banners/eldmyra1.swf",
+                                          "allowFullScreen", "false",
+                                          "allowScriptAccess","sameDomain",
+                                          "type", "application/x-shockwave-flash",
+                                          "codebase", "http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0",
+                                          "pluginspage", "http://www.adobe.com/go/getflashplayer",
+                                          "flashvars", "clickTAG="
+                                      );
+                                  } else {
+                                      document.write('<img src="{{ MEDIA_URL }}banners/eldmyra1.jpg" />');
+                                  }
+                                  // -->
+                                </script>
+                                <noscript>
+                                    <img src="{{ MEDIA_URL }}banners/eldmyra1.jpg" />
+                                </noscript>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="footer">
+                    Powered by Eldmyra.se
+                </div>
+            {% endblock %}
+        </div>
+        <div style="display: none;" id="id_bookmark_title">{% block header %}{% endblock %}</div>
+        <div style="display: none;" id="id_bookmark_url">{{ current_url }}</div>
+        <div id="test"></div>
+        
+        {% include "google_analytics.html" %}
+
+        <script type="text/javascript">
+            prepare_inputs_for_help_messages();
+            setTimeout(refresh, 10); // load navigation
+        </script>
+    </body>
+</html>

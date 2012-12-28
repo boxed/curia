@@ -1,0 +1,48 @@
+{% load i18n %}{% load auth %}
+
+{% if not version.document.is_presentation %}
+	<script type="text/javascript">
+		function redirect(id)
+		{
+			{% if external %}
+				window.location = "/external/";
+				window.parent.location = "/"
+			{% else %}
+				window.location = "/";
+			{% endif %}
+		}
+
+		function delete_document(id)
+		{
+			show_dialog(
+				{
+					header: "Vill du ta bort detta dokument?",
+					explanation: "Deleted documents will still be viewable by administrators.",
+					buttons:
+					[
+						{
+							name: "Avbryt",
+							hotkey: "escape"
+						},
+						{
+							name: "Ta bort",
+							hotkey: "return",
+							action: function()
+							{
+								call_function_with_data_from(redirect, '/documents/'+id+'/delete/');
+							}
+						}
+					]
+				});
+		}
+	</script>
+{% endif %}
+
+{% if not version.document.deleted or user.is_staff %}
+	{{ version.contents|sanitize|embed_data|safe }}
+{% endif %}
+
+{% ifequal version.id version.document.get_latest.id %}
+	{% load times %}
+	{% set_last_viewed version.document %}
+{% endifequal %}

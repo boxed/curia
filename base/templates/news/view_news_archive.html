@@ -1,0 +1,35 @@
+{% extends base %}
+{% load i18n %}{% load auth %}{% load times %}
+
+{% block content %}
+<h1>{{ _("Old news") }}</h1>
+	{% if objects.news %}
+		<td class="news_list">
+			{{ _("Page") }} {{ objects.page }}{% ifnotequal objects.page objects.end_page %}-{{ objects.end_page }}{% endifnotequal %} {{ _("of") }} {{ objects.number_of_pages }}<br />
+
+			{% if objects.has_previous_page %}
+				<a href="?user={{ objects.user.id }}&amp;page=1&amp;page_size={{ objects.page_size }}">&lt;&lt; {{ _("First") }}</a>
+				{% ifnotequal objects.previous_page 1 %}
+					<a href="?user={{ objects.user.id }}&amp;page={{ objects.previous_page }}&amp;page_size={{ objects.page_size }}"> &lt; {{ _("Previous") }}</a>
+				{% endifnotequal %}
+
+			{% endif %}
+
+			{% if objects.has_next_page %}
+				{% ifnotequal objects.next_page objects.number_of_pages %}
+					<a href="?user={{ objects.user.id }}&amp;page={{ objects.next_page }}&amp;page_size={{ objects.page_size }}">{{ _("Next") }} &gt;</a>
+				{% endifnotequal %}
+				<a href="?user={{ objects.user.id }}&amp;page={{ objects.number_of_pages }}&amp;page_size={{ objects.page_size }}">{{ _("Last") }} &gt;&gt;</a>
+			{% endif %}
+
+			{% for new in objects.news %}
+				<div>
+					<h4>{{ new.title|sanitize }}</h4>
+					{{ new.contents|sanitize }}
+				</div><br \>
+			{% endfor %}
+
+	{% endif %}
+
+
+{% endblock %}

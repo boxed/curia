@@ -1,0 +1,17 @@
+{% extends "documents/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ _("Versions of") }} "{{ document }}"{% endblock %}
+{% block header %}{{ _("Versions of") }} "{{ document }}"{% endblock %}
+
+{% block content %}
+    {% if version_list %}
+        <ul>
+        {% for obj in version_list %}
+            <li><a href="{{ obj.owner.get_absolute_url }}">{{ obj.owner }}</a> {{ obj.creation_time }}: <a href="{{ obj.get_absolute_url }}">{{ forloop.revcounter }} {{ obj.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>{{ _("No versions are available.") }}</p>
+    {% endif %}
+{% endblock %}

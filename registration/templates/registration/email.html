@@ -1,0 +1,9 @@
+{% load i18n %}{% load auth %}{% blocktrans %}{{ inviter }} has invited you to {{ community }}{% endblocktrans %}
+{% if message %}
+    {{ message|sanitize }}
+{% endif %}
+{% if password %}
+    {{ _("Accept the invitation at ") }} <a href="http://{{ domain }}/registration/accept/?code={{ password }}&amp;email={{ email }}">http://{{ domain }}/registration/accept/?code={{ password }}&amp;email={{ email }}</a><p>{% blocktrans %}Once you have accepted the invitation you will be able to log in at <a href="http://{{ domain }}">http://{{ domain }}</a>{% endblocktrans %}</p>
+{% else %}
+    {{ _("Accept the invitation at ") }} <a href="http://{{ domain }}/registration/accept/?email={{ email }}">http://{{ domain }}/registration/accept/?email={{ email }}</a><p>{% blocktrans %}Once you have accepted the invitation you will be able to log in at <a href="http://{{ domain }}">http://{{ domain }}</a>{% endblocktrans %}</p>
+{% endif %}

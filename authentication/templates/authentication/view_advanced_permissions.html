@@ -1,0 +1,84 @@
+{% extends base %}{% load i18n %}{% load auth %}
+
+{% block title %}{% blocktrans %}Permissions on {{ obj }}{% endblocktrans %}{% endblock %}
+{% block header %}{% blocktrans %}Permissions on {{ obj }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+{% if errors %}
+	{% for error in errors %}
+		{{ error }}<br \>
+	{% endfor %}
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+	<fieldset class="module aligned">
+
+	<style type="text/css">
+		.form-cell
+		{
+			display: table-cell;
+			vertical-align:  top;
+			padding-right:  10px;
+		}
+		.form-cell label
+		{
+			width: auto;
+			padding-right: 0px;
+		}
+	</style>
+	<script type="text/javascript">
+		var new_id = {{ next_id }};
+	</script>
+
+	{% for type in types.values %}
+		<div>
+			<script type="text/javascript">
+				function add_{{ type.type }}_permission()
+				{
+					var new_div = document.createElement('div');
+					new_div.innerHTML = '{% filter javascript_string_escape  %}{% include "authentication/permission.html" %}{% endfilter %}';
+					new_div.id = 'row_'+new_id;
+
+					document.getElementById('{{ type.type }}_insert_point').appendChild(new_div);
+					new_id++;
+				}
+			</script>
+
+			<h2>{{ type.title }}</h2>
+
+			{% for permission in type.permissions.values %}
+				{% include "authentication/permission.html" %}
+			{% endfor %}
+
+			<div id="{{ type.type }}_insert_point"></div>
+
+			{% has_permission obj=obj command="edit" %}
+				<a href="#" onClick="add_{{ type.type }}_permission();return false;"><img src="{{ MEDIA_URL }}commands/add.png" alt="{{ _("Add permission") }}" /></a>
+			{% endhas_permission %}
+		</div>
+	{% endfor %}
+
+	</fieldset>
+	{% has_permission obj=obj command="edit" %}
+		<input type="submit" value="{{ _("Edit") }}" />
+	{% endhas_permission %}
+</form>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

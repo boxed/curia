@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
+<html>
+    <head>
+		<link rel="stylesheet" type="text/css" href="/community.css" />
+		<!--<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}tabs/tabs.css" />-->
+		<script type="text/javascript" src="/jsi18n/"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}js/core.js"></script>
+		{% block extra_head %}{% endblock %}
+		<style>
+			body {
+				text-align: left;
+				background: #dfddce;
+			}
+		</style>
+	</head>
+	<body>
+		{% block body %}
+		<div id="id_menu">
+			<h2>Menu</h2>
+			<ul class="menu">
+				{% for item in menu %}
+					{{ item|safe }}
+				{% endfor %}
+			</ul>
+		</div>
+
+		{% if submenu %}
+			<div id="id_submenu">
+				<h3>Submenu</h3>
+				<ul class="menu">
+					{{ current_menu_location }}
+					{% for item in submenu %}
+						{{ item|safe }}
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+
+		<h1>{% block title %}{% endblock %}</h1>
+		<div id="body-center-content">
+			{% block content %}{% endblock %}
+		</div>
+		{% endblock %}
+	</body>
+</html>

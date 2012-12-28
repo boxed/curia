@@ -1,0 +1,75 @@
+{% load i18n %}{% load auth %}
+<html>
+	<head>
+		<title>{% blocktrans %}{{ community }} Homepage Administration{% endblocktrans %}</title>
+        <link rel="stylesheet" type="text/css" href="/community.css" />
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}lightbox.css" />
+		<script type="text/javascript" src="/jsi18n/"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}js/prototype.js"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}js/lightbox.js"></script>
+	</head>
+	<script>
+		function foo()
+		{
+			if ($('id_overview').style.display == 'none')
+			{
+				$('id_overview').style.display = '';
+				$('id_show_hide_overview').innerHTML = "{{ _("Hide overview") }}";
+			}	
+			else
+			{
+				$('id_overview').style.display = 'none';
+				$('id_show_hide_overview').innerHTML = "{{ _("Show overview") }}";
+			}
+		}
+	</script>
+	<style>
+		html {
+			width: 100%;
+			height: 100%;
+		}
+		body {
+			background: white;
+		}
+		
+		table#admin_index {
+			width: 100%;
+			height:100%;
+		}
+		
+		table#admin_index td {
+			padding: 0;
+		}
+		
+		a:link{color: white; text-decoration:none; }
+		a:visited {color: white; text-decoration:none; }
+		a:active {color: white; text-decoration:none; }
+		a:hover {color: white; text-decoration:none; }
+	</style>
+	
+	<body style="height:100%; margin:0;padding:0;border:0;">
+		<table id="admin_index" cellspacing="0">
+			<tr style="background: #3f5c1a;">
+				<td colspan="2" id="id_admin_toolbar" style="height: 25px; text-align:center; color:white;">
+					<span style="float:left;">
+						<a href="http://community.{{ domain }}">{% blocktrans %}&lt;&lt; Back to {{ community }} {% endblocktrans %}</a>
+					</span>
+
+					<span style="float:right">
+						<a href="#" onClick="foo();" id="id_show_hide_overview">{{ _("Hide overview") }}</a>
+					</span>
+
+					{% blocktrans %}{{ community }} Homepage Administration{% endblocktrans %}					
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<iframe name="main" src="/external/" style="width:100%; height:100%; border:0;"></iframe>
+				</td>
+				<td id="id_overview" style="width:250px;">
+					<iframe name="overview" src="/homepage/overview/" style="width:100%; height:100%; border:0;"></iframe>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

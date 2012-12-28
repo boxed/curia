@@ -1,0 +1,17 @@
+{% extends "files/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{{ _("Add file") }}{% endblock %}
+{% block header %}{{ _("Add file") }}{% endblock %}
+
+{% block content %}
+	<form method="post" enctype="multipart/form-data">
+		<table>
+	        {% include "form.html" %}
+	        <tr><td></td><td><input type="submit" value="{{ _("Add") }}"/></td></tr>
+		</table>
+	</form>
+    <script type="text/javascript">
+       	file.getElementById('id_file').focus()
+    </script>
+{% endblock %}

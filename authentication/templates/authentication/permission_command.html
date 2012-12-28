@@ -1,0 +1,12 @@
+{% load auth %}
+<div class="form-cell">
+    <input
+        type="checkbox"
+        {% if command.enabled %}checked="checked"{% endif %}
+        id="id_{{ type.type }}_{{ command }}_{% if permission %}{{ permission.id }}{% else %}'+new_id+'{% endif %}"
+        class="vTextField"
+        name="{{ type.type }}_{{ command }}_{% if permission %}{{ permission.id }}{% else %}'+new_id+'{% endif %}" />
+</div>
+<div class="form-cell">
+    <label for="id_{{ type.type }}_{{ command }}_{% if permission %}{{ permission.id }}{% else %}'+new_id+'{% endif %}">{{ command|capfirst }}</label>
+</div>

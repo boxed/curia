@@ -1,0 +1,48 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{{ _("Create community") }}{% endblock %}
+{% block header %} - {{ _("Create community") }}{% endblock %}
+
+{% block extra_head %}
+<style>
+    li, ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    br {
+       display: none; 
+    }
+    
+</style>
+{% endblock %}
+
+{% block content %}
+<form method="post">
+	<table>
+	    {% if email %}<tr><th><label>{{ _("Email") }}:</label></th><td>{{ email }}</td></tr>{% endif %}
+		{% include "form.html" %}
+		 <tr><td></td><td><input type="submit" value="{{ _("Add") }}"/></td></tr>
+	</table>
+</form>
+	
+	<script>
+	$('id_name').onkeyup = function() {
+	    var result = $('id_name').value.toLowerCase();
+	    var replaces =
+	    [
+	        [/\u00e5/g, 'a'], // å
+	        [/\u00e4/g, 'a'], // ä
+	        [/\u00f6/g, 'o'] // ö
+	    ];
+	    for (var i = 0; i != replaces.length; i++) {
+	        result = result.replace(replaces[i][0], replaces[i][1]);
+	    }
+
+	    result = result.replace(/[^a-z,-]/g, '');
+	    
+	    $('id_domain').value = result;
+	}
+	</script>
+{% endblock %}

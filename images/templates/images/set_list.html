@@ -1,0 +1,46 @@
+{% load i18n %}{% load auth %}{% load thumbnail %}
+
+<table class="detailed_list list" cellspacing="0">
+    <tr>
+        <th></th>
+        <th>
+            {{ _("Album title") }}
+        </th>
+        <th class="number_of_items">
+            {{ _("Images") }}
+        <th class="author">
+            {{ _("Created") }}
+        </th>
+    </tr>
+    {% for set in sets.object_list %}
+        {% has_permission obj=set command="view" %}
+            <tr{% curia_include "unread.html" object=set %} id="set_{{ set.id }}">
+                <td class="left">
+                    {% if set.representative_image %}
+					<a href="{{ set.get_absolute_url }}"><img src="{% thumbnail set.representative_image.image settings.THUMBNAIL_SIZE %}"></a>
+					{% endif %}
+                </td>
+                <td>
+                    <span class="title"><a href="{{ set.get_absolute_url }}">{{ set.title }}</a></span><br />
+                    {% if set|labels %}
+                        <span class="labels">
+                            <img src="{{ MEDIA_URL }}commands/label.png" title="{{ _("Labels") }}" alt="{{ _("Labels") }}" />
+                            {% for label in set|labels %}
+                                {% if not forloop.first %}, {% endif %}{{ label }}
+                            {% endfor %}
+                        </span>
+                    {% endif %}
+                </td>
+                <td class="number_of_items">
+                    {{ set.number_of_images }}
+                </td>
+                <td class="right">
+                    {% blocktrans with set.creation_time|relative_date as time and set.owner_user.get_absolute_url as user_url and set.owner_user.first_name as first_name and set.owner_user.last_name as last_name %}{{ time }} by <a href="{{ user_url }}">{{ first_name }} {{ last_name }}{% endblocktrans %}
+                </td>
+            </tr>
+            <tr class="spacing">
+                <td colspan="3"></td>
+            </tr>
+        {% endhas_permission %}
+    {% endfor %}
+</table>

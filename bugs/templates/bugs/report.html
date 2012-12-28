@@ -1,0 +1,34 @@
+{% extends "lightbox.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{% blocktrans %}Report bug{% endblocktrans %}{% endblock %}
+{% block header %}{% blocktrans %}Report bug{% endblocktrans %}{% endblock %}
+
+{% block content %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/prototype.js"></script>
+
+	<div id="id_thanks" style="display:none;">
+		{% blocktrans %}Thank you for helping us improve the site{% endblocktrans %}
+		<a href="#" class="lbAction" rel="deactivate"><button>{{ _("Return to the site") }}</button></a>
+	</div>
+
+    <form method="post" action="/bugs/report/" id="id_report">	
+		{% blocktrans %}<ul><li>What did you do?</li><li>What happened?</li><li>What did you expect?</li></ul>{% endblocktrans %}
+
+        {% include "form.html" %}
+		<input type="hidden" id="id_urls" name="urls" />
+		
+		<p></p>
+		<button onClick="$('id_report').request({onComplete: function(){$('id_report').remove();$('id_thanks').show();}}); return false;">{{ _("Report") }}</button>
+		<a href="#" class="lbAction" rel="deactivate"><button>{{ _("Cancel") }}</button></a>
+    </form>
+
+	<script>
+	$('id_urls').value = document.location;
+	</script>
+
+	
+    <script type="text/javascript">
+        document.getElementById('id_description').focus();
+    </script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% load i18n %}{% load auth %}
+
+{% comment %}
+{% has_permission obj=thread command="add thread" %}
+	<a href="{{ thread.get_absolute_url }}write/" class="add button">{{ _("Write") }}</a>
+{% endhas_permission %}
+
+
+
+<a href="?time={{ time }}" class="unread">{{ _("Keep unread") }}</a>
+
+{% if show_deleted %}
+	<a href="?page={{ page }}&amp;page_size={{ page_size }}">{{ _("Hide deleted") }}</a>
+{% else %}
+	<a href="?page={{ page }}&amp;page_size={{ page_size }}&amp;show_deleted=true">{{ _("Show deleted") }}</a>
+{% endif %}
+{% endcomment %}
+

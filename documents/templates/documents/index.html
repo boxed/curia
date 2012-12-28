@@ -1,0 +1,15 @@
+{% extends "documents/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ _("Documents") }}{% endblock %}
+{% block header %}{{ _("Documents") }}{% endblock %}
+
+{% block content %}
+    {% if document_list %}
+        {% for document in document_list %}
+            <div{% curia_include "unread.html" object=document%}><a href="{{ document.get_absolute_url }}">{{ document }}</a></div>
+        {% endfor %}
+    {% else %}
+        <p>{{ _("No documents are available.") }}</p>
+    {% endif %}
+{% endblock %}

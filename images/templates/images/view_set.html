@@ -1,0 +1,118 @@
+{% extends base %}
+{% load i18n %}{% load auth %}{% load times %}{% load thumbnail %}
+{% block header %}{% if not set.deleted %}{{ set.title }}{% else %}{{ _("Deleted set") }}{% endif %}{% endblock %}
+{% block title %}{% if not set.deleted %}{{ set.title }}{% else %}{{ _("Deleted set") }}{% endif %}{% endblock %}
+
+
+{% block content %}
+	{% if not set.deleted %}
+	{% if set|labels %}
+		<div class="labels">
+		    <img src="{{ MEDIA_URL }}commands/label.png" title="{{ _("Labels") }}" alt="{{ _("Labels") }}" />
+	        {% for label in set|labels %}
+	            {% if not forloop.first %}, {% endif %}
+	            {{ label }}
+	        {% endfor %}
+		</div>
+	{% endif %}
+	{% has_permission obj=set command="view set" %}
+		<a class="button" href="/images/sets/{{ set.id }}/add"><img src="{{ MEDIA_URL }}commands/add.png" alt="" /> {{ _("Add image") }}</a>
+		<a class="button" href="/images/groups/{{ set.owner_group.id }}/sets/{{ set.id }}/edit"><img src="{{ MEDIA_URL }}commands/change.png" alt="" /> {{ _("Edit") }}</a>
+	{% endhas_permission %}
+    {% has_permission obj=set command="change set" %}
+		<a class="button" href="#" onClick="delete_set('{{ set.id }}'); return false;"><img src="{{ MEDIA_URL }}commands/delete.png" /> {{ _("Delete image set") }}</a>
+	{% endhas_permission %}
+	{{ set.description|sanitize }}
+	<div class="grid_view">
+		{% for image in images %}
+		    {% has_permission obj=image command="view" %}
+    			<table cellspacing="0" class="{% unread image set %}" id="image_{{ image.id }}">
+    				<tr><td class="image"><a href="{{ image.image.url }}" rel="lightbox[foo]" {% if image.description %}title="{{ image.description|striptags }}"{% else %}title=" "{% endif %}><img src="{% thumbnail image.image settings.THUMBNAIL_SIZE %}"></a></td></tr>
+					{% has_permission obj=set command="view" %}
+						<tr><td class="edit">
+							{% ifnotequal image set.representative_image %}
+								<a href="/images/sets/{{ set.id }}/representative/{{ image.id }}/"><img src="{{ MEDIA_URL }}commands/set_representative_image.png" alt="{{ _("Set as representative image") }}" /></a>
+							{% else %}
+								<img src="{{ MEDIA_URL }}commands/representative_image.png" alt="{{ _("Representative Image") }}" />
+							{% endifnotequal %}
+							<a href="/images/{{ image.id }}/edit/"><img src="{{ MEDIA_URL }}commands/change.png" alt="{{ _("Edit") }}" /></a>						
+							<span onClick="delete_image('{{ image.id }}');"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></span>
+						</td></tr>
+					{% endhas_permission %}
+    			</table>
+            {% endhas_permission %}
+		{% endfor %}
+	</div>
+	{% if not images %}
+		{% ifequal owner user %}
+			{{ _("You have not saved any pictures yet.") }}
+		{% else %}
+			{{ _("There are no pictures here.") }}
+		{% endifequal %}
+	{% endif %}
+
+	{% set_last_viewed set %}
+	{% else %}
+		{{ _("This image set has been deleted.") }}
+	{% endif %}
+	<script type="text/javascript">
+    	function redirect(id)
+		{
+			window.location='/images/groups/'+id+'/sets/'
+		}
+			function delete_set(id)
+            {
+                show_dialog(
+                    {
+                        header: "{{_("Do you want to delete this set of images?")}}",
+                        explanation:"",
+                        buttons:
+                        [
+                            {
+                                name: "{{ _("Don't delete") }}",
+                                hotkey: "escape"
+                            },
+                            {
+                                name: "{{ _("Delete") }}",
+                                hotkey: "return",
+                                action: function()
+                                {
+                                    call_function_with_data_from(redirect, '/images/sets/'+id+'/delete/');
+                                }
+                            }
+                        ]
+                    });
+            }
+   	</script>
+
+	<script type="text/javascript">
+			function remove_image_from_view(id)
+			{
+				remove_elements(["image_"+id]);
+			}
+
+			function delete_image(id)
+			{
+				show_dialog(
+					{
+						header: "{{_("Do you want to delete this image?")}}",
+						explanation:"",
+						buttons:
+						[
+							{
+								name: "{{ _("Don't delete") }}",
+								hotkey: "escape"
+							},
+							{
+								name: "{{ _("Delete") }}",
+								hotkey: "return",
+								action: function()
+								{
+									call_function_with_data_from(remove_image_from_view, '/images/'+id+'/delete/');
+								}
+							}
+						]
+					});
+			}
+		</script>
+{% endblock %}

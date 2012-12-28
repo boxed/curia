@@ -1,0 +1,141 @@
+/* for browser "{{ browser }}" */
+
+ul.menu {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+#id_popup_dialog {
+    text-align: center;
+    width: 100%;
+    padding-top: 200px;
+}
+
+#id_popup_dialog_content {
+    background: #dfddce;
+    width: 500px;
+    text-align: left;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border: 5px solid #c7c3b0;
+}
+
+#id_popup_dialog_content h2 {
+    margin-top: 0;
+}
+
+a, .link {color: #156584; text-decoration:none; cursor:pointer; }
+a:hover, .link:hover {text-decoration:underline; cursor:pointer; }
+
+.button {
+    border: 1px solid #999;
+    background-image: url({{ MEDIA_URL }}buttonBg.png);
+    background-color: #eee;
+    color: #000;
+    text-decoration: none;
+    font-family: Verdana;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    cursor:default;
+    text-decoration:none;
+    font-size: 12px;
+    padding-left: 5px;
+    padding-right: 5px;
+    white-space: nowrap;
+}
+a.button:hover {
+    text-decoration: none;
+    cursor: default;
+}
+.hover {
+    border-color: #333;
+    background-image: url({{ MEDIA_URL }}buttonBgHover.png);
+    cursor:default;
+    text-decoration:none;
+}
+.active {
+    background: #aaa;
+}
+.button img {
+    vertical-align: middle;
+    padding-right: 2px;
+    padding-bottom: 2px;
+    border: 0;
+}
+
+.help_text 
+{
+    display: none;
+    position: absolute;
+    width: 200px;
+    margin-left: 10px;
+    border: 1px solid #c93;
+    padding: 10px 12px;
+    /* to fix IE6, I can't just declare a background-color,
+    I must do a bg image, too!  So I'm duplicating the pointer.gif
+    image, and positioning it so that it doesn't show up
+    within the box */
+    background: #ffa url({{ MEDIA_URL }}pointer.gif) no-repeat -10px 5px;
+}
+
+.help_text .help-pointer 
+{
+    position: absolute;
+    left: -10px;
+    top: 5px;
+    width: 10px;
+    height: 19px;
+    background: url({{ MEDIA_URL }}pointer.gif) left top no-repeat;
+}
+
+.errorlist ul
+{
+    position: absolute;
+    list-style: none;
+    padding: 0;
+    margin: 3px;
+}
+
+/************** Login *****************/
+
+#id_login label
+{
+    display: none;
+}
+
+#id_login
+{
+    background: #4e6928 url('{{ MEDIA_URL }}login-background.gif') repeat-x 0 100px;
+}
+
+#id_content_login
+{
+    margin-left: auto;
+    margin-right: auto;
+    border: 0;
+    width: 718px;
+    height: 320px;
+    position: relative;
+    top: -40px;
+    background: url({{ MEDIA_URL }}login-header.gif) no-repeat;
+    font-size: 12px;
+}
+
+#id_content_login h1, #id_content_login h2, #id_content_login h3
+{
+    padding-bottom: 15px;
+} 
+
+textarea
+{
+    vertical-align: middle;
+}
+
+#lbLoadMessage
+{
+    display: none;
+}

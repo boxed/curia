@@ -1,0 +1,14 @@
+{% load i18n %}{% if user.is_anonymous %}
+if (create_fixed_header('<div id="fixed_top_header_content"><form method="post" action="/login/" id="login_form"><div style="text-align:center; font-weight:bold">{% trans "You are no longer logged in." %}</div><input name="username" default_value="{% trans "Email" %}" type="text" /><input name="password" default_value="{% trans "Password" %}" type="password" /><input type="submit" class="button" value="{% trans "Log in" %}" /></form></div>'))
+{
+	updateInputOverlays(); 
+	/*jQuery('#login_form').ajaxForm(function(data){
+		if (data == 'success') {
+			remove_fixed_header();
+		}
+		else {
+			alert(data);
+		}
+	});*/
+} 
+{% endif %}

@@ -1,0 +1,10 @@
+{% extends "debts/base.html" %}
+{% load auth %}{% load i18n %}
+
+{% block content %}
+	<table>
+		{% for transaction in transactions %}
+			<tr><td>{{ transaction }}</td><td>{{ transaction.creation_time|relative_date }}</td>
+		{% endfor %}
+	</table>
+{% endblock %}

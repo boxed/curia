@@ -1,0 +1,21 @@
+{% load i18n %}{% blocktrans %}Something has happened on {{ communities }}{% endblocktrans %}
+
+{{ _("We've noticed that you haven't been logged in for some time. Some things have happened while you were away:") }}
+
+{% for community, value in new_stuff.items %}
+{{ community }}
+{% if value.subscription_entries %}
+{{ _("New items") }}
+{% for v in value.subscription_entries %}
+{{ v }}
+{% endfor %}
+{% endif %}
+{% if value.notifications %}
+{{ _("Watchers") }}
+{% for v in value.notifications %}
+{{ v }}
+{% endfor %}
+{% endif %}
+        
+{% blocktrans %}Log in to {{ community }} to check it out{% endblocktrans %}: {{ community.get_absolute_url }}
+{% endfor %}

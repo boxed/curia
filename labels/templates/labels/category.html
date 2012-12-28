@@ -1,0 +1,16 @@
+{% extends "labels/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ label }}{% endblock %}
+
+{% block content %}
+
+    <h1>{{ label }} - {{ category }}</h1>
+
+    <p/>
+
+    {% for related in related_list %}
+        <div{% curia_include "unread.html"%}><a href="{{ related.get_absolute_url }}">{{ related }}</a></div>
+    {% endfor %}
+
+{% endblock %}

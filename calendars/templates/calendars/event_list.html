@@ -1,0 +1,76 @@
+{% load i18n %}{% load auth %}
+
+{% if events %}
+    <table class="agenda list">
+    	<tr>
+    	    <th class="date">{{_("Date")}}</th>
+    	    <th class="time">{{_("Time")}}</th>
+    	    <th>{{_("Event")}}</th>
+    	</tr>
+    	{% for event in events %}
+    		<tr>
+    			<td>{% ifchanged %}{{ event.start_time|date:"j b" }}{% endifchanged %}</td>
+    			<td id="event_{{ event.id }}_1">{{ event.start_time|date:"H:i" }}</td>
+    			<td id="event_{{ event.id }}_2">
+    			    <div class="header">
+    			        <span class="actions">
+    			        {% has_permission obj=event command="change" %}
+    					    {% ifequal event.owner_user user %}<a href="/calendars/events/{{ event.id}}/edit/"><img src="{{ MEDIA_URL }}commands/change.png" alt="" /></a>
+							{% endifequal%}
+    						<a href="#" onClick="delete_event({{ event.id }}); return false;"><img src="{{ MEDIA_URL }}commands/delete.png" alt="" /></a>
+                        {% endhas_permission %}
+                        </span>
+    			        <span class="title">{{ event.title }}</span><br />
+    			    </div>
+    			</td>
+    			{# TODO: Add button to show description. #}
+    		</tr>
+    		<tr>
+    		    <td colspan="2"></td>
+    		    <td id="event_{{ event.id }}_3">
+    		        {% if event|labels %}
+    		            <span class="labels">
+    		                <img src="{{ MEDIA_URL }}commands/label.png" title="{{ _("Labels") }}" alt="{{ _("Labels") }}" />
+    		                {% for label in event|labels %}
+    		                    {% if not forloop.first %}, {% endif %}{{ label }}
+    		                {% endfor %}
+    		            </span>
+    		        {% endif %}
+    		        <p>{{ event.description|sanitize }}</p>
+			</tr>
+			<tr>
+    		    <td colspan="2"></td>
+			    <td id="event_{{ event.id }}_4">
+				     <a href="/calendars/events/{{ event.id }}/reply/Y"><img src="{{ MEDIA_URL }}yes.gif" alt="{{ _("Yes") }}" title="{{ _("Yes") }}" /></a> {{ event.number_of_Y }} &nbsp;&nbsp;&nbsp;
+					<a href="/calendars/events/{{ event.id }}/reply/N"><img src="{{ MEDIA_URL }}no.gif" alt="{{ _("No") }}" title="{{ _("No") }}" /></a> {{ event.number_of_N }} &nbsp;&nbsp;&nbsp;
+					<a href="/calendars/events/{{ event.id }}/reply/U"><img src="{{ MEDIA_URL }}maybe.gif" alt="{{ _("Maybe") }}" title="{{ _("Maybe") }}" /></a> {{ event.number_of_unknown }} &nbsp;&nbsp;&nbsp;
+					{% comment %}<td>{% blocktrans with event.number_of_noanswer as escaped %}-: {{ escaped }} {% endblocktrans %}</td>{% endcomment %}
+					<a href="/calendars/events/{{ event.id }}/view/" class="button" style="margin-right: 10px;">{{ _("Details") }}</a>
+					{% ifnotequal event.user_answer.choice '-' %}
+					    {{ _("Your reply") }}: 
+					    {% ifequal event.user_answer.choice 'Y' %}
+					        <img src="{{ MEDIA_URL }}yes.gif" alt="{{ _("Yes") }}" title="{{ _("Yes") }}" />
+					    {% endifequal %}
+					    {% ifequal event.user_answer.choice 'N' %}
+					        <img src="{{ MEDIA_URL }}no.gif" alt="{{ _("No") }}" title="{{ _("No") }}" />
+					    {% endifequal %}
+					    {% ifequal event.user_answer.choice '?' %}
+					        <img src="{{ MEDIA_URL }}maybe.gif" alt="{{ _("Maybe") }}" title="{{ _("Maybe") }}" />
+					    {% endifequal %}
+						{{ event.user_answer.comment }}
+					{% else %}
+						{{ _("You have not replied to this event") }}
+					{% endifnotequal %}
+				</td>
+			</tr>
+			<tr>
+    		    <td colspan="2"></td>
+				<td id="event_{{ event.id }}_5">
+				    <a href="/calendars/events/{{ event.id }}/reply/">{{ _("Change your reply") }}</a></td>
+				</td>
+    		</td>
+    	{% endfor %}
+    </table>
+{% else %}
+	{% blocktrans %}There are no events in the near future{% endblocktrans %}
+{% endif %}

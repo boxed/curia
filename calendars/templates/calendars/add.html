@@ -1,0 +1,21 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{{ _("Add event") }}{% endblock %}
+{% block header  %}{{ _("Add event") }}{% endblock %}
+
+{% block content %}
+	<script type="text/javascript" src="/media/js/core.js"></script>
+	<script type="text/javascript" src="/media/js/admin/RelatedObjectLookups.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/calendar-picker.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/DateTimeShortcuts.js"></script>
+	<form method="post">
+		<table>
+			{% include "form.html" %}
+			<tr><td></td><td><input type="submit" value="{{ _("Add") }}"/></td></tr>
+		</table>
+	</form>
+    <script type="text/javascript">
+        document.getElementById('id_title').focus()
+    </script>
+{% endblock %}

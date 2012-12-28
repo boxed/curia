@@ -1,0 +1,25 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{{ _("Replies") }}{% endblock %}
+{% block header  %}{{ _("Replies") }}{% endblock %}
+
+{% block content %}
+    <img src="{{ MEDIA_URL }}yes.gif" alt="{{ _("Yes") }}" title="{{ _("Yes") }}" /><br />
+    {% for reply in event.Y %}
+        {{ reply.user }}: {{ reply.comment }}<br />
+    {% endfor %}<br />
+    <img src="{{ MEDIA_URL }}no.gif" alt="{{ _("No") }}" title="{{ _("No") }}" /> <br />
+    {% for reply in event.N %}
+        {{ reply.user }}: {{ reply.comment }}<br />
+    {% endfor %}<br />
+    <img src="{{ MEDIA_URL }}maybe.gif" alt="{{ _("Maybe") }}" title="{{ _("Maybe") }}" /> <br />
+    {% for reply in event.unknown %}
+        {{ reply.user }}: {{ reply.comment }}<br />
+    {% endfor %}<br />
+    <strong>{{ _("The following people have not replied yet") }}:</strong> <br />
+    {% for reply in event.noreply %}
+        {{ reply.user }}: {{ reply.comment }}<br />
+    {% endfor %}<br />
+
+{% endblock %}

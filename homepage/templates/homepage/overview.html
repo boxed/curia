@@ -1,0 +1,39 @@
+{% extends "themes/default/external_with_homepage.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ _("Overview") }}{% endblock %}
+{% block extra_head %}<base target="main" />{% endblock %}
+
+{% block body %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/prototype.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/lightbox.js"></script>
+	<style>
+		body {
+			text-align: left;
+			background: #dfddce;
+		}
+		a {
+			color: #a90308;
+			text-decoration: none;
+		}
+	</style>
+
+
+	<h3>{{ _("Main menu") }}</h3>
+	<ul>
+		{% for menu in menus %}
+			<li>
+				<a href="{{ menu.url }}">{{ menu.title }}</a>
+				{% if menu.child_menus.all %}
+					<ul>
+						{% for subitem in menu.child_menus.all %}
+							{{ subitem|safe }}
+						{% endfor %}
+					</ul>
+				{% endif %}
+			</li>
+		{% endfor %}
+	</ul>
+	
+	<a href="/homepage/menu/add/" class="button" target="_top"><img src="{{ MEDIA_URL }}commands/add.png" alt="" /> {{_("Add page")}}
+{% endblock %}

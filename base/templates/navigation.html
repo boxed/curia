@@ -1,0 +1,10 @@
+{% load auth %}
+<div id="id_navigation">
+	<div id="id_navigation_reload">
+		{{_("Loading...")}}
+	</div>
+
+	{% if watch_object %}
+		<div style="text-align: right; margin-right: 5px;">{% watcher_link obj=watch_object %}</div>
+	{% endif %}
+</div>

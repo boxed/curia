@@ -1,0 +1,42 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ _("Search") }}{% endblock %}
+{% block header %}{{ _("Search") }}{% endblock %}
+
+{% block content %}
+
+    <form action="/search/" method="post">
+		<input type="text" name="search" id="search" value="{{ search_words }}"/>
+		<input type="submit" value="{{ _("Go") }}" />
+	</form>
+
+
+	{% if users_result %}
+		{% for obj in users_result %}
+			{% has_permission obj=obj command="view" %}
+				<h2>{{ _("Members") }}</h2>
+				<a href="{{ obj.get_absolute_url }}">{{ obj }}</a><br />
+			{% endhas_permission %}
+		{% endfor %}
+	{% endif %}
+
+	{% if groups_result %}
+		{% for obj in groups_result %}
+			{% has_permission obj=obj command="view" %}
+				<h2>{{ _("Groups") }}</h2>
+				<a href="{{ obj.get_absolute_url }}">{{ obj }}</a><br />
+			{% endhas_permission %}
+		{% endfor %}
+	{% endif %}
+
+	{% if tags_result %}
+		<h2>{{ _("Labels") }}</h2>
+		{% for obj in tags_result %}
+			<a href="{{ obj.get_absolute_url }}">{{ obj }}</a><br />
+		{% endfor %}
+	{% endif %}
+
+	<script type="text/javascript">document.getElementById("search").focus();</script>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{% load i18n %}<html>
+    <body>
+        <h1>{% trans "Rejected debt" %}</h1>
+
+        {% blocktrans with transaction.rejected_by as rejected_by %}{{ rejected_by }} rejected a debt:{% endblocktrans %}<br />
+        {{ transaction.amount }} {{ transaction.description }}
+        
+    </body>
+</html>

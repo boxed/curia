@@ -1,0 +1,20 @@
+{% extends edit_base %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{{ _("Edit") }} {{ document }}{% endblock %}
+{% block header %}{{ _("Edit") }} {{ document }}{% endblock %}
+
+{% block content %}
+	<form method="post">
+	    <table class="write_text">
+            {% include "form.html" %}
+            <tr><td></td><td><input type="submit" value="{{ _("Save") }}"/></td></tr>
+	    </table>
+	</form>
+    <script type="text/javascript">
+        if (document.getElementById('id_title'))
+            document.getElementById('id_title').focus()
+        else
+            document.getElementById('id_contents').focus()
+    </script>
+{% endblock %}

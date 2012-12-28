@@ -1,0 +1,42 @@
+{% extends base %}{% load i18n %}{% load auth %}
+
+{% block title %} {{ group.name }} {% endblock %}
+{% block header-base %}{% endblock %}
+
+{% block body_id %}group_info_body{% endblock %}
+
+{% block content %}
+{% if group.meta.deleted and not user.is_staff %}
+    <div>{{ _("This group was deleted at") }} {{ group.meta.deletion_time }} {{ _("by") }} <a href="{{ group.meta.deleted_by.get_absolute_url }}">{{ group.meta.deleted_by }}.</a></div>
+{% else %}
+    <table style="width: 100%; padding: 0; margin:0;">
+        <tr>
+            <td style="width: 15px;">
+                {% curia_include "authentication/tabs.html" objects=objects owner=group tab=tab object_type="group" day=day %}
+            </td>
+            <td {% if group.meta.logo %}style="background: url({{ group.meta.get_logo_url }}) no-repeat center center;"{% endif %}>
+            </td>
+        </tr>
+    </table>
+
+	{% link obj=group command="edit" %}
+	{% has_permission obj=group command="edit" %}<a href="{{ group.get_absolute_url }}permissions/"><img src="{{ MEDIA_URL }}commands/permissions.gif" alt="{{ _("Permissions") }}" /></a>{% endhas_permission %}
+
+    {% if user.is_staff %}<div>{{ _("Created by") }}: <a href="{{ group.meta.created_by.get_absolute_url }}">{{ group.meta.created_by }}</a></div>{% endif %}
+
+    <div>{% curia_include 'labels/labels.html' object=group %}</div>
+
+    {% if group.meta.deleted %}
+        <div>{{ _("This group was deleted at") }} {{ group.meta.deletion_time }} {{ _("by") }} <a href="{{ group.meta.deleted_by.get_absolute_url }}">{{ group.meta.deleted_by }}.</a></div>
+    {% endif %}
+
+    <p></p>
+
+    {% for detail in group.group_details.all %}
+        <div>
+            {{ detail.name|sanitize }}: {{ detail.value|sanitize}}
+        </div>
+    {% endfor %}
+
+{% endif %}
+{% endblock %}

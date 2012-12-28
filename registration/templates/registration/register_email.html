@@ -1,0 +1,5 @@
+{% load i18n %}{% load auth %}{% blocktrans %}You have registered to join {{ community }}{% endblocktrans %}
+{% if message %}
+    {{ message|sanitize }}
+{% endif %}
+{{ _("Complete the registration at ") }} <a href="http://{{ domain }}/registration/complete/?code={{ password }}&amp;email={{ email }}">http://{{ domain }}/registration/complete/?code={{ password }}&amp;email={{ email }}</a><p>{% blocktrans %}Once you have completed the registration you will be able to log in at <a href="http://{{ domain }}">http://{{ domain }}</a>{% endblocktrans %}</p>

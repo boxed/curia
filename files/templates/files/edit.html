@@ -1,0 +1,14 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{{ _("Edit") }} {{ file.title }}{% endblock %}
+{% block header %}{{ _("Edit") }} {{ file.title }}{% endblock %}
+
+{% block content %}
+	<form method="post">
+		<table>
+	        {% include "form.html" %}
+	        <tr><td></td><td><input type="submit" value="{{ _("Save") }}"/></td></tr>
+		</table>
+	</form>
+{% endblock %}

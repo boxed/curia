@@ -1,0 +1,15 @@
+{% extends "forums/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ _("Threads") }}{% endblock %}
+{% block header %}{{ _("Threads") }}{% endblock %}
+
+{% block content %}
+    {% if forums %}
+        {% for thread in forums %}
+            <div{% curia_include "unread.html" object=thread %}><a href="{{ thread.id }}/">{{ thread }}</a></div>
+        {% endfor %}
+    {% else %}
+        <p>{{ _("No forums are available.") }}</p>
+    {% endif %}
+{% endblock %}

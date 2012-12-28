@@ -1,0 +1,112 @@
+{% load i18n %}{% load auth %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
+<html>
+    <head>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/prototype.js"></script>
+        <script type="text/javascript" src="/jsi18n/"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/core.js"></script>
+        {% block extra_head %}{% endblock %}
+        <style>
+            body {
+                text-align: left;
+                border: 0;
+                padding: 0;
+                margin: 0;
+                background: url({{ MEDIA_URL }}themes/eldmyra/external/header-repeat.png) repeat-x #fcfcfa;
+            }
+            #main {
+                background: url({{ MEDIA_URL }}themes/eldmyra/external/header.png) no-repeat;
+                padding-top: 200px;
+            }
+            #header-title {
+                width: 260px;
+                height: 70px;
+                position: absolute;
+                top: 90px;
+                left: 55px;
+            }
+            #header-title a {
+                height: 100%;
+                width: 100%;
+                display: block;
+                margin-left: -200px;
+            }
+            #body {
+                padding-top: 130px;
+                padding-left: 110px;
+            }
+            #body-left {
+            }
+            #body-center {
+                width: 570px;
+                font-family: verdana;
+                font-size: 12px;
+                padding: 10px;
+            }
+            #body-right {
+                padding: 20px;
+            }
+            h1 {
+                margin-top: 0;
+                font-size: 18px;
+            }
+            #create-community-button {
+                text-align: right;
+                padding-top: 20px;
+            }
+            a, .link {color: #b67100; text-decoration:none; cursor:pointer; }
+
+            img {
+                border: 0;
+            }
+            
+        </style>
+        <title>{% if community %}{{ community }}{% block header %}{% endblock %}{% endif %}</title>
+    </head>
+    <body>
+        <div id="main">
+            &nbsp;
+            {% block body %}
+                <div id="header">
+                    <div id="header-util-links">
+                        <ul id="utils-menu" class="menu">
+                        </ul>
+                    </div>
+                    <div id="header-right">
+                    </div>
+                    <h1 id="header-title"><a href="/">{% if community %}{{ community }}{% else %}&nbsp;{% endif %}</a></h1>
+                </div>
+                <div id="body">
+                    <table style="width: 100%;" cellspacing="0">
+                        <tr>
+                            <td id="body-left">
+                            </td>
+                            <td id="body-center">
+                                <h1>{% block title %}Sluta leta nya vänner. Umgås med dom du redan har!{% endblock %}</h1>
+                                <div id="body-center-content">
+                                    {% block content %}
+                                    Är ni ett kompisgäng, en studentförening eller kanske ett rockband som vill ha ett eget ställe att snacka på? Då är Eldmyra platsen för er. Här kan ni dela med er av historier, planera nästa fest, visa era bilder, organisera, socialisera och umgås. Allt på ett privat forum, utvecklat specifikt för er!
+
+						<p>Vi arbetar för fullt för att uppdatera Eldmyra. Läs om vad som är på gång på utvecklarbloggen <a href="http://kodare.wordpress.com"> kodare.wordpress.com</a></p>
+                                    <p><a href="/about/">Om oss</a></p>
+
+                                    <div id="create-community-button"><a href="/create_community/"><img alt="Skapa community" src="{{ MEDIA_URL }}create_community_button.gif" /></a></div>
+                                    {% endblock %}
+                                </div>
+                            </td>
+                            <td id="body-right">
+                                {% curia_include "authentication/login_box.html" %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="footer">
+                </div>
+            {% endblock %}
+        </div>
+        <div id="test"></div>
+
+        {% include "google_analytics.html" %}
+    </body>
+</html>

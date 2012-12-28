@@ -1,0 +1,11 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block navigation %}
+	{% comment %}
+	<h2>{{ _("My groups") }}</h2>
+	{% for group in groups_of_user.in_community %}
+		<a href="/forums/{{ group.id }}/">{{ group }}<br />
+	{% endfor %}
+	{% endcomment %}
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends base %}{% load i18n %}{% load auth %}
+{% block header %}{{ _("Friends") }}{% endblock %}
+
+{% block content %}
+	<div>
+    	{% link obj=owner command="add friend" %}
+	</div>
+	<div>
+	   	{% for invite in group_invites %}
+	   		{% if invite.group.meta.friend_group %}
+			<div><h4>{% blocktrans with invite.user as user %}{{ user }} has been invited but hasn't answered yet.{% endblocktrans %}{% has_permission obj=owner command="edit" %}<a href="/users/{{owner.id}}/friends/uninvite/{{invite.user.id}}"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></a>{% endhas_permission %}</h4></div>
+			{% endif %}
+	    {% endfor %}
+	</div>
+
+	{% if is_invited and not is_friend%}
+		<h4>{% blocktrans with owner as user %}{{ user }} has been invited but hasn't answered yet.{% endblocktrans %}</h4>
+	{% endif %}
+
+	{% if not is_invited %}
+		{% ifnotequal owner user %}
+			<a href="{{ owner.get_absolute_url }}add_as_friend/"><h4>{% blocktrans with owner as user %}Invite {{ user }} to be your friend.{% endblocktrans %}</h4></a>
+		{% endifnotequal %}
+	{% endif %}
+
+    <script type="text/javascript">
+
+        function remove_friend_from_view(id)
+        {
+            remove_elements(['friend_'+id]);
+        }
+
+        function delete_friend(id)
+        {
+            show_dialog(
+                {
+                    header: "{% blocktrans %}Are you sure you want to remove this user from your friends?{% endblocktrans %}",
+                    explanation: "",
+                    buttons:
+                    [
+                        {
+                            name: "{{ _("Don't delete") }}",
+                            hotkey: "escape"
+                        },
+                        {
+                            name: "{{ _("Delete") }}",
+                            hotkey: "return",
+                            action: function()
+                            {
+                               	call_function_with_data_from(remove_friend_from_view, '{{ owner.get_absolute_url }}delete_friend/'+id+'/');
+                            }
+                        }
+                    ]
+                });
+        }
+
+    </script>
+
+    {% for member in friends.user_set.all %}
+        {% ifnotequal owner member %}
+			<div id="friend_{{ member.id }}">
+				<a href="{{ member.get_absolute_url }}">
+				{% if member.meta.icon.url %}
+					<img src="{{ member.meta.icon.url }}"> 
+				{% endif %}
+				{{ member }}</a>
+				{% has_permission obj=owner command="edit" %}<a href="#" onClick="delete_friend({{ member.id }}); return false;"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></a><br />{% endhas_permission %}
+			</div>
+		{% endifnotequal %}
+    {% endfor %}
+
+{% endblock %}

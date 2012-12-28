@@ -1,0 +1,19 @@
+{% load auth %}
+
+<div{% if permission %} id="permission_row_{{ permission.id }}"{% endif %}>
+	<div class="form-row">
+		<div class="form-cell"><label class="form-cell" for="id_permission_name_{% include "authentication/permission_id.html" %}">{{ _("User") }}:</label></div>
+		<div class="form-cell"><input type="text" id="id_permission_name_{% include "authentication/permission_id.html" %}" class="vTextField" name="permission_name_{% include "authentication/permission_id.html" %}" size="30" value="{{ permission.user }}" maxlength="256" /></div>
+		<div class="form-cell"><label for="id_permission_view_{{ permission.id }}">{{ _("View") }}:</label></div>
+		<div class="form-cell"><input type="checkbox" id="id_permission_view_{% include "authentication/permission_id.html" %}" class="vTextField" name="permission_view_{% include "authentication/permission_id.html" %}" /></div>
+		<div class="form-cell"><label for="id_permission_edit_{{ permission.id }}">{{ _("Edit") }}:</label></div>
+		<div class="form-cell"><input type="checkbox" id="id_permission_edit_{% include "authentication/permission_id.html" %}" class="vTextField" name="permission_edit_{% include "authentication/permission_id.html" %}" /></div>
+		<div class="form-cell"><label for="id_permission_delete_{{ permission.id }}">{{ _("Delete") }}:</label></div>
+		<div class="form-cell"><input type="checkbox" id="id_permission_delete_{% include "authentication/permission_id.html" %}" class="vTextField" name="permission_delete_{% include "authentication/permission_id.html" %}" /></div>
+		{% if permission %}
+			<div class="form-cell"><a href="#" onClick="replace_contents_with_data_from('permission_row_{{ permission.id }}', '/users/permission/{{ permission.id }}/delete/'); return false;"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></a></div>
+		{% else %}
+			<div class="form-cell"><a href="#" onClick="delete_permission('+new_id+'); return false;" class="deletelink">{{ _("Delete") }}</a></div>
+		{% endif %}
+	</div>
+</div>

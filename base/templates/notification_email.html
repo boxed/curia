@@ -1,0 +1,33 @@
+{% load i18n %}<html>
+    <body style="background: white; font-family: Verdana; font-size: 12px; margin: 0;">
+        <h1 style="background: #3f3f3f; color: white; padding-top: 50px; margin: 0; padding-left: 20px; padding-bottom: 10px;">{% blocktrans %}Something has happened on {{ communities }}{% endblocktrans %}</h1>
+        
+        <div style="padding: 20px;">
+            {{ _("We've noticed that you haven't been logged in for some time. Some things have happened while you were away:") }}
+
+            {% for community, value in new_stuff.items %}
+                <div style="padding: 0; margin: 5px;">
+                    <h2 style="margin-top: 0;">{{ community }}</h2>
+                    {% if value.subscription_entries %}
+                        <h3>{{ _("New items") }}</h3>
+                		{% for v in value.subscription_entries %}
+                			{{ v }}<br />
+                		{% endfor %}
+                    {% endif %}
+                    {% if value.notifications %}
+                        <h3>{{ _("Watchers") }}</h3>
+                		{% for v in value.notifications %}
+                			{{ v }}<br />
+                		{% endfor %}
+                    {% endif %}
+                
+                    <p><a href="{{ community.get_absolute_url }}">{% blocktrans %}Log in to {{ community }} to check it out{% endblocktrans %}</a></p>
+                </div>
+            {% endfor %}
+        </div>
+        <div style="background: url(http://static.eldmyra.se/mail-bottom-border.gif) repeat-x; padding-right: 10px; padding-top: 10px; color: #a4a4a4; text-align: right; font-size: 10px;">
+            {{ _("You recieved this message because you are registered at eldmyra.se") }}<br />
+            {{ _("If you don't want to recieve any more mails, mail us at support@eldmyra.se") }}
+        </div>
+    </body>
+</html>

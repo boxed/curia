@@ -1,0 +1,13 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ _("Watchers") }}{% endblock %}
+{% block header %}{{ _("Watchers") }}{% endblock %}
+
+{% block content %}
+	<table>
+		{% for watcher in watchers %}
+			<tr><td><a href="{{ watcher.get_absolute_url }}">{{ watcher.short_description }}</a></td><td><a href="/notifications/watchers/{{ watcher.id }}/delete/"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></a></td></tr>
+		{% endfor %}
+	</table>
+{% endblock %}

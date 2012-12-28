@@ -1,0 +1,51 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ _("Administration") }}{% endblock %}
+{% block header %}{{ _("Administration") }}{% endblock %}
+
+{% block content %}
+
+	<a href="/registration/" class="button">{{ _("Invite a new user") }}</a>
+	
+	<form method="post">
+        <h2>{{ _("Administrators") }}</h2>
+		{{ _("People you add to this list are given administrator access to the chosen areas, meaning that they can delete and change other users content.") }}
+    	<table>
+    		<tr>
+    			<th>{{ _("Name") }}</th>
+    			{% for content_type, name in content_types %}
+    			    <th>{{ name }}</th>
+    			{% endfor %}
+    		</tr>
+    		{% for administrator, values in administrators.items %}
+    			<tr>
+    				<td>{{ administrator }}</td>
+    				<td><input type="checkbox" name="{{ administrator.id }}_thread"     {% if values|contains:"administrate_thread"     %}checked="checked"{% endif %} /></td>
+    				<td><input type="checkbox" name="{{ administrator.id }}_file"       {% if values|contains:"administrate_file"       %}checked="checked"{% endif %} /></td>
+    				<td><input type="checkbox" name="{{ administrator.id }}_image_set"  {% if values|contains:"administrate_image_set"  %}checked="checked"{% endif %} /></td>
+    				<td><input type="checkbox" name="{{ administrator.id }}_event"      {% if values|contains:"administrate_event"   %}checked="checked"{% endif %} /></td>
+    			</tr>
+    		{% endfor %}
+    		{% if non_admins %}	
+        		<tr>
+        			<td>
+        			    <select name="new_user_id">
+        			        {% for member in non_admins %}
+        			            <option value="{{ member.id }}">{{ member }}</option>
+        			        {% endfor %}
+        			    </select>
+        			</td>
+        			{% for content_type, name in content_types %}
+        			    <td><input type="checkbox" name="new_{{ content_type }}" /></td>
+        			{% endfor %}
+        		</tr>
+        	{% endif %}
+    		<tr>
+    		    <td><input type="submit" value="{{ _("Save") }}"></td>
+    		</tr>
+    	</table>
+    </form>
+ 
+{% endblock %}
+

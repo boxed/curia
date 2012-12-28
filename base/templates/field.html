@@ -1,0 +1,20 @@
+{% load auth %}<tr{% if field.errors %} class="errors" {% endif%} id="field_id_{{ field.name }}" {% if field.field.required %}class="required"{% endif %}>
+    <th>
+        {% ifnotequal field.label "" %}
+            <label for="id_{{ field.name }}">{{ field.label }}:</label>
+        {% endifnotequal %}
+    </th>
+    <td style="position:relative;">
+        {{ field }}
+        {% if field.errors %}
+            <span class="error_list">
+                <ul>
+                    {% for error in field.errors %}<li>{{ error }}</li>{% endfor %}
+                </ul>
+            </span>
+        {% endif %}
+        {% if field.help_text %}
+            <span class="help_text"><span class="help-pointer"></span>{{ field.help_text }}</span>
+        {% endif %}
+    </td>
+</tr>

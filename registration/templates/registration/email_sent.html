@@ -1,0 +1,11 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ _("E-mail sent") }}{% endblock %}
+{% block header %}{{ _("E-mail sent") }}{% endblock %}
+
+{% block content %}
+  
+    {% blocktrans %}An invitation e-mail has been sent. Now all we can do is cross our fingers.{% endblocktrans %}
+ 
+{% endblock %}

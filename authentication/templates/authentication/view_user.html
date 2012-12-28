@@ -1,0 +1,37 @@
+{% extends base %}{% load i18n %}{% load auth %}{% load thumbnail %}
+
+{% block header %} {{ current_user.first_name }} {% endblock %}
+
+{% block title %}
+{% if in_community %}
+	{{ current_user.first_name }}  {{ current_user.last_name }}
+	{% ifequal current_user.meta.gender 'M' %} &#9794;{{ age }} {% endifequal %}
+	{% ifequal current_user.meta.gender 'F' %} &#9792;{{ age }} {% endifequal %}
+		{% has_permission obj=current_user command="edit" %}
+			<a href="edit"><img src="{{ MEDIA_URL }}commands/change.png" alt="{{ _("Edit") }}" /></a>
+		{% endhas_permission %}
+{% else %}
+	{{ _("No such user exists in this community.") }}
+{% endif %}
+{% endblock %}
+
+{% block header-base %}{% endblock %}
+
+{% block body_id %}user_info_body{% endblock %}
+
+{% block content %}
+	{% if not current_user.is_active %}
+		<div>{{ _("This user is no longer a member of the community.") }}</div>
+		{% else %}
+			{% if in_community %}
+				<table style="float: left; margin: 5px;"><tr><td><img src="{% if current_user.meta.picture %}{% thumbnail current_user.meta.picture settings.PICTURE_SIZE %}{% else %}{{ settings.MEDIA_URL }}user-pictures/default_user_image.png{% endif %}" alt="" /></td></tr>
+				{% ifequal current_user group.meta.created_by %}
+					<tr><td><center>{{ _("Administrator") }}</center></td></tr>
+				{% endifequal %}</table>
+				{{ presentation|sanitize }}
+			{% endif %}
+	{% endif %}
+	
+	{% load times %}
+    {% set_last_viewed current_user %}
+{% endblock %}

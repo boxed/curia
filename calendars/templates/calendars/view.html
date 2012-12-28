@@ -1,0 +1,151 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block header %}{{ _("Calendar") }}{% endblock %}
+{% block title %}{{ _("Calendar") }} <a href="/calendars/groups/{{ owner.id }}/agenda/" class="button" style="float:right;">{{_("Agenda view")}}</a>{% endblock %}
+
+{% block content %}
+<div id="foo" class="calendar">
+</div>
+
+<script type="text/javascript" src="{{ MEDIA_URL }}js/calendar.js"></script>
+
+<script type="text/javascript" defer="true">
+
+	function remove_event_from_view(events)
+	{
+		var date = parse_date(events[0].fields.start_time);
+		delete calendar_data[get_date_key(date.year, date.month, date.date)][events[0].pk];
+		foo.drawCurrent();
+	}
+
+	function delete_event(key, i)
+	{
+		show_dialog(
+			{
+				header: "{% blocktrans %}Do you want to delete the event \""+calendar_data[key][i].fields.title+"\"?{% endblocktrans %}",
+				explanation: "{{ _("Deleted events will still be viewable by administrators.") }}",
+				buttons:
+				[
+					{
+						name: "{{ _("Don't delete") }}",
+						hotkey: "escape"
+					},
+					{
+						name: "{{ _("Delete") }}",
+						hotkey: "return",
+						action: function()
+						{
+							call_function_with_data_from(remove_event_from_view, '/calendars/events/'+calendar_data[key][i].pk+'/delete/');
+						}
+					}
+				]
+			});
+	}
+
+	var calendar_data = {};
+	var loading_flags = {};
+
+	function get_date_key(year, month, date)
+	{
+		return year+"-"+pad(month, 2)+"-"+pad(date, 2);
+	}
+
+	function get_month_key(year, month)
+	{
+		return year+"-"+pad(month, 2);
+	}
+
+	function update_month(data)
+	{
+		// put the data in the calendar_data cache
+		events = data.events;
+		for (var i = 0, len = events.length; i < len; ++i)
+		{
+			var start_time = parse_date(events[i].fields.start_time);
+			var end_time = parse_date(events[i].fields.end_time);
+
+			// ignore all instances of this event on other months
+			if (start_time.month < data.month || start_time.year < data.year)
+			{
+				start_time.year = data.year;
+				start_time.month = data.month;
+				start_time.date = 1;
+			}
+
+			if (end_time.month > data.month || end_time.year > data.year)
+			{
+				end_time.year = data.year;
+				end_time.month = data.month;
+				end_time.date = getDaysInMonthOfYear(data.month, data.year);
+			}
+
+			// mark this event on the relevant days of the month
+			for (var date = start_time.date; date <= end_time.date; date++)
+			{
+				var key = get_date_key(data.year, data.month, date)
+				if (!calendar_data[key])
+					calendar_data[key] = {};
+
+				calendar_data[key][events[i].pk] = events[i];
+			}
+		}
+
+		loading_flags[get_month_key(data.year, data.month)] = 'finished';
+
+		// update view
+		foo.drawCurrent();
+	}
+
+	function put_data(div)
+	{
+		year = div.year;
+		month = div.month;
+		date = div.date;
+
+		// check if this month is loaded, if not, load it
+		var key = get_date_key(year, month, date);
+
+		if (loading_flags[get_month_key(year, month)] == 'loading')
+		{
+			div.innerHTML = '{{ _("Loading...") }}';
+			return;
+		}
+		else if (loading_flags[get_month_key(year, month)] != 'finished')
+		{
+			loading_flags[get_month_key(year, month)] = 'loading';
+			div.innerHTML = '{{ _("Loading...") }}';
+			call_function_with_data_from(update_month, '/calendars/groups/{{ owner.id }}/'+year+'/'+month+'/');
+			return;
+		}
+		if (calendar_data[key])
+		{
+			for (i in calendar_data[key])
+			{
+				//log(calendar_data[key][i].fields.start_time);
+				var start_time = parse_datetime(calendar_data[key][i].fields.start_time);
+				var event_div = quickElement('div', div, '', 'class', calendar_data[key][i].fields.all_day?'event all_day': 'event');
+
+				var html = '';
+				html += '<a href="/calendars/events/'+calendar_data[key][i].pk+'/">'
+				if (!calendar_data[key][i].fields.all_day && start_time.date == date)
+					html += start_time.hour+':'+pad(start_time.minute, 2)+' ';
+
+				html += calendar_data[key][i].fields.title+'</a>';
+				event_div.innerHTML = html;
+
+				event_div.calendar_event = calendar_data[key][i];
+			}	
+		}
+		
+		var add_div = quickElement('div', div, '');
+		{% has_permission obj=object command="add event" %}
+			add_div.innerHTML = '<a href="/calendars/add/?date='+key+'"><img src="{{ MEDIA_URL }}commands/add.png" alt="{{ _("Add") }}" /></a>';
+		{% endhas_permission %}
+	}
+
+	var foo = new Calendar('foo', put_data);
+	foo.drawCurrent();
+
+</script>
+{% endblock %}

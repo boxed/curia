@@ -1,0 +1,18 @@
+{% extends base %}
+{% load auth %}
+{% block header %}{{ _("Groups") }}{% endblock %}
+
+{% block content %}
+<div class="panel">{% link obj=owner command="add group" %}</div>
+{% for object in owner.groups.all %}
+    {% if not object.meta.friend_group and not object.meta.deleted %}
+        <div><a href="{{ object.get_absolute_url }}">
+		{% if object.meta.icon.url %}
+			<img src="{{ object.meta.icon.url }}"> 
+		{% endif %}	
+		{{ object }}</div>
+    {% endif %}
+{% endfor %}
+
+
+{% endblock %}

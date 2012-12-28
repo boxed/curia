@@ -1,0 +1,9 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ flatpage.title }}{% endblock %}
+{% block header %}{{ flatpage.title }}{% endblock %}
+
+{% block content %}
+    {{ flatpage.content|linebreaks_and_spaces }}
+{% endblock %}

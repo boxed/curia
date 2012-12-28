@@ -1,0 +1,42 @@
+{% extends "documents/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block user-tools %}
+    {% blocktrans with document.owner as owner %}last edited {{ document.creation_time }} by {{ owner }} {% endblocktrans %}<br />
+    <a href="edit/">{{ _("Edit this page") }}</a>
+{% endblock %}
+
+{% block title  %}{{ version.title }}{% endblock %}
+{% block header %}
+	{% if version.document.is_presentation %}
+		<span class="presentation-header" style="float: right;">
+			{% if owner.username %}{% ifnotequal user owner %}{% if not user.is_anonymous %}<a href="/messages/{{ owner.id }}/" class="button"><img src="{{ MEDIA_URL }}tabs/images/messages.gif">{{ _("Send message") }}</a>{% endif %}{% endifnotequal %}{% endif %}
+		</span>
+		{{ owner }} 
+	{% else %}
+		{{ version.title }}	
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	{% if not version.document.is_presentation or user.is_staff %}
+		<div class="panel">
+			{% include "documents/version_panel.html" %}
+		</div>
+	{% endif %}
+
+	{% curia_include "documents/version_content.html" version=version external=external %}
+
+	{% if not external %}
+		{% if not version.document.is_presentation or user.is_staff %}
+			<hr />
+
+			<div>
+				{% blocktrans with version.owner as owner and version.owner.get_absolute_url as owner_url and version.creation_time as creation_time %}Last edited by <a href="{{ owner_url }}">{{ owner }}</a> {{ creation_time }}{% endblocktrans %}
+				{% has_permission obj=version.document command="delete" %}<a href="#" onClick="delete_document({{ version.document.id }}); return false;"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></a>{% endhas_permission %}
+				{% has_permission obj=version.document command="edit" %}<a href="../../..{{ version.document.get_absolute_url }}versions/">{{ _("View versions") }}</a><br \>{% endhas_permission %}
+				{% curia_include 'labels/labels.html' object=version.document %}
+			</div>
+		{% endif %}
+	{% endif %}
+{% endblock %}

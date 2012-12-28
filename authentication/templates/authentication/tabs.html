@@ -1,0 +1,15 @@
+{% load i18n %}{% load auth %}
+
+<ul class="vtabs" style="float: left;">
+	<li><a href="{{ owner.get_absolute_url }}"><img src="{{ MEDIA_URL }}tabs/images/{% ifequal object_type "group" %}group-{% endifequal %}presentation.gif" alt="{{ _("Presentation") }}" title="{{ _("Presentation") }}" /> </a></li>
+	{% ifequal object_type "user" %}
+	<li><a href="{{ owner.get_absolute_url }}friends/"><img src="{{ MEDIA_URL }}tabs/images/friends.gif" alt="{{ _("Friends") }}" title="{{ _("Friends") }}" /></a></li>
+	<li><a href="{{ owner.get_absolute_url }}groups/"><img src="{{ MEDIA_URL }}tabs/images/groups.gif" alt="{{ _("Groups") }}" title="{{ _("Groups") }}" /></a></li>
+	{% else %}
+	<li><a href="/forums/{{ owner.id }}/"><img src="{{ MEDIA_URL }}tabs/images/forums.gif" alt="{{ _("Threads") }}" title="{{ _("Threads") }}" 	<li><a href="{{ owner.get_absolute_url }}members/"><img src="{{ MEDIA_URL }}tabs/images/groups.gif" alt="{{ _("Members and groups") }}" title="{{ _("Members and groups") }}" /></a></li></a></li>
+	{% endifequal %}
+	<li><a href="/documents{{ owner.get_absolute_url }}"><img src="{{ MEDIA_URL }}tabs/images/documents.gif" alt="{{ _("Texts") }}" title="{{ _("Texts") }}" /></a></li>
+	<li><a href="/images{{ owner.get_absolute_url }}"><img src="{{ MEDIA_URL }}tabs/images/images.gif" alt="{{ _("Pictures") }}" title="{{ _("Pictures") }}" /></a></li>
+	<li><a href="/files{{ owner.get_absolute_url }}"><img src="{{ MEDIA_URL }}tabs/images/files.gif" alt="{{ _("Files") }}" title="{{ _("Files") }}" /></a></li>
+	<li><a href="/calendars{{ owner.get_absolute_url }}"><img src="{{ MEDIA_URL }}tabs/images/calendars/{{ day }}.gif" alt="{{ _("Calendar") }}" title="{{ _("Calendar") }}" /></a></li>
+</ul>

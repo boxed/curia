@@ -1,0 +1,65 @@
+{% extends base %}
+{% load i18n %}{% load auth %}{% load times %}{% load thumbnail %}
+
+{% block title %}{{ _("Portal") }}{% endblock %}
+{% block header %}{{ _("Portal") }}{% endblock %}
+
+{% block content %}
+    {{ bugs }}
+    {% has_permission obj=community command="edit" %}
+	  <a href="groups/{{ community.id }}/edit"><img src="{{ MEDIA_URL }}commands/change.png" alt="{{ _("Edit group") }}" /></a>
+    {% endhas_permission %}
+
+    <div id="random_images">
+        <h3>{{ _("Random images") }}</h3>
+    	<div class="grid_view">
+    		{% for image in random_images %}
+			    {% has_permission obj=image command="view" %}
+        			<table cellspacing="0" id="image_{{ image.id }}">
+        				<tr><td class="image"><a href="{{ image.image.url }}" rel="lightbox[foo]" {% if image.description %}title="{{ image.description|striptags }}"{% else %}title=" "{% endif %}><img src="{% thumbnail image.image settings.THUMBNAIL_SIZE %}"></a></td></tr>
+        			</table>
+    		    {% endhas_permission %}
+    	    {% endfor %}
+    	</div>
+    </div>
+    <div id="presentation">
+        {{ presentation|sanitize }}
+    </div>
+    {% if events %}
+    <div id="events">
+        <h3>{{ _("Coming events") }}</h3>
+        <table>
+    		{% for event in events %}
+    			<tr>
+    				<td class="date">{% ifchanged %}{{ event.start_time|date:"j b" }}{% endifchanged %}</td>
+    				<td class="time">{{ event.start_time|date:"H:i" }}</td>
+    				<td>{{ event.title }}</td>
+    			</tr>
+    		{% endfor %}
+    	</table>
+    </div>
+    {% endif %}
+
+    <div id="last_logged_in">
+        <h3>{{ _("Last logged in") }}</h3>
+        <table cellspacing="0"><tr>
+        {% for user in latest_logged_in %}
+            {% if user.meta.picture %}
+            	<td><a href="{{ user.get_absolute_url }}"><img src="{% thumbnail user.meta.picture settings.USER_THUMBNAIL_SIZE %}" alt="{{ user.first_name }} {{ user.last_name }}" title="{{ user.first_name }} {{ user.last_name }}" /></a></td>
+        	{% endif %}
+        {% endfor %}
+        </tr></table>
+    </div>
+
+
+    {% comment %}{% for new in news %}
+        <div class="{% unread new %}">
+            <h2>{{ new.title|sanitize }}</h2>
+            {{ new.contents|sanitize }}
+        </div>
+        {% set_last_viewed new %}
+    {% endfor %}
+
+    {% if user.is_staff %}<a href="/news/add/">{{ _("Add news") }}</a>{% endif %}{% endcomment %}
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% spaceless %}
+
+{% ifnotequal number_of_pages 1 %}
+
+{% if is_paginated %}
+<div class="paginator">
+	
+{% if has_previous_page %}
+	<span class="prev"><a href="{{base_url}}page/{{ previous_page }}/{% if search %}?search={{ search|urlencode }}{% endif %}" title="Previous Page">&laquo; Previous</a></span>
+{% else %}
+	<span class="prev-na">&laquo; Previous</span>
+{% endif %}
+ 
+{% if not in_leading_range %}
+	{% for num in pages_outside_trailing_range %}
+		<span class="page"><a href="{{base_url}}page/{{ num }}/{% if search %}?search={{ search|urlencode }}{% endif %}" >{{ num }}</a></span>
+	{% endfor %}
+	...
+{% endif %}
+ 
+{% for num in page_numbers %}
+  {% ifequal num page %}
+    <span class="curr" title="Current Page">{{ num }}</span>
+  {% else %}
+  	<span class="page"><a href="{{base_url}}page/{{ num }}/{% if search %}?search={{ search|urlencode }}{% endif %}" title="Page {{ num }}">{{ num }}</a></span>
+  {% endifequal %}
+{% endfor %}
+ 
+{% if not in_trailing_range %}
+	...
+	{% for num in pages_outside_leading_range reversed %}
+		<span class="page"><a href="{{base_url}}page/{{ num }}/{% if search %}?search={{ search|urlencode }}{% endif %}" >{{ num }}</a></span>
+	{% endfor %}
+{% endif %}
+ 
+{% if has_next_page %}
+	<span class="next"><a href="{{base_url}}page/{{ next_page }}/{% if search %}?search={{ search|urlencode }}{% endif %}" title="Next Page">Next &raquo;</a></span>
+{% else %}
+	<span class="next-na">Next &raquo;</span>
+{% endif %}
+
+</div> 
+{% endif %}
+
+{% endifnotequal %}
+ 
+{% endspaceless %}

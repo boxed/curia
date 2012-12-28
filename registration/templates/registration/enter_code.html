@@ -1,0 +1,24 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ _("Accept invitation") }}{% endblock %}
+{% block header %}{{ _("Accept invitation") }}{% endblock %}
+
+{% block content %}
+	<form method="post">
+		<table>
+		    <tr><th><label>{{ _("Email") }}:</label></th><td>{{ email }}</td></tr>
+			{% include "form.html" %}
+			<tr><td></td><td><input type="submit" /></td></tr>
+		</table>
+	</form>
+
+    <script type="text/javascript">
+        //document.getElementById('id_code').focus()
+    </script>
+
+    {% if error %}
+    	{{ error }}
+   	{% endif %}
+
+{% endblock %}

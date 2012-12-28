@@ -1,0 +1,27 @@
+{% load auth %}
+
+<div{% if permission %} id="permission_row_{{ permission.id }}"{% endif %}>
+	<div class="form-row">
+		<div class="form-cell">
+			<label class="form-cell">{% if permission.user %}{{ _("User") }}{% else %}{% if permission.group %}{{ _("Group") }}{% else %}{{ type.label }}{% endif %}{% endif %}:</label>
+		</div>
+		<div class="form-cell">
+			<input 
+				type="text" 
+				id="id_{{ type.type }}_name_{% if permission %}{{ permission.id }}{% else %}'+new_id+'{% endif %}" 
+				class="vTextField" 
+				name="{{ type.type }}_name_{% if permission %}{{ permission.id }}{% else %}'+new_id+'{% endif %}" 
+				size="30" value="{{ permission.user }}{{ permission.group }}" maxlength="256" />
+		</div>
+		{% if permission.commands %}
+			{% for command in permission.commands %}
+				{% include "authentication/permission_command.html" %}
+			{% endfor %}
+		{% else %}
+			{% for command in available_commands %}
+				{% include "authentication/permission_command.html" %}
+			{% endfor %}
+		{% endif %}		
+	</div>
+</div>
+

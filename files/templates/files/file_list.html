@@ -1,0 +1,83 @@
+{% load i18n %}{% load auth %}
+
+{% block content %}
+    {% if files %}
+        <table class="agenda list">
+            {% for file in files.object_list %}
+                {% has_permission obj=file command="view" %}
+                    <tr id="file_{{ file.id }}_1">
+                		<td>
+                		    <div class="header">
+                		        <span class="actions">
+                                	{% ifequal file.owner_user user%}
+                                	    <a href="/files/{{ file.id }}/edit/"><img src="{{ MEDIA_URL }}commands/change.png" /></a>
+                                	{% endifequal %}
+                                    {% has_permission obj=file command="delete" %}
+                                        <a href="#" onClick="delete_file({{ file.id }}); return false;"><img src="{{ MEDIA_URL }}commands/delete.png" /></a>
+                                    {% endhas_permission %}
+                                </span>
+                		        <a href="{{ file.file.url }}"><img src="{{ MEDIA_URL }}commands/download.png" /> <span class="title">{{ file.title }}</span></a>
+                		        <a href="{{ file.owner_user.get_absolute_url }}">{{ file.owner_user }}</a>
+                				{{ file.creation_time|relative_date }}
+                		    </div>
+                		</td>
+                		{# TODO: Add button to show description. #}
+                    </tr>
+                    <tr id="file_{{ file.id }}_2">
+            		    <td>
+            		        {% if file|labels %}
+            		            <span class="labels">
+            		                <img src="{{ MEDIA_URL }}commands/label.png" title="{{ _("Labels") }}" alt="{{ _("Labels") }}" />
+            		                {% for label in file|labels %}{% if not forloop.first %}, {% endif %}
+            		                    <a href="/files/groups/{{ group.id }}/?search={{ label|urlencode }}">{{ label }}</a>
+            		                {% endfor %}
+            		            </span>
+            		        {% endif %}
+            		        <p>{{ file.description|sanitize }}</p>
+            		    </td>
+                    </tr>
+                {% endhas_permission %}
+            {% endfor %}
+        </table>
+	{% else %}
+		{% ifequal file.owner_user user %}
+			<br />{{ _("You have not saved any files yet.") }}<br /><br />
+		{% else %}
+			<br />{{ _("There are no files here.") }}<br /><br />
+		{% endifequal %}
+	{% endif %}
+
+    <script type="text/javascript">
+
+        function remove_file_from_view(id)
+        {
+            remove_elements(['file_'+id+'_1','file_'+id+'_2']);
+        }
+
+        function delete_file(id)
+        {
+            show_dialog(
+                {
+                    header: "{{ _("Are you sure you want to delete this file?") }}",
+                    explanation: "",
+                    buttons:
+                    [
+                        {
+                            name: "{{ _("Don't delete") }}",
+                            hotkey: "escape"
+                        },
+                        {
+                            name: "{{ _("Delete") }}",
+                            hotkey: "return",
+                            action: function()
+                            {
+                                call_function_with_data_from(remove_file_from_view, '/files/'+id+'/delete/');
+                            }
+                        }
+                    ]
+                });
+        }
+
+    </script>
+
+{% endblock %}

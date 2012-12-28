@@ -1,0 +1,25 @@
+{% load i18n %}{% load auth %}
+
+{% if not is_homepage %}
+{% if version.document.deleted and not user.is_staff %}
+	<div><strong>{{ _("This document was deleted at") }} {{ version.document.deletion_time }} {{ _("by") }} <a href="{{ version.document.deleted_by.get_absolute_url }}">{{ version.document.deleted_by }}.</a></strong></div>
+{% else %}
+	{% if version.document.deleted and user.is_staff %}
+		<div><strong>{{ _("This document was deleted at") }} {{ version.document.deletion_time }} {{ _("by") }} <a href="{{ version.document.deleted_by.get_absolute_url }}">{{ version.document.deleted_by }}.</a></strong></div>
+	{% endif %}
+
+	{% ifequal version version.document.get_latest %}
+		{% link obj=version.document command="edit" %}
+		{% has_permission obj=version.document command="delete" %}<a href="#" onClick="delete_document({{ version.document.id }}); return false;"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></a>{% endhas_permission %}
+	{% else %}
+		{% has_permission obj=version.document command="edit" %}
+			<a href="{{ version.document.get_absolute_url }}version/{{version.id}}/revert/">{{ _("Revert to this version")}}</a>
+		{% endhas_permission %}
+	{% endifequal %}
+
+	{% comment %}
+	{% has_permission obj=version.document command="delete" %}<a href="#" onClick="delete_document({{ version.document.id }}); return false;"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></a>{% endhas_permission %}
+	{% has_permission obj=version.document command="edit" %}<a href="{{ version.document.get_absolute_url }}permissions/"><img src="{{ MEDIA_URL }}commands/permissions.gif" alt="{{ _("Permissions") }}" /></a>{% endhas_permission %}{% endcomment %}
+	
+{% endif %}
+{% endif %}

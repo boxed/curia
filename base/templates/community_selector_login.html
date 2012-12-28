@@ -1,0 +1,10 @@
+{% extends "themes/default/external_without_homepage.html" %}
+
+{% block header %}{{ _("Go to a community") }}{% endblock %}
+{% block title %}{{ _("Go to a community") }}{% endblock %}
+
+{% block content %}
+    <div id="id_community_selector_container" style="position:relative;">
+        <ul id="id_community_selector">{% include "community_selector.html" %}</ul>
+    </div>
+{% endblock %} 

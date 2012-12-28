@@ -1,0 +1,11 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ _("E-mail sent") }}{% endblock %}
+{% block header %}{{ _("E-mail sent") }}{% endblock %}
+
+{% block content %}
+  
+    {% blocktrans %}An e-mail has been sent to your address. Please follow the instructions within to complete your registration.{% endblocktrans %}
+ 
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends base %}
+{% load i18n %}{% load auth %}{% load times %}
+
+{% block header %}{{ _("Messages") }}{% endblock %}
+
+{% block content %}
+<table class="messages" cellspacing="0" cellpadding="0">
+	<tr>
+		{% if objects.users %}
+			<td class="user_list">
+				<ul class="vtabs">
+					{% for foo in objects.users %}
+						{% has_permission obj=foo command="view" %}
+							<li{% ifequal foo objects.user %} class="current"{% endifequal %}><a href="?user={{ foo.id }}">
+							{% if foo.meta.icon.url %}
+								<img src="{{ foo.meta.icon.url }}" />
+							{% endif %}
+							{{ foo }}</a></li>
+						{% endhas_permission %}
+					{% endfor %}
+				</ul>
+			</td>
+		{% endif %}
+		
+		{% if objects.messages.object_list %}
+			<td class="message_list">
+				{{ _("Page") }} {{ objects.page }}{% ifnotequal objects.page objects.end_page %}-{{ objects.end_page }}{% endifnotequal %} {{ _("of") }} {{ objects.number_of_pages }}<br />
+
+				{% if objects.has_previous_page %}
+					<a href="?user={{ objects.user.id }}&amp;page=1&amp;page_size={{ objects.page_size }}">&lt;&lt; {{ _("First") }}</a>
+					{% ifnotequal objects.previous_page 1 %}
+						<a href="?user={{ objects.user.id }}&amp;page={{ objects.previous_page }}&amp;page_size={{ objects.page_size }}"> &lt; {{ _("Previous") }}</a>
+					{% endifnotequal %}
+
+				{% endif %}
+				{% if objects.has_next_page %}
+					{% ifnotequal objects.next_page objects.number_of_pages %}
+						<a href="?user={{ objects.user.id }}&amp;page={{ objects.next_page }}&amp;page_size={{ objects.page_size }}">{{ _("Next") }} &gt;</a>
+					{% endifnotequal %}
+					{% ifnotequal objects.next_page objects.end_page %}
+						<a href="?user={{ objects.user.id }}&amp;page={{ objects.number_of_pages }}&amp;page_size={{ objects.page_size }}">{{ _("Last") }} &gt;&gt;</a>
+					{% endifnotequal %}
+				{% endif %}
+
+				{% for message in objects.messages %}
+					<div class="message {% unread message %}">
+						<div class="panel">{% link obj=message.sender %}</a> to {% link obj=message.receiver %} {{ message.creation_time }}</div>
+						{{ message.message|sanitize }}
+					</div>
+
+					{% if forloop.last %}
+						{% set_last_viewed message %}
+					{% endif %}
+
+				{% endfor %}
+
+				{% has_permission obj=receiver command="view" %}
+					<form method="POST" action="/messages/add/">
+						<textarea id="id_write_message" name="message" style="width: 100%;"></textarea>
+						<input type="hidden" name="receiver_id" value="{{ objects.user.id }}">
+						<input type="hidden" name="owner_id" value="{{ owner.id }}">
+						<input type="submit" value="{{ _("Send") }}">
+					</form>
+				{% endhas_permission %}
+
+
+			</td>
+		{% else %}
+			{% ifnotequal owner user %}
+				<td class="message_list">
+					<form method="POST" action="/messages/add/">
+						<textarea id="id_write_message" name="message" style="width: 100%;"></textarea>
+						<input type="hidden" name="receiver_id" value="{{ objects.user.id }}">
+						<input type="hidden" name="owner_id" value="{{ owner.id }}">
+						<input type="submit" value="{{ _("Send") }}">
+					</form>
+				</td>
+			{%endifnotequal %}
+		{% endif %}
+	</tr>
+</table>
+
+{% if objects.messages %}
+	<script type="text/javascript">
+    	document.getElementById('id_write_message').focus();
+	</script>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "forums/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block header %}{{ _("Forum") }}{% endblock %}
+{% block title %}{{ _("Forum") }}{% endblock %}
+
+{% block content %}
+    {% has_permission obj=community command="administrate thread" %}
+    	<div class="panel">
+    			<a href="/forums/{{ group.id }}/add_suggested_label/" class="button"><img src="{{ MEDIA_URL }}commands/add.png" alt="" /> {{ _("Edit tabs")}}</a>
+    	</div>
+	{% endhas_permission %}
+	{% if suggested_labels %}
+		<ul class="tabs">
+			<li{% if on_all %} class="current"{% endif %}><a href="/forums/{{ group.id }}/">{{ _("All") }}</a></li>
+			{% for suggested_label in suggested_labels %}
+				<li{% ifequal fastsearch suggested_label.title %} class="current"{% endifequal %}><a href="/forums/{{ group.id }}/?fastsearch={{ suggested_label.title|urlencode }}">{{ suggested_label }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+	<div class="tab_content_container">
+    	<div class="tab_content">
+            <table style="width:auto;">
+    			<tr><td colspan="2"><form method="post">{{ form.search }}<span class="button" onClick="$('id_search_button').click();"><img src="{{ MEDIA_URL }}commands/search.png" alt="" /> {{ _("Search") }}</span></form></td>
+    			</tr>
+    			<tr style="display: none;"><td></td>
+    				<td><input id="id_search_button" type="submit" name="button" value="{{ _("Search") }}"/></td>
+    				{% has_permission obj=community command="add thread" %}
+    					<td><input id="id_create_button" type="submit" name="create_thread" value="{{ _("Create thread") }}"</td>
+    				{% endhas_permission %}
+    			</tr>
+    			{% has_permission obj=community command="add thread" %}
+    				<form method="post" action="/forums/add/">
+    				    <input type="hidden" name="group_id" value="{{ community.id }}" />
+    				    <input type="hidden" name="fastsearch" value="{{ fastsearch }}" />
+    				    <tr><td><label for="id_name">{{ _("New thread") }}:</label></td><td>{{ add_form.name }}</td></tr>
+    				    <tr style="display: none" id="id_add_row_1"><td><label for="id_name">{{ _("Labels") }}:</label></td><td>{{ add_form.labels }}</td></tr>
+    				    <tr style="display: none" id="id_add_row_2"><td colspan="2">{{ add_form.first_message }}</td></tr>
+    				    <tr style="display: none" id="id_add_row_3"><td><input type="submit" value="{{ _("Add") }}"/></td></tr>
+        			</form>
+    			{% endhas_permission %}
+    		</table>
+        	{% include "forums/thread_list.html" %}
+        </div>
+    </div>
+    
+    <script>
+        function show_rows()
+        {
+            new Effect.BlindDown('id_add_row_1', {duration:0.2});
+            new Effect.BlindDown('id_add_row_2', {duration:0.2});
+            new Effect.BlindDown('id_add_row_3', {duration:0.2});
+        }
+        
+        function hide_rows()
+        {
+            if ($('id_name').value == '')
+            {
+                new Effect.BlindUp('id_add_row_1', {duration:0.2});
+                new Effect.BlindUp('id_add_row_2', {duration:0.2});
+                new Effect.BlindUp('id_add_row_3', {duration:0.2});
+            }
+        }
+        
+        $('id_name').onfocus = function() {$('id_name').has_focus = true; show_rows(); }
+        $('id_name').onblur = function() {$('id_name').has_focus = false; hide_rows();}
+        
+    </script>
+
+	{% digg_paginator %}
+{% endblock %}

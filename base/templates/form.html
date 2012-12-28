@@ -1,0 +1,7 @@
+{% for field in form.visible_fields %}
+    {% include "field.html" %}
+{% endfor %}
+
+{% for hidden in form.hidden_fields %}
+    {{ hidden }}
+{% endfor %}

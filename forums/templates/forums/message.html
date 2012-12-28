@@ -1,0 +1,44 @@
+{% load times %}
+{% load i18n %}{% load auth %}{% load thumbnail %}
+<div id="message_{{ message.id }}" class="outer_message{% unread message thread %}"{% if threaded %} style="padding-left: {{ message.get_indent|multiply:"15"}}px;"{% endif %}>
+    {% if message.firstnew %}<div id="firstnew"><a name="firstnew"></a></div>{% endif %}
+    <div class="icon">
+		{% if message.owner.meta.picture %}
+        	<img src="{% thumbnail message.owner.meta.picture settings.USER_THUMBNAIL_SIZE %}" />
+		{% endif %}
+    </div>
+    <div class="message_info">
+        <span class="actions">
+            {% ifequal user.id 1 %}{% if message.firstnew %}firstnew{% endif %} <a href="?set_time={{ message.creation_time }}#firstnew">{{ _("Unread") }}</a>{% endifequal %}
+            {% if message.deleted %}
+                {% blocktrans with message.deleted_by.get_absolute_url as url and message.deleted_by as user %}Deleted by <a href="{{ url }}">{{ user }}</a>{% endblocktrans %}
+            {% else %}
+                {% ifequal current_user message.owner %}
+                    <a href="/forums/message/{{message.id}}/edit"><img src="{{ MEDIA_URL }}commands/change.png" alt="{{ _("Edit") }}" /></a>
+                {% endifequal %}
+                {% if forloop.last %}
+                    {% if not forloop.first %}
+                        {% has_permission obj=message command="delete" %}
+                            <span onClick="delete_message('{{ message.id }}');"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></span>
+                        {% else %}
+	                    	{% has_permission obj=community command="administrate thread" %}
+	                        	<span onClick="delete_message({{ message.id }});"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></span>
+	                    	{% endhas_permission %}
+						{% endhas_permission %}
+                    {% endif %}
+                {% else %}
+                    {% has_permission obj=community command="administrate thread" %}
+                        <span onClick="delete_message({{ message.id }});"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></span>
+                    {% endhas_permission %}
+                {% endif %}
+                {% has_permission obj=thread command="add message" %}
+                    <span class="link" onClick="reply_to({{ message.id }}); return false;">{{ _("Reply") }}</span>
+                {% endhas_permission %}
+            {% endif %}
+        </span>
+        <a id="message_{{ message.id }}_user" href="{{ message.owner.get_absolute_url }}">{{ message.owner.first_name }} {{ message.owner.last_name}}</a> <span class="datetime">{{ message.creation_time|relative_date }}</span>{% if message.parent_message %}, {{ _("answer to") }} {{ message.parent_message.owner }} (<span class="link" onClick="scroll_to_and_flash('message_'+{{ message.parent_message.id}})">{{ _("Show") }}</span>){% endif %}
+    </div>
+    <div class="message">
+        {{ message.body|sanitize }}
+    </div>
+</div>

@@ -1,0 +1,18 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{{ _("Add group") }}{% endblock %}
+{% block header %}{{ _("Add group") }}{% endblock %}
+
+{% block content %}
+	<form method="post" enctype="multipart/form-data">
+	    <table>
+	        {% include "form.html" %}
+	        <tr><td></td><td><input type="submit" value="{{ _("Add") }}"/></td></tr>
+		</table>
+	</form>
+
+	{% if error %}
+		{{ error }}
+	{% endif %}
+{% endblock %}

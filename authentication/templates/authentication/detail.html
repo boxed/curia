@@ -1,0 +1,14 @@
+{% load auth %}
+<div{% if detail %} id="detail_row_{{ detail.id }}"{% endif %}>
+	<div class="form-row">
+		<div class="form-cell"><label class="form-cell" for="id_detail_name_{% include "authentication/detail_id.html" %}"></label></div>
+		<div class="form-cell"><input type="text" id="id_detail_name_{% include "authentication/detail_id.html" %}" class="vTextField" name="detail_name_{% include "authentication/detail_id.html" %}" size="30" value="{{ detail.name }}" maxlength="256" /></div>
+		<div class="form-cell"><label for="id_detail_value_{{ detail.id }}"></label></div>
+		<div class="form-cell"><input type="text" id="id_detail_value_{% include "authentication/detail_id.html" %}" class="vTextField" name="detail_value_{% include "authentication/detail_id.html" %}" size="30" value="{{ detail.value }}" maxlength="1024" /></div>
+		{% if detail %}
+			<div class="form-cell"><a href="#" class="small_button" onClick="replace_contents_with_data_from('detail_row_{{ detail.id }}', '/users/detail/{{ detail.id }}/delete/'); return false;"><img src="{{ MEDIA_URL }}commands/delete.png" />{{ _("Delete") }}</a></div>
+		{% else %}
+			<div class="form-cell"><a href="#" class="small_button"  onClick="delete_detail('+new_id+'); return false;" class="deletelink"><img src="{{ MEDIA_URL }}commands/delete.png" alt="" />{{ _("Delete") }}</a></div>
+		{% endif %}
+	</div>
+</div>

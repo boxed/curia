@@ -1,0 +1,36 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{% blocktrans %}New {{ content_type_name }}{% endblocktrans %}{% endblock %}
+{% block header %}{{ _("Bookmarks") }}{% endblock %}
+
+{% block content %}
+	{% ifequal content_type "forums.thread" %}
+		{% curia_include "forums/thread_list.html" threads=new_objects %}
+	{% else %}
+		{% ifequal content_type "images.imageset" %}
+			{% curia_include "images/set_list.html" sets=new_objects %}
+		{% else %}
+			{% ifequal content_type "files.file" %}
+				{% curia_include "files/file_list.html" files=new_objects %}
+			{% else %}
+    			{% ifequal content_type "calendars.event" %}
+    				{% curia_include "calendars/event_list.html" events=new_objects %}
+    			{% else %}
+        			{% ifequal content_type "auth.user" %}
+        				{% curia_include "authentication/user_list.html" members=new_objects %}
+        			{% else %}
+        				{% for obj in new_objects %}
+        					<div><a href="{{ obj.get_absolute_url }}">{{ obj }}</a></div>
+        				{% endfor %}
+            		{% endifequal %}
+        		{% endifequal %}
+			{% endifequal %}
+		{% endifequal %}
+	{% endifequal %}
+
+	<div style="text-align:right;">
+		<a href="/notifications/new/{{ content_id }}/delete/" class="button">{{ _("Clear list") }}</a>
+	</div>
+
+{% endblock %}

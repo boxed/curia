@@ -1,0 +1,23 @@
+{% load i18n %}{% load auth %}<html>
+    <body>
+        <h1>{% trans "Added debt" %}</h1>
+
+        {% blocktrans with transaction.created_by as created_by %}{{ created_by }} added a debt:{% endblocktrans %}<br />
+        {{ transaction.amount }} {{ transaction.description }}
+        
+        <p />
+
+		{% ifequal status "neutral" %}
+			{% blocktrans with account.balance|absolute as balance %}You have borrowed <strong>{{ balance }}</strong>{% endblocktrans %}
+		{% endifequal %}
+
+		{% ifequal status "negative" %}
+		    {% blocktrans with account.balance|absolute as balance %}You have borrowed <strong>{{ balance }}</strong>{% endblocktrans %}
+		{% endifequal %}                                                                                    
+                                                                                                            
+		{% ifequal status "positive" %}                                                                     
+			{% blocktrans with account.balance|absolute as balance %}You have lended <strong>{{ balance }}</strong>{% endblocktrans %}
+		{% endifequal %}
+        
+    </body>
+</html>

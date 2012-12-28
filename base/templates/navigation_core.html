@@ -1,0 +1,53 @@
+{% load i18n %}{% load auth %}
+<div style="padding: 5px; padding-top: 0;">
+	{% if user.is_anonymous %}
+		<a href=".">{% blocktrans %}You have been logged out, click here to log in again.{% endblocktrans %}</a>
+	{% else %}
+		{% comment %}
+		<h1  style="position: relative; right: 16px;"><a href="{{ user.get_absolute_url }}">{% if user.meta.icon %}<img src="{{ user.meta.icon.url }}" />{% endif %} <a href="{{ user.get_absolute_url }}">{{ user.first_name }} {{ user.last_name }}</a></h1>
+		{% endcomment %}
+	
+	   	{% for invite in group_invites %}
+	   		{% if invite.group.meta.friend_group %}
+				<div><a href="/groups/{{ invite.group.id }}/invite/">{% blocktrans with invite.inviter as inviter %}{{ inviter }} wishes to become your friend.{% endblocktrans %}</a></div>
+	    	{% else %}
+	    		<div><a href="/groups/{{ invite.group.id }}/invite/">{% blocktrans with invite.group as group %}You have been invited to join the group {{ group }}.{% endblocktrans %}</a></div>
+	    	{% endif %}
+	    {% endfor %}
+
+	    <h2><a href="/notifications/bookmarks/">{{ _("Bookmarks") }}</a></h2>
+        {% if bookmarks %}
+    		<ul class="bookmarks">
+    		    {% for bookmark in bookmarks %}
+    		        <li><a href="{{ bookmark.get_absolute_url }}">{{ bookmark }}</a></li>
+    		    {% endfor %}
+    		</ul>
+    	{% endif %}
+		
+		<div style="text-align: right; padding-top: 5px;">
+		    {% if current_url_is_bookmarked %}
+	        <span class="button" onclick="window.location = '/notifications/bookmarks/delete?url={{ current_url }}'"><img src="{{ MEDIA_URL }}commands/delete.png"/> {{ _("Remove bookmark") }} </span></div>
+		    {% else %}
+	        <span class="button" onclick="window.location = '/notifications/bookmarks/add?url={{ current_url }}&amp;title='+$('id_bookmark_title').innerHTML"><img src="{{ MEDIA_URL }}commands/add_bookmark.png"/> {{ _("Add bookmark") }} </span></div>
+		    {% endif %}
+
+        <h2 style="padding-top: 7px;">{{ _("New items") }}</h2>
+	    {% if subscription_entries %}
+	        <div style="visibility:hidden;" id="new_items_exist"></div>
+    		<ul class="subscription_entries">
+    			{% for entry in subscription_entries %}
+    				<li><a href="/notifications/new/{{ entry.content_type_id }}/">{{ entry }}</a></li>
+    			{% endfor %}
+    		</ul>
+		{% endif %}
+        <h2 style="padding-top: 7px;"><a href="/notifications/watchers/">{{ _("Watchers") }}</a></h2>
+		{% if notifications %}
+		    <div style="visibility:hidden;" id="notifications_exist"></div>
+    		<ul class="notifications">
+    		    {% for notification in notifications %}
+    		      	<li><a href="{{ notification.get_absolute_url }}">{{ notification }}</a></li>
+    		    {% endfor %}
+    		</ul>
+		{% endif %}
+	{% endif %}
+</div>

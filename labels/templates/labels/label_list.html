@@ -1,0 +1,10 @@
+{% extends "labels/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block content %}
+
+   {% for obj in object_list %}
+        <div{%include "unread_obj.html"%}><a href="{{ obj.get_absolute_url }}">{{ obj }}</a></div>
+   {% endfor %}
+
+{% endblock %}

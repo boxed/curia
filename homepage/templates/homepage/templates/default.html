@@ -1,0 +1,107 @@
+{% load i18n %}{% load auth %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
+    <head>
+        {% if user_agent|contains:"webkit" and user_agent|contains:"mobile" %}
+            <meta name="viewport" content="width=device-width, user-scalable=no" />
+        {% endif %}
+        <link rel="stylesheet" type="text/css" href="/community.css" />
+        <!--<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}tabs/tabs.css" />-->
+        <script type="text/javascript">AC_FL_RunContent = 0;</script><script src="{{ MEDIA_URL }}js/AC_RunActiveContent.js" type="text/javascript"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/prototype.js"></script>
+        <script type="text/javascript" src="/jsi18n/"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/core.js"></script>
+        {% block extra_head %}{% endblock %}
+        <style>
+            body {
+                text-align: left;
+            }
+        </style>
+        <title>{% if community %}{{ community }} - {% block header %}{% endblock %}{% endif %}</title>
+    </head>
+    <body>
+        <div id="main">
+            {% block body %}
+                <div id="header">
+                    <div id="header-util-links">
+                        <ul id="utils-menu" class="menu">
+                        </ul>
+                    </div>
+                    <div id="header-right">
+                    </div>
+                    <h1 id="header-title"><a href="/">{% if community %}{{ community }}{% else %}&nbsp;{% endif %}</a></h1>
+                    <ul id="global-menu" class="menu">
+                        {% for item in menu %}
+                            {{ item|safe }}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div id="body">
+                    {% if submenu %}
+                        <div id="id_submenu">
+                            <h3>Submenu</h3>
+                            <ul class="menu">
+                                {{ current_menu_location|safe }}
+                                {% for item in submenu %}
+                                    {{ item|safe }}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <table style="width: 100%;" cellspacing="0">
+                        <tr>
+                            <td id="body-left">
+                                {% curia_include "authentication/login_box.html" %}
+                            </td>
+                            <td id="body-center">
+                                <h1>{% block title %}{% endblock %}</h1>
+                                <div id="body-center-content">
+                                    {% block content %}{% endblock %}
+                                </div>
+                            </td>
+                            <td id="body-right">
+                                <script language="javascript">
+                                    AC_FL_RunContent(
+                                        'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0',
+                                        'width', '120',
+                                        'height', '600',
+                                        'quality', 'high',
+                                        'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
+                                        'align', 'middle',
+                                        'play', 'true',
+                                        'loop', 'true',
+                                        'scale', 'showall',
+                                        'wmode', 'window',
+                                        'devicefont', 'false',
+                                        'id', 'banner',
+                                        'bgcolor', '#ffffff',
+                                        'name', 'banner',
+                                        'menu', 'true',
+                                        'allowFullScreen', 'false',
+                                        'allowScriptAccess','sameDomain',
+                                        'movie', '{{ MEDIA_URL }}banners/eldmyra1',
+                                        'salign', ''
+                                        );
+                                </script>
+                                <noscript>
+                                    <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="120" height="600" id="eldmyra" align="middle">
+                                    <param name="allowScriptAccess" value="sameDomain" />
+                                    <param name="allowFullScreen" value="false" />
+                                    <param name="movie" value="{{ MEDIA_URL }}banners/eldmyra1.swf" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" />    <embed src="{{ MEDIA_URL }}banners/eldmyra1.swf" quality="high" bgcolor="#ffffff" width="120" height="600" name="banner" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+                                    </object>
+                                </noscript>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="footer">
+                    Powered by Eldmyra.se
+                </div>
+            {% endblock %}
+        </div>
+        <div id="test"></div>
+        
+        {% include "google_analytics.html" %}
+    </body>
+</html>

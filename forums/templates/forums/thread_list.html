@@ -1,0 +1,40 @@
+{% load i18n %}{% load auth %}
+
+{% if threads %}
+	<table class="detailed_list list" cellspacing="0">
+		<tr>
+			<th>
+				{{ _("Title") }}
+			</th>
+			<th>
+			    {{ _("Replies") }}
+			</th>
+			<th class="author">
+				{{ _("Created") }} / {{ _("Latest")}}
+			</th>
+		</tr>
+        {% for thread in threads.object_list %}
+		<tr{% curia_include "unread.html" object=thread %}>
+			<td class="left">
+				<span class="title"><a href="{{ thread.get_absolute_url }}#firstnew">{{ thread }}</a></span><br />
+				{% if thread|labels %}<span class="labels"><img src="{{ MEDIA_URL }}commands/label.png" title="{{ _("Labels") }}" alt="{{ _("Labels") }}" />
+				    {% for label in thread|labels %}{% if not forloop.first %}, {% endif %}<a href="/forums/{{ group.id }}/?search={{ label|urlencode }}">{{ label }}</a>{% endfor %}</span>{% endif %}
+			</td>
+			<td class="number_of_items">
+			    {{ thread.number_of_replies }}
+			</td>
+			<td class="right">
+				{% blocktrans with thread.creation_time|relative_date as time and thread.owner_user.get_absolute_url as user_url and thread.owner_user as user %}{{ time }} by <a href="{{ user_url }}">{{ user }}</a>{% endblocktrans %}<br />
+                {% ifnotequal thread.number_of_replies 0 %}
+					{% blocktrans with thread.last_changed_time|relative_date as time and thread.last_changed_by.get_absolute_url as user_url and thread.last_changed_by as user %}{{ time }} by <a href="{{ user_url }}">{{ user }}</a>{% endblocktrans %}
+                {% endifnotequal %}
+			</td>
+		</tr>
+		<tr class="spacing">
+			<td colspan="2"></td>
+		</tr>
+		{% endfor %}
+	</table>
+{% else %}
+	<p>{{ _("No threads are available.") }}</p>
+{% endif %}

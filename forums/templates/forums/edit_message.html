@@ -1,0 +1,14 @@
+{% extends "forums/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{% blocktrans %}Edit{% endblocktrans %}{% endblock %}
+{% block header %}{% blocktrans %}Edit{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    <form method="post">
+	    <table>
+        	{% include "form.html" %}
+        	<tr><td></td><td><input type="submit" value="{{ _("Save") }}"/></td></tr>
+	    </table>
+    </form>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% load i18n %}{% load auth %}
+<html>
+    <head>
+        <style>
+            body {
+                background: white;
+                font-family: Verdana;
+                font-size: 12px;
+                background: #FAFAFA;
+            }
+            th {
+                text-align: right;
+                width: 200px;
+            }
+            table {
+                width: 100%;
+                border: 5px solid #EDF0F8;
+                background: white;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>{{ _("New bug posted") }}</h1>
+
+        <table>
+            <tr class="odd"><th>{{ _("Reporter") }}:</th><td>{{ bug.reporter }} (<a href="mailto:{{ bug.reporter.email }}">{{ bug.reporter.email }}</a>)</td></tr>
+            <tr class="even"><th>{{ _("URL") }}:</th><td>{{ bug.urls }}</td></tr>
+            <tr class="odd"><th>{{ _("Browser") }}:</th><td>{{ bug.browser }}</td></tr>
+            <tr class="even"><th>{{ _("Description") }}:</th><td>{{ bug.description|linebreaks_and_spaces }}</td></tr>
+        </table>
+    </body>
+</html>

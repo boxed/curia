@@ -1,0 +1,197 @@
+{% extends "forums/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block header %}{{ thread }}{% endblock %}
+{% block title %}
+
+{% if forum %}
+    {{ _("Forum") }}
+    {% for parent in parents %}
+        - <a href="/forums/{{ parent.title }}/">{{ parent.title }}</a>
+    {% endfor %}
+    - <a href="/forums/{{ suggested_label.title }}/">{{ suggested_label.title }}</a>
+    {{ thread }}
+{% else %}
+    {{ thread }}
+{% endif%}
+
+{% endblock %}
+
+{% block extra_head %}
+    <style type="text/css">
+        th {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+{% if thread|labels %}
+    <div class="labels">
+        <img src="{{ MEDIA_URL }}commands/label.png" title="{{ _("Labels") }}" alt="{{ _("Labels") }}" />
+        {% for label in thread|labels %}
+            {% if not forloop.first %}, {% endif %}
+            <a href="/forums/{{ community.id }}/?search={{ label|urlencode }}">{{ label }}</a>
+        {% endfor %}
+    </div>
+{% endif %}
+{% if thread.deleted %}
+    <div>{{ _("This thread was deleted at") }} {{ thread.deletion_time }} {{ _("by") }} <a href="{{ thread.deleted_by.get_absolute_url }}">{{ thread.deleted_by }}.</a></div>
+{% else %}
+    {% has_permission obj=thread command="change" %}<a class="button" href="{{ thread.get_absolute_url }}edit/"><img src="{{ MEDIA_URL }}commands/change.png" alt="" /> {{ _("Edit") }}</a>{% endhas_permission %}
+
+    {% ifequal number_of_replies 0 %}
+        {% has_permission obj=thread command="delete" %}<span class="button" onClick="delete_thread({{ thread.id }});"><img src="{{ MEDIA_URL }}commands/delete.png" alt=""/> {{ _("Delete") }}</span>{% endhas_permission %}
+    {% else %}
+        {% has_permission obj=community command="administrate thread" %}<span class="button" onClick="delete_thread({{ thread.id }});"><img src="{{ MEDIA_URL }}commands/delete.png" alt=""/> {{ _("Delete") }}</span>{% endhas_permission %}
+    {% endifequal %}
+
+    <script type="text/javascript">
+        function reply_to(message_id)
+        {
+            var count = $$('.hidden_message outer_message').length;
+            $$('.outer_message').each(
+                function(div)
+                {
+                    id = div.id.substr('message_'.length);
+                    if (parseInt(id) > message_id)
+                    {
+                        if (div.className != 'hidden_message outer_message')
+                        {
+                            div.className = 'hidden_message outer_message';
+                            new Effect.BlindUp(div.id, {duration:0.2});
+                        }
+                        count++;
+                    }
+                });
+
+            $('id_end_paginator').style.display = 'none'
+
+            $('id_num_hidden_messages').innerHTML = count;
+            $('id_show_all').style.display = 'inline';
+            $('id_parent_message_id').value = message_id;
+
+            $('id_reply_warning').innerHTML = '{{ _("Reply to %s:") }} (<span class="link" onClick="cancel_reply();">{{ _("Cancel") }}</span>)'.replace('%s', $('message_'+message_id+'_user').innerHTML);
+            $('id_reply_warning').style.display = 'inline';
+        }
+
+        function cancel_reply()
+        {
+            $('id_reply_warning').style.display = 'none';
+            $('id_parent_message_id').value = '';
+            show_all();
+        }
+
+        function show_all()
+        {
+            $$('.hidden_message').each(
+                function(div)
+                {
+                    div.className = 'outer_message';
+                    div.style.display = '';
+                });
+            $('id_show_all').style.display = 'none';
+            $('id_end_paginator').style.display = 'inline'
+        }
+
+        function redirect(id)
+        {
+            {% if thread.owner_group %}
+                window.location = "/forums/{{ thread.owner_group.id }}"
+            {% else %}
+                window.location = "/forums/"
+            {% endif %}
+        }
+
+        function delete_thread(id)
+        {
+            show_dialog(
+                {
+                    header: "{{ _("Are you sure you want to delete this thread?") }}",
+                    explanation: "",
+                    buttons:
+                    [
+                        {
+                            name: "{{ _("Don't delete") }}",
+                            hotkey: "escape"
+                        },
+                        {
+                            name: "{{ _("Delete") }}",
+                            hotkey: "return",
+                            action: function()
+                            {
+                                call_function_with_data_from(redirect, '/forums/threads/'+id+'/delete/');
+                            }
+                        }
+                    ]
+                });
+        }
+
+        function remove_messages_from_view(message_ids)
+        {
+            message_ids.each(function(id)
+                {
+                    new Effect.BlindUp('message_'+id, {duration:0.2});
+                })
+        }
+
+        function delete_message(id)
+        {
+            show_dialog(
+                {
+                    header: "{{_("Do you want to delete this message?")}}",
+                    explanation: "",
+                    buttons:
+                    [
+                        {
+                            name: "{{ _("Don't delete") }}",
+                            hotkey: "escape"
+                        },
+                        {
+                            name: "{{ _("Delete") }}",
+                            hotkey: "return",
+                            action: function()
+                            {
+                                call_function_with_data_from(remove_messages_from_view, '/forums/message/'+id+'/delete/');
+                            }
+                        }
+                    ]
+                });
+        }
+    </script>
+
+    {% digg_paginator %}
+
+    {% for message in messages %}
+        {% include 'forums/message.html' %}
+    {% endfor %}
+
+    <div id="id_end_paginator">{% digg_paginator %}</div>
+
+    <div style="clear: both;"></div>
+
+    <div style="text-align: center;"><div id="id_show_all" style="display:none;">{% blocktrans %}<span id="id_num_hidden_messages"></span>&nbsp;messages hidden.{% endblocktrans %} <span class="link" onClick="show_all();">{{ _("Show all") }}</span></div></div>
+    <p></p>
+    {% if set_time %}
+        {% load times %}
+        {% set_last_viewed thread %}
+    {% endif %}
+{% endif %}
+
+<div style="clear: both;"></div>
+
+{% if not thread.deleted %}
+    {% has_permission obj=thread command="add message" %}
+        <div id="id_reply_warning" style="display:none;"></div>
+
+        <form method="post">
+            <table>
+                {% include "form.html" %}
+                <tr><td><input type="submit" value="{{ _("Send") }}"/></td></tr>
+            </table>
+            <input id="id_parent_message_id" type="hidden" name="parent_message_id" value="" />
+        </form>
+    {% endhas_permission %}
+{% endif %}
+
+{% endblock %}

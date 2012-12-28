@@ -1,0 +1,10 @@
+{% extends base %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{{ _("Thank you!") }}{% endblock %}
+{% block header %}{{ _("Thank you!") }}{% endblock %}
+
+{% block content %}
+    {% blocktrans with community.get_external_absolute_url as url %}We have sent you an e-mail. Follow the instructions within to complete the registration.
+    Your community {{ community }} can then be reached at <a href="{{ url }}">{{ url }}</a>. {% endblocktrans %}
+{% endblock %}

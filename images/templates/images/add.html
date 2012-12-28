@@ -1,0 +1,15 @@
+{% extends "images/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{{ _("Add image") }}{% endblock %}
+{% block header %}{{ _("Add image") }}{% endblock %}
+
+{% block content %}
+	<strong>{{ _("Did you know:") }}</strong> {{ _("If you upload a zipped file full of images, all the images will be saved.") }}
+	<form method="post" enctype="multipart/form-data">
+		<table>
+	        {% include "form.html" %}
+	        <tr><td></td><td><input type="submit" value="{{ _("Add") }}"/></td></tr>
+		</table>
+	</form>
+{% endblock %}

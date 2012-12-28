@@ -1,0 +1,52 @@
+{% extends "forums/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title  %}{{ _("Edit tabs") }}{% endblock %}
+{% block header %}{{ _("Edit tabs") }}{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <table>
+			{% include "form.html" %}
+        	<tr><td></td><td><input type="submit" value="{{ _("Add") }}"/></td></tr>
+		</table>
+    </form>
+	{% if added_label %}
+	    {% blocktrans with added_label as added_label %}Tab "{{ added_label }}" added.{% endblocktrans %}<br />
+	{% endif %}
+	
+	{% for label in labels %}
+		<div id="label_{{ label.id }}">{{ label }} <a href="#" onClick="delete_suggested_label({{ label.id }}); return false;"><img src="{{ MEDIA_URL }}commands/delete.png" alt="" /></a><br /></div>
+	{% endfor %}
+	
+	<script type="text/javascript">	
+    	function remove_file_from_view(id)
+    	{
+        	remove_elements(['label_'+id]);
+    	}
+
+        function delete_suggested_label(id)
+        {
+            show_dialog(
+                {
+                    header: "{{ _("Do you want to delete this tab?") }}",
+                    explanation: "{{ _("Deleting a tab will not delete any item.") }}",
+                    buttons:
+                    [
+                        {
+                            name: "{{ _("Don't delete") }}",
+                            hotkey: "escape"
+                        },
+                        {
+                            name: "{{ _("Delete") }}",
+                            hotkey: "return",
+                            action: function()
+                            {
+                                call_function_with_data_from(remove_file_from_view, '/labels/group/{{ community.id }}/delete/'+id+'/');
+                            }
+                        }
+                    ]
+                });
+        }
+	</script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% load i18n %}{% load auth %}{% load thumbnail %}
+
+<div class="grid_view">
+    {% for member in members.object_list %}
+		<table cellspacing="0">
+			<tr><td class="image"><a href="{{ member.get_absolute_url }}"><img src="{% if member.meta.picture %}{% thumbnail member.meta.picture settings.ICON_SIZE %}{% else %}{{ settings.MEDIA_URL }}user-icons/default_user_image.png{% endif %}"></a></td></tr>
+			<tr><td class="description"><a href="{{ member.get_absolute_url }}">{{ member.first_name|truncateletters:15 }} {{ member.last_name|truncateletters:15 }}</a>
+			</td></tr>
+		</table>
+		{% comment %}
+			{% has_permission obj=group command="edit" %}
+				{% ifnotequal group community %}
+					<a href="{{ group.get_absolute_url }}delete_member/{{ member.id }}/"><img src="{{ MEDIA_URL }}commands/delete.png" alt="{{ _("Delete") }}" /></a>
+				{% endifnotequal %}
+			{% endhas_permission %}
+		{% endcomment %}
+    {% endfor %}
+</div>

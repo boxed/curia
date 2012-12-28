@@ -1,0 +1,17 @@
+{% extends "labels/base.html" %}
+{% load i18n %}{% load auth %}
+
+{% block title %}{{ label }}{% endblock %}
+
+{% block content %}
+
+    <h1>{{ label }}</h1>
+    <p/>
+
+    {% for r in related %}
+		{% has_permission obj=r.get_corresponding_object command="view" %}
+			{% if r.owner_user %}{{ r.owner_user }}{% else %}{% if r.owner_group %}{{ r.owner_group }}{% endif %}{% endif %} <a href="{{ r.get_corresponding_object.get_absolute_url }}">{{ r.get_corresponding_object }}</a><br />
+    	{% endhas_permission %}
+    {% endfor %}
+
+{% endblock %}

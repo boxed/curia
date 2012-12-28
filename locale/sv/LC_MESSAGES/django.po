@@ -1,0 +1,2625 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-20 22:35+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: __init__.py:140
+msgid "now"
+msgstr "nu"
+
+#: __init__.py:155
+#, python-format
+msgid "in %s"
+msgstr "om %s"
+
+#: __init__.py:160
+#, python-format
+msgid "%s h "
+msgstr "%s h "
+
+#: __init__.py:163
+#, python-format
+msgid "%s min "
+msgstr "%s min "
+
+#: __init__.py:165
+#, python-format
+msgid "%s s "
+msgstr "%s s "
+
+#: __init__.py:168
+#, python-format
+msgid "%sago"
+msgstr "%ssedan"
+
+#: __init__.py:172
+#, python-format
+msgid "yesterday at %s"
+msgstr "igår %s"
+
+#: __init__.py:174
+#, python-format
+msgid "tomorrow at %s"
+msgstr "imorgon %s"
+
+#: forms.py:82
+msgid "Enter a valid date."
+msgstr "Skriv in ett giltigt datum."
+
+#: forms.py:83
+msgid "Enter a valid time."
+msgstr "Skriv in en giltig tid."
+
+#: schedule.py:39
+#, python-format
+msgid "%s has something new for you"
+msgstr "%s har något nytt för dig"
+
+#: authentication/models.py:14 authentication/models.py:34
+#: authentication/models.py:98 authentication/models.py:189
+#: authentication/templates/authentication/permission.html:6
+#: authentication/templates/authentication/permission_safe.html:5
+#: calendars/models.py:101 debts/models.py:14 notifications/models.py:11
+#: notifications/models.py:81 notifications/models.py:109 times/models.py:10
+msgid "User"
+msgstr "Användare"
+
+#: authentication/models.py:15 authentication/models.py:61
+#: authentication/models.py:153 authentication/models.py:188
+#: authentication/templates/authentication/permission.html:6
+#: homepage/models.py:7 labels/models.py:51
+msgid "Group"
+msgstr "Grupp"
+
+#: authentication/models.py:16 authentication/views.py:330
+#: base/templates/administrate.html:16 forums/models.py:10 forums/views.py:396
+#: homepage/models.py:12 labels/models.py:9 notifications/models.py:84
+#: notifications/models.py:110
+msgid "Name"
+msgstr "Namn"
+
+#: authentication/models.py:17
+msgid "Value"
+msgstr "Värde"
+
+#: authentication/models.py:29
+msgid "detail"
+msgstr "Detalj"
+
+#: authentication/models.py:30
+#: calendars/templates/calendars/event_list.html:48
+msgid "Details"
+msgstr "Detaljer"
+
+#: authentication/models.py:35 authentication/models.py:62
+msgid "Command"
+msgstr "Kommando"
+
+#: authentication/models.py:36 authentication/models.py:63
+#: homepage/models.py:10 labels/models.py:10 labels/models.py:54
+#: notifications/models.py:12 notifications/models.py:82
+#: notifications/models.py:139 times/models.py:11
+msgid "Content type"
+msgstr "Typ"
+
+#: authentication/models.py:37 authentication/models.py:64
+#: homepage/models.py:11 labels/models.py:11 notifications/models.py:13
+#: notifications/models.py:83 notifications/models.py:140 times/models.py:12
+msgid "Object ID"
+msgstr "Objektets ID"
+
+#: authentication/models.py:38 authentication/models.py:65
+msgid "Deny"
+msgstr "Neka"
+
+#: authentication/models.py:42
+#, python-format
+msgid "%(user)s is denied %(command)s access to %(content_type)s %(object_id)s"
+msgstr ""
+"%(user)s är nekad %(command)s-tillgång till %(content_type)s %(object_id)s"
+
+#: authentication/models.py:44
+#, python-format
+msgid "%(user)s has %(command)s access to %(content_type)s %(object_id)s"
+msgstr "%(user)s har %(command)s-tillgång till %(content_type)s %(object_id)s"
+
+#: authentication/models.py:48
+#, python-format
+msgid "%(user)s is denied access"
+msgstr "%(user)s är nekad tillgång"
+
+#: authentication/models.py:50
+#, python-format
+msgid "%(user)s has access"
+msgstr "%(user)s har tillgång"
+
+#: authentication/models.py:57
+msgid "user permission"
+msgstr "Användarrättighet"
+
+#: authentication/models.py:58
+msgid "user permissions"
+msgstr "Användarrättigheter"
+
+#: authentication/models.py:69
+#, python-format
+msgid ""
+"%(group)s is denied %(command)s access to %(content_type)s %(object_id)s"
+msgstr ""
+"%(group)s är nekad %(command)s-tillgång till %(content_type)s %(object_id)s"
+
+#: authentication/models.py:71
+#, python-format
+msgid "%(group)s has %(command)s access to %(content_type)s %(object_id)s"
+msgstr "%(group)s har %(command)s-tillgång till %(content_type)s %(object_id)s"
+
+#: authentication/models.py:75
+#, python-format
+msgid "%(group)s is denied access"
+msgstr "%(group)s är nekad tillgång"
+
+#: authentication/models.py:77
+#, python-format
+msgid "%(group)s has access"
+msgstr "%(group)s har tillgång"
+
+#: authentication/models.py:84
+msgid "group permission"
+msgstr "Grupprättighet"
+
+#: authentication/models.py:85
+msgid "group permissions"
+msgstr "Grupprättigheter"
+
+#: authentication/models.py:89 authentication/views.py:164
+msgid "Male"
+msgstr "Man"
+
+#: authentication/models.py:90 authentication/views.py:164
+msgid "Female"
+msgstr "Kvinna"
+
+#: authentication/models.py:94
+msgid "Default"
+msgstr "Standard"
+
+#: authentication/models.py:95
+msgid "On every event"
+msgstr ""
+
+#: authentication/models.py:99 authentication/views.py:162
+#: registration/views.py:167
+msgid "Birthday"
+msgstr "Födelsedag"
+
+#: authentication/models.py:100 authentication/views.py:119
+msgid "Picture"
+msgstr "Bild"
+
+#: authentication/models.py:101 authentication/views.py:164
+#: registration/views.py:169
+msgid "Gender"
+msgstr "Kön"
+
+#: authentication/models.py:102
+msgid "Location"
+msgstr "Ort"
+
+#: authentication/models.py:103 authentication/models.py:190
+#: calendars/models.py:102
+msgid "Inviter"
+msgstr "Inbjudare"
+
+#: authentication/models.py:104
+#: authentication/templates/authentication/tabs.html:6
+#: authentication/templates/authentication/view_friends.html:2
+#: registration/views.py:283
+msgid "Friends"
+msgstr "Vänner"
+
+#: authentication/models.py:105
+msgid "Language"
+msgstr "Språk"
+
+#: authentication/models.py:106 authentication/models.py:159 base/models.py:11
+#: bugs/models.py:13 calendars/models.py:13 documents/models.py:15
+#: files/models.py:18 forums/models.py:16 forums/models.py:60
+#: images/models.py:20 images/models.py:46 labels/models.py:17
+#: labels/models.py:58
+msgid "Deleted by"
+msgstr "Raderad av"
+
+#: authentication/models.py:107 authentication/models.py:160 base/models.py:12
+#: bugs/models.py:14 calendars/models.py:14 documents/models.py:16
+#: files/models.py:19 forums/models.py:17 images/models.py:21
+#: images/models.py:47 labels/models.py:18 labels/models.py:59
+msgid "Deletion time"
+msgstr "Tidpunkt för radering"
+
+#: authentication/models.py:108
+msgid "Notification e-mail time"
+msgstr "Senaste notifieringsmejlet skickades"
+
+#: authentication/models.py:109
+msgid "Notification Style"
+msgstr "Notifierings-typ"
+
+#: authentication/models.py:124
+msgid "meta user"
+msgstr "Meta-användare"
+
+#: authentication/models.py:125
+msgid "meta users"
+msgstr "Meta-användare"
+
+#: authentication/models.py:154
+#: authentication/templates/authentication/view_group.html:25 base/models.py:9
+#: debts/models.py:29 labels/models.py:14 labels/models.py:56
+msgid "Created by"
+msgstr "Skapad av"
+
+#: authentication/models.py:156
+msgid "Friend group"
+msgstr "Vännergrupp"
+
+#: authentication/models.py:157
+msgid "Logo"
+msgstr "Logga"
+
+#: authentication/models.py:158 base/models.py:10 bugs/models.py:12
+#: calendars/models.py:12 documents/models.py:14 files/models.py:17
+#: forums/models.py:15 forums/models.py:59 images/models.py:19
+#: images/models.py:45 labels/models.py:16 labels/models.py:57
+msgid "Deleted"
+msgstr "Raderad"
+
+#: authentication/models.py:161
+msgid "Domain name"
+msgstr "Domännamn"
+
+#: authentication/models.py:162
+msgid "External theme"
+msgstr "Externt tema"
+
+#: authentication/models.py:163
+msgid "Internal theme"
+msgstr "Internt tema"
+
+#: authentication/models.py:178
+msgid "meta group"
+msgstr "Meta-grupp"
+
+#: authentication/models.py:179
+msgid "meta groups"
+msgstr "Meta-grupper"
+
+#: authentication/models.py:183 calendars/models.py:94
+#: calendars/templates/calendars/event_list.html:44
+#: calendars/templates/calendars/event_list.html:52
+#: calendars/templates/calendars/show_replies.html:8
+msgid "Yes"
+msgstr "Ja"
+
+#: authentication/models.py:184 calendars/models.py:95
+#: calendars/templates/calendars/event_list.html:45
+#: calendars/templates/calendars/event_list.html:55
+#: calendars/templates/calendars/show_replies.html:12
+msgid "No"
+msgstr "Nej"
+
+#: authentication/models.py:185 calendars/models.py:97
+msgid "No reply"
+msgstr "Inget svar"
+
+#: authentication/models.py:191 calendars/models.py:103 calendars/views.py:182
+#: calendars/views.py:325
+msgid "Choice"
+msgstr "Val"
+
+#: authentication/models.py:204
+msgid "invite"
+msgstr "Bjud in"
+
+#: authentication/views.py:34 authentication/views.py:365
+msgid "Write a presentation why don't ya?"
+msgstr "Skriv en presentation, vetja!"
+
+#: authentication/views.py:39 registration/views.py:414
+#: registration/templates/registration/create_community.html:24
+#: registration/templates/registration/enter_code.html:10
+msgid "Email"
+msgstr "E-post"
+
+#: authentication/views.py:40 authentication/views.py:165
+#: authentication/views.py:233 registration/models.py:7
+#: registration/views.py:171 registration/views.py:175
+msgid "Password"
+msgstr "Lösenord"
+
+#: authentication/views.py:63 registration/views.py:200
+#: registration/views.py:472
+msgid "Username or password incorrect"
+msgstr "Fel användarnamn eller lösenord"
+
+#: authentication/views.py:67
+#, python-format
+msgid "You are not a member of %s"
+msgstr "Du är inte en medlem av %s"
+
+#: authentication/views.py:118 authentication/views.py:399
+msgid "Presentation text"
+msgstr "Presentation"
+
+#: authentication/views.py:120
+msgid "Remove my picture"
+msgstr "Ta bort min bild"
+
+#: authentication/views.py:159 registration/views.py:164
+msgid "First name"
+msgstr "Förnamn"
+
+#: authentication/views.py:159 authentication/views.py:160
+#: authentication/views.py:164
+msgid "Visible to other users"
+msgstr "Syns för andra användare"
+
+#: authentication/views.py:160 registration/views.py:165
+msgid "Last name"
+msgstr "Efternamn"
+
+#: authentication/views.py:161
+msgid "E-mail"
+msgstr "E-post"
+
+#: authentication/views.py:161
+msgid "Not visible to other users"
+msgstr "Syns inte för andra användare"
+
+#: authentication/views.py:162 registration/views.py:167
+msgid "Format is yyyy-MM-dd, e.g. 1980-05-27"
+msgstr "Formatet är yyyy-MM-dd, t.ex. 1980-05-27"
+
+#: authentication/views.py:165 authentication/views.py:235
+msgid "Confirm your identity"
+msgstr "Bekräfta din identitet"
+
+#: authentication/views.py:169
+msgid "Notification style"
+msgstr "Notifieringstyp"
+
+#: authentication/views.py:178 authentication/views.py:240
+msgid "Incorrect password"
+msgstr "Felaktigt lösenord"
+
+#: authentication/views.py:183 registration/views.py:40
+#: registration/views.py:109 registration/views.py:305
+#, python-format
+msgid "%s is not a valid email address"
+msgstr "%s är inte en giltig e-post-adress"
+
+#: authentication/views.py:190
+msgid "The selected e-mail address was invalid."
+msgstr "Den givna e-postadressen är ogiltig."
+
+#: authentication/views.py:233
+msgid "Your new password"
+msgstr "Ditt nya lösenord"
+
+#: authentication/views.py:234 registration/views.py:172
+#: registration/views.py:460
+msgid "Confirm password"
+msgstr "Bekräfta lösenord"
+
+#: authentication/views.py:234
+msgid "Confirm your new password"
+msgstr "Bekräfta lösenord"
+
+#: authentication/views.py:235
+msgid "Old password"
+msgstr "Gammalt lösenord"
+
+#: authentication/views.py:243 registration/views.py:203
+#: registration/views.py:475
+msgid "Passwords did not match."
+msgstr "Lösenorden stämmer inte överrens."
+
+#: authentication/views.py:353
+msgid "There is already a group with this name. Please choose another one."
+msgstr "Det finns redan en grupp med det namnet. Välj ett annat namn."
+
+#: authentication/views.py:441
+#: authentication/templates/authentication/view_permissions.html:49
+msgid "Hidden"
+msgstr "Gömd"
+
+#: authentication/views.py:441
+#: authentication/templates/authentication/view_permissions.html:56
+msgid "Closed"
+msgstr "Stängd"
+
+#: authentication/views.py:441
+#: authentication/templates/authentication/view_permissions.html:64
+msgid "Open"
+msgstr "Öppen"
+
+#: authentication/views.py:561
+#, python-format
+msgid "No user with the name %(name)s exists."
+msgstr "Det finns ingen användare vid namn %(name)s."
+
+#: authentication/views.py:567
+#, python-format
+msgid "No group with the name %(name)s exists."
+msgstr "Det finns ingen grupp vid namn %(name)s."
+
+#: authentication/templates/authentication/add_friend.html:4
+#: authentication/templates/authentication/add_friend.html:5
+msgid "Add friend"
+msgstr "Lägg till vän"
+
+#: authentication/templates/authentication/add_friend.html:11
+#: authentication/templates/authentication/edit_user.html:68
+#: authentication/templates/authentication/edit_user_password.html:19
+#: authentication/templates/authentication/edit_user_settings.html:16
+#: base/templates/administrate.html:45
+#: calendars/templates/calendars/edit.html:15
+#: documents/templates/documents/edit.html:11
+#: files/templates/files/edit.html:11 forums/templates/forums/edit.html:11
+#: forums/templates/forums/edit_message.html:11
+#: images/templates/images/add_set.html:10
+#: images/templates/images/edit.html:11
+#: images/templates/images/edit_set.html:10
+#: labels/templates/labels/edit.html:11
+#: registration/templates/registration/set_new_password.html:12
+msgid "Save"
+msgstr "Spara"
+
+#: authentication/templates/authentication/add_group.html:4
+#: authentication/templates/authentication/add_group.html:5
+msgid "Add group"
+msgstr "Lägg till grupp"
+
+#: authentication/templates/authentication/add_group.html:11
+#: authentication/templates/authentication/add_member.html:11
+#: authentication/templates/authentication/add_topic.html:11
+#: base/templates/news/add.html:20 calendars/templates/calendars/add.html:15
+#: calendars/templates/calendars/view.html:143
+#: debts/templates/debts/index.html:106
+#: documents/templates/documents/add.html:11 files/templates/files/add.html:11
+#: forums/templates/forums/add.html:13
+#: forums/templates/forums/view_forum.html:39
+#: homepage/templates/homepage/add_menu_item.html:11
+#: images/templates/images/add.html:12
+#: labels/templates/labels/add_suggested_label.html:11
+#: messages/templates/messages/add.html:11
+#: registration/templates/registration/create_community.html:26
+#: templates/admin_/index.html:28
+msgid "Add"
+msgstr "Lägg till"
+
+#: authentication/templates/authentication/add_member.html:4
+#: authentication/templates/authentication/add_member.html:5
+msgid "Add member"
+msgstr "Lägg till medlem"
+
+#: authentication/templates/authentication/add_topic.html:4
+#: authentication/templates/authentication/add_topic.html:5
+msgid "Add suggested label"
+msgstr "Lägg till snabbsökning"
+
+#: authentication/templates/authentication/detail.html:9
+#: authentication/templates/authentication/detail.html:11
+#: authentication/templates/authentication/permission_safe.html:11
+#: authentication/templates/authentication/permission_safe.html:14
+#: authentication/templates/authentication/permission_safe.html:16
+#: authentication/templates/authentication/user_list.html:13
+#: authentication/templates/authentication/view_friends.html:11
+#: authentication/templates/authentication/view_friends.html:46
+#: authentication/templates/authentication/view_friends.html:67
+#: calendars/templates/calendars/view.html:35
+#: calendars/templates/calendars/view_agenda.html:36
+#: calendars/templates/calendars/view_event.html:28
+#: calendars/templates/calendars/view_event.html:47
+#: documents/templates/documents/version.html:36
+#: documents/templates/documents/version_panel.html:13
+#: documents/templates/documents/version_panel.html:21
+#: files/templates/files/file_list.html:70
+#: files/templates/files/view_files.html:60
+#: forums/templates/forums/message.html:22
+#: forums/templates/forums/message.html:25
+#: forums/templates/forums/message.html:31
+#: forums/templates/forums/view_thread.html:44
+#: forums/templates/forums/view_thread.html:46
+#: forums/templates/forums/view_thread.html:119
+#: forums/templates/forums/view_thread.html:151
+#: images/templates/images/view.html:38 images/templates/images/view.html:53
+#: images/templates/images/view_set.html:39
+#: images/templates/images/view_set.html:76
+#: images/templates/images/view_set.html:107
+#: labels/templates/labels/add_suggested_label.html:41
+#: notifications/templates/notifications/list.html:10
+#: notifications/templates/notifications/view_bookmarks.html:10
+#: registration/templates/registration/index.html:25
+#: registration/templates/registration/index.html:50
+msgid "Delete"
+msgstr "Ta bort"
+
+#: authentication/templates/authentication/edit_group.html:3
+#: authentication/templates/authentication/edit_group.html:4
+#: authentication/templates/authentication/edit_user.html:3
+#: authentication/templates/authentication/edit_user.html:4
+#, python-format
+msgid "Change details of %(escaped)s"
+msgstr "Ändra detaljer för %(escaped)s"
+
+#: authentication/templates/authentication/edit_group.html:32
+#: authentication/templates/authentication/permission_safe.html:9
+#: authentication/templates/authentication/view_advanced_permissions.html:64
+#: authentication/templates/authentication/view_user.html:11
+#: calendars/templates/calendars/edit.html:4
+#: calendars/templates/calendars/edit.html:5
+#: calendars/templates/calendars/view_event.html:43
+#: documents/templates/documents/edit.html:4
+#: documents/templates/documents/edit.html:5 files/templates/files/edit.html:4
+#: files/templates/files/edit.html.py:5
+#: forums/templates/forums/edit_message.html:4
+#: forums/templates/forums/edit_message.html:5
+#: forums/templates/forums/message.html:17
+#: forums/templates/forums/view_thread.html:41
+#: images/templates/images/edit.html:4 images/templates/images/edit.html:5
+#: images/templates/images/view.html:52
+#: images/templates/images/view_set.html:20
+#: images/templates/images/view_set.html:38
+#: labels/templates/labels/edit.html:4 labels/templates/labels/edit.html:5
+msgid "Edit"
+msgstr "Ändra"
+
+#: authentication/templates/authentication/edit_user.html:51
+msgid "To change your name, age or login-data, go to:"
+msgstr "För att ändra ditt namn, din ålder eller login-uppgifter, gå till:"
+
+#: authentication/templates/authentication/edit_user.html:51
+#: authentication/templates/authentication/edit_user_password.html:7
+#: base/templates/themes/default/internal.html:118
+#: base/templates/themes/sk/internal.html:118
+msgid "Settings"
+msgstr "Inställningar"
+
+#: authentication/templates/authentication/edit_user.html:58
+msgid "Quick facts"
+msgstr "Snabbfakta"
+
+#: authentication/templates/authentication/edit_user.html:65
+msgid "Add detail"
+msgstr "Lägg till detalj"
+
+#: authentication/templates/authentication/edit_user_password.html:3
+#: authentication/templates/authentication/edit_user_password.html:4
+#, python-format
+msgid "Change password of %(escaped)s"
+msgstr "Ändra lösenord för %(escaped)s"
+
+#: authentication/templates/authentication/edit_user_password.html:8
+#: authentication/templates/authentication/edit_user_settings.html:8
+msgid "Edit details"
+msgstr "Ändra detaljer"
+
+#: authentication/templates/authentication/edit_user_settings.html:3
+#: authentication/templates/authentication/edit_user_settings.html:4
+#, python-format
+msgid "Change settings of %(escaped)s"
+msgstr "Ändra inställningar för %(escaped)s"
+
+#: authentication/templates/authentication/edit_user_settings.html:7
+msgid "Change password"
+msgstr "Ändra lösenord"
+
+#: authentication/templates/authentication/login_box.html:83
+#: authentication/templates/authentication/login_small.html:20
+msgid "Log in"
+msgstr "Logga in"
+
+#: authentication/templates/authentication/login_box.html:86
+#: registration/templates/registration/request_new_password.html:4
+#: registration/templates/registration/request_new_password.html:5
+msgid "Forgot your password?"
+msgstr "Glömt ditt lösenord?"
+
+#: authentication/templates/authentication/login_box.html:89
+msgid "Register for an account"
+msgstr "Skapa ett konto"
+
+#: authentication/templates/authentication/login_box.html:129
+#, python-format
+msgid "You are logged in as %(user)s"
+msgstr "Du är inloggad som %(user)s"
+
+#: authentication/templates/authentication/login_box.html:131
+msgid "Go to the portal"
+msgstr "Gå till portalen"
+
+#: authentication/templates/authentication/login_box.html:132
+#: base/templates/themes/default/internal.html:119
+#: base/templates/themes/sk/internal.html:119
+msgid "Log out"
+msgstr "Logga ut"
+
+#: authentication/templates/authentication/login_small.html:15
+msgid "You have been logged out."
+msgstr "Du har blivit utloggad"
+
+#: authentication/templates/authentication/permission_safe.html:7
+msgid "View"
+msgstr "Läsa"
+
+#: authentication/templates/authentication/reply_to_invitation.html:5
+#: authentication/templates/authentication/reply_to_invitation.html:11
+#, python-format
+msgid "You have been invited to %(group)s."
+msgstr "Du har blivit inbjuden till %(group)s."
+
+#: authentication/templates/authentication/reply_to_invitation.html:9
+#, python-format
+msgid "%(inviter)s wants to become your friend."
+msgstr "%(inviter)s vill bli din vän."
+
+#: authentication/templates/authentication/reply_to_invitation.html:22
+msgid "Accept"
+msgstr "Acceptera"
+
+#: authentication/templates/authentication/reply_to_invitation.html:23
+msgid "Ignore"
+msgstr "Ignorera"
+
+#: authentication/templates/authentication/tabs.html:4
+msgid "Presentation"
+msgstr "Presentation"
+
+#: authentication/templates/authentication/tabs.html:7
+#: authentication/templates/authentication/view_groups_of_user.html:3
+#: base/templates/search.html:27
+msgid "Groups"
+msgstr "Grupper"
+
+#: authentication/templates/authentication/tabs.html:9
+#: forums/templates/forums/index.html:4 forums/templates/forums/index.html:5
+msgid "Threads"
+msgstr "Konversationer"
+
+#: authentication/templates/authentication/tabs.html:9
+msgid "Members and groups"
+msgstr "Medlemmar och grupper"
+
+#: authentication/templates/authentication/tabs.html:11
+msgid "Texts"
+msgstr "Texter"
+
+#: authentication/templates/authentication/tabs.html:12
+#: base/templates/themes/default/internal.html:139
+#: base/templates/themes/sk/internal.html:139
+#: images/templates/images/view_sets.html:3
+#: images/templates/images/view_sets.html:4
+msgid "Pictures"
+msgstr "Fotoalbum"
+
+#: authentication/templates/authentication/tabs.html:13 base/views.py:252
+#: base/templates/themes/default/internal.html:140
+#: base/templates/themes/sk/internal.html:140
+#: files/templates/files/view_files.html:4
+#: files/templates/files/view_files.html:5
+msgid "Files"
+msgstr "Filer"
+
+#: authentication/templates/authentication/tabs.html:14 base/views.py:254
+#: base/templates/themes/default/internal.html:138
+#: base/templates/themes/sk/internal.html:138
+#: calendars/templates/calendars/view.html:4
+#: calendars/templates/calendars/view.html:5
+#: calendars/templates/calendars/view_agenda.html:4
+#: calendars/templates/calendars/view_agenda.html:5
+msgid "Calendar"
+msgstr "Kalender"
+
+#: authentication/templates/authentication/view_advanced_permissions.html:3
+#: authentication/templates/authentication/view_advanced_permissions.html:4
+#: authentication/templates/authentication/view_permissions.html:3
+#: authentication/templates/authentication/view_permissions.html:4
+#, python-format
+msgid "Permissions on %(obj)s"
+msgstr "Rättigheter på %(obj)s"
+
+#: authentication/templates/authentication/view_advanced_permissions.html:57
+msgid "Add permission"
+msgstr "Lägg till rättighet"
+
+#: authentication/templates/authentication/view_friends.html:11
+#: authentication/templates/authentication/view_friends.html:17
+#, python-format
+msgid "%(user)s has been invited but hasn't answered yet."
+msgstr "%(user)s har blivit inbjuden men har inte svarat än."
+
+#: authentication/templates/authentication/view_friends.html:22
+#, python-format
+msgid "Invite %(user)s to be your friend."
+msgstr "Bjud in %(user)s till att bli din vän."
+
+#: authentication/templates/authentication/view_friends.html:37
+msgid "Are you sure you want to remove this user from your friends?"
+msgstr "Är du säker på att du vill ta bort denna person från din vänner-lista?"
+
+#: authentication/templates/authentication/view_friends.html:42
+#: calendars/templates/calendars/view.html:31
+#: calendars/templates/calendars/view_agenda.html:32
+#: calendars/templates/calendars/view_event.html:24
+#: files/templates/files/file_list.html:66
+#: files/templates/files/view_files.html:56
+#: forums/templates/forums/view_thread.html:115
+#: forums/templates/forums/view_thread.html:147
+#: images/templates/images/view.html:34
+#: images/templates/images/view_set.html:72
+#: images/templates/images/view_set.html:103
+#: labels/templates/labels/add_suggested_label.html:37
+#: registration/templates/registration/index.html:46
+msgid "Don't delete"
+msgstr "Ta inte bort"
+
+#: authentication/templates/authentication/view_group.html:10
+#: authentication/templates/authentication/view_group.html:30
+msgid "This group was deleted at"
+msgstr "Denna grupp raderades"
+
+#: authentication/templates/authentication/view_group.html:10
+#: authentication/templates/authentication/view_group.html:30
+#: documents/templates/documents/version_panel.html:5
+#: documents/templates/documents/version_panel.html:8
+#: forums/templates/forums/view_thread.html:39
+#: images/templates/images/view.html:9 images/templates/images/view.html:12
+msgid "by"
+msgstr "av"
+
+#: authentication/templates/authentication/view_group.html:23
+#: documents/templates/documents/version_panel.html:22
+#: images/templates/images/view.html:54
+msgid "Permissions"
+msgstr "Rättigheter"
+
+#: authentication/templates/authentication/view_groups_of_group.html:4
+msgid "Parent groups"
+msgstr "Modergrupper"
+
+#: authentication/templates/authentication/view_groups_of_group.html:12
+msgid "Subgroups"
+msgstr "Undergrupper"
+
+#: authentication/templates/authentication/view_members.html:4
+#: authentication/templates/authentication/view_members.html:5
+#: base/templates/search.html:18
+#: base/templates/themes/default/internal.html:141
+#: base/templates/themes/sk/internal.html:141
+msgid "Members"
+msgstr "Medlemmar"
+
+#: authentication/templates/authentication/view_members.html:10
+#: base/templates/administrate.html:9
+msgid "Invite a new user"
+msgstr "Bjud in användare"
+
+#: authentication/templates/authentication/view_permissions.html:16
+msgid "Advanced permissions"
+msgstr "Avancerade rättigheter"
+
+#: authentication/templates/authentication/view_permissions.html:77
+msgid "Non-members can edit"
+msgstr "Icke-medlemmar kan ändra"
+
+#: authentication/templates/authentication/view_permissions.html:85
+msgid "Blocked users"
+msgstr "Blockade användare"
+
+#: authentication/templates/authentication/view_permissions.html:85
+msgid "Separate user names with comma"
+msgstr "Separera användarnamn med kommatecken"
+
+#: authentication/templates/authentication/view_user.html:14
+msgid "No such user exists in this community."
+msgstr "Ingen användare hittad i detta community"
+
+#: authentication/templates/authentication/view_user.html:24
+msgid "This user is no longer a member of the community."
+msgstr "Denna användare är inte längre en medlem av detta community"
+
+#: authentication/templates/authentication/view_user.html:29
+msgid "Administrator"
+msgstr "Administratörer"
+
+#: authentication/templatetags/auth.py:274
+msgid "Stop watching"
+msgstr "Sluta bevaka"
+
+#: authentication/templatetags/auth.py:276
+msgid "Watch"
+msgstr "Bevaka"
+
+#: authentication/templatetags/auth.py:334
+msgid "title"
+msgstr "Titel"
+
+#: base/models.py:6 calendars/models.py:17 documents/views.py:96
+#: documents/views.py:154 files/models.py:12 files/views.py:24
+#: files/views.py:63 forums/views.py:25
+#: forums/templates/forums/thread_list.html:7 homepage/views.py:31
+#: images/models.py:11 images/models.py:37 labels/models.py:52
+msgid "Title"
+msgstr "Titel"
+
+#: base/models.py:7 documents/views.py:98 documents/views.py:156
+msgid "Contents"
+msgstr "Innehåll"
+
+#: base/models.py:8 bugs/models.py:8 calendars/models.py:11 debts/models.py:30
+#: documents/models.py:12 documents/models.py:60 files/models.py:15
+#: forums/models.py:13 forums/models.py:58 images/models.py:18
+#: images/models.py:43 labels/models.py:15 labels/models.py:55
+#: messages/models.py:14 registration/models.py:8
+msgid "Creation time"
+msgstr "Skapad"
+
+#: base/models.py:21 base/models.py:22
+msgid "news"
+msgstr "Nyheter"
+
+#: base/views.py:224
+msgid "Welcome!"
+msgstr "Välkommen!"
+
+#: base/views.py:251 base/templates/themes/default/internal.html:137
+#: base/templates/themes/sk/internal.html:137
+#: forums/templates/forums/view_forum.html:4
+#: forums/templates/forums/view_forum.html:5
+#: forums/templates/forums/view_thread.html:8
+msgid "Forum"
+msgstr "Forum"
+
+#: base/views.py:253 images/models.py:39
+#: images/templates/images/add_set.html:3
+#: images/templates/images/add_set.html:4
+#: images/templates/images/edit_set.html:3
+#: images/templates/images/edit_set.html:4
+#: images/templates/images/set_list.html:10
+msgid "Images"
+msgstr "Bilder"
+
+#: base/templates/403.html:4
+msgid "Access denied"
+msgstr "Åtkomst nekas"
+
+#: base/templates/404.html:4 base/templates/404.html.py:7
+#: base/templates/500.html:4 base/templates/500.html.py:7
+msgid "Error"
+msgstr "Fel"
+
+#: base/templates/404.html:8
+msgid "There is no page at this address."
+msgstr "Det finns ingen sida på denna adress."
+
+#: base/templates/404_community.html:4
+msgid "Invalid community specified"
+msgstr "Ogiltigt community"
+
+#: base/templates/500.html:8
+msgid "An error has occurred and has been sent to the administrators."
+msgstr "Ett fel har uppstått. En rapport har skickats till administratörerna."
+
+#: base/templates/administrate.html:4 base/templates/administrate.html.py:5
+#: base/templates/themes/default/internal.html:116
+#: base/templates/themes/sk/internal.html:116
+msgid "Administration"
+msgstr "Administration"
+
+#: base/templates/administrate.html:12
+msgid "Administrators"
+msgstr "Administratörer"
+
+#: base/templates/administrate.html:13
+msgid ""
+"People you add to this list are given administrator access to the chosen "
+"areas, meaning that they can delete and change other users content."
+msgstr ""
+"Användare i den här listan har administratörsrättigheter för de givna "
+"områdena, vilket betyder att dom kan ta bort och ändra andra medlemmars "
+"saker."
+
+#: base/templates/community_selector.html:5
+#, python-format
+msgid "%(number_of)s notifications"
+msgstr "%(number_of)s notifieringar"
+
+#: base/templates/community_selector.html:5
+#, python-format
+msgid "%(number_of)s new"
+msgstr "%(number_of)s nya"
+
+#: base/templates/community_selector_button.html:1
+msgid "You have unread items at..."
+msgstr "Du har nytt att läsa på..."
+
+#: base/templates/community_selector_button.html:1
+msgid "Switch to..."
+msgstr "Byt till..."
+
+#: base/templates/community_selector_login.html:3
+#: base/templates/community_selector_login.html:4
+msgid "Go to a community"
+msgstr "Gå till ett community"
+
+#: base/templates/navigation.html:4
+#: calendars/templates/calendars/view.html:111
+#: calendars/templates/calendars/view.html:117
+msgid "Loading..."
+msgstr "Laddar..."
+
+#: base/templates/navigation_core.html:4
+msgid "You have been logged out, click here to log in again."
+msgstr "Du har blivit utloggad. Klicka här för att logga in igen."
+
+#: base/templates/navigation_core.html:12
+#, python-format
+msgid "%(inviter)s wishes to become your friend."
+msgstr "%(inviter)s vill bli din vän."
+
+#: base/templates/navigation_core.html:14
+#, python-format
+msgid "You have been invited to join the group %(group)s."
+msgstr "Du har blivit inbjuden att bli medlem av gruppen %(group)s."
+
+#: base/templates/navigation_core.html:18 notifications/models.py:124
+#: notifications/templates/notifications/view_bookmarks.html:4
+#: notifications/templates/notifications/view_bookmarks.html:5
+#: notifications/templates/notifications/view_new_objects.html:5
+#: times/templates/times/index.html:4 times/templates/times/index.html.py:5
+msgid "Bookmarks"
+msgstr "Genvägar"
+
+#: base/templates/navigation_core.html:29
+msgid "Remove bookmark"
+msgstr "Ta bort genväg"
+
+#: base/templates/navigation_core.html:31
+msgid "Add bookmark"
+msgstr "Skapa genväg"
+
+#: base/templates/navigation_core.html:34
+#: base/templates/notification_email.html:12
+msgid "New items"
+msgstr "Nytt"
+
+#: base/templates/navigation_core.html:43
+#: base/templates/notification_email.html:18
+#: notifications/templates/notifications/list.html:4
+#: notifications/templates/notifications/list.html:5
+msgid "Watchers"
+msgstr "Bevakningar"
+
+#: base/templates/notification_email.html:3
+#, python-format
+msgid "Something has happened on %(communities)s"
+msgstr "Något har hänt på %(communities)s"
+
+#: base/templates/notification_email.html:6
+msgid ""
+"We've noticed that you haven't been logged in for some time. Some things "
+"have happened while you were away:"
+msgstr ""
+"Vi har märkt att du inte varit inloggad på ett tag. Det har hänt en del "
+"saker medan du varit borta:"
+
+#: base/templates/notification_email.html:24
+#, python-format
+msgid "Log in to %(community)s to check it out"
+msgstr "Logga in på %(community)s för att läsa det"
+
+#: base/templates/notification_email.html:29
+msgid "You recieved this message because you are registered at eldmyra.se"
+msgstr "Detta mail får du för att du är registrerad på eldmyra.se"
+
+#: base/templates/notification_email.html:30
+msgid ""
+"If you don't want to recieve any more mails, mail us at support@eldmyra.se"
+msgstr "Vill du inte ha fler mail, skicka ett mail till support@eldmyra.se"
+
+#: base/templates/portal.html:4 base/templates/portal.html.py:5
+#: base/templates/themes/default/internal.html:136
+#: base/templates/themes/sk/internal.html:136
+msgid "Portal"
+msgstr "Portal"
+
+#: base/templates/portal.html:10
+msgid "Edit group"
+msgstr "Ändra grupp"
+
+#: base/templates/portal.html:14
+msgid "Random images"
+msgstr "Slumpmässiga bilder"
+
+#: base/templates/portal.html:30
+msgid "Coming events"
+msgstr "Kommande aktiviteter"
+
+#: base/templates/portal.html:44
+msgid "Last logged in"
+msgstr "Senast inloggade"
+
+#: base/templates/portal.html:63 base/templates/news/add.html:4
+#: base/templates/news/add.html.py:5
+msgid "Add news"
+msgstr "Lägg till nyhet"
+
+#: base/templates/search.html:4 base/templates/search.html.py:5
+#: base/templates/themes/default/internal.html:129
+#: base/templates/themes/sk/internal.html:129 files/views.py:108
+#: files/templates/files/view_files.html:28
+#: files/templates/files/view_files.html:34 forums/views.py:43
+#: forums/templates/forums/view_forum.html:24
+#: forums/templates/forums/view_forum.html:27
+msgid "Search"
+msgstr "Sök"
+
+#: base/templates/search.html:11
+msgid "Go"
+msgstr "Sök"
+
+#: base/templates/search.html:34 calendars/views.py:77
+#: calendars/templates/calendars/event_list.html:33 files/views.py:25
+#: files/views.py:64 files/templates/files/file_list.html:30
+#: forums/views.py:26 forums/views.py:397
+#: forums/templates/forums/thread_list.html:20
+#: forums/templates/forums/view_forum.html:37
+#: forums/templates/forums/view_thread.html:31 images/views.py:221
+#: images/views.py:250 images/templates/images/set_list.html:27
+#: images/templates/images/view_set.html:11 labels/__init__.py:67
+#: labels/templates/labels/base.html:4 labels/templates/labels/base.html:5
+#: labels/templates/labels/labels.html:1
+msgid "Labels"
+msgstr "Nyckelord"
+
+#: base/templates/news/view_news_archive.html:5
+msgid "Old news"
+msgstr "Äldre nyheter"
+
+#: base/templates/news/view_news_archive.html:8
+#: messages/templates/messages/message_list.html:27
+msgid "Page"
+msgstr "Sida"
+
+#: base/templates/news/view_news_archive.html:8
+#: messages/templates/messages/message_list.html:27
+msgid "of"
+msgstr "av"
+
+#: base/templates/news/view_news_archive.html:11
+#: messages/templates/messages/message_list.html:30
+msgid "First"
+msgstr "Första"
+
+#: base/templates/news/view_news_archive.html:13
+#: messages/templates/messages/message_list.html:32
+msgid "Previous"
+msgstr "Föregående"
+
+#: base/templates/news/view_news_archive.html:20
+#: messages/templates/messages/message_list.html:38
+msgid "Next"
+msgstr "Nästa"
+
+#: base/templates/news/view_news_archive.html:22
+#: messages/templates/messages/message_list.html:41
+msgid "Last"
+msgstr "Sista"
+
+#: base/templates/themes/default/internal.html:45
+#: base/templates/themes/sk/internal.html:45
+#: bugs/templates/bugs/report.html:11
+msgid "Thank you for helping us improve the site"
+msgstr "Tack för din hjälp med att förbättra denna sida"
+
+#: base/templates/themes/default/internal.html:52
+#: base/templates/themes/default/internal.html:124
+#: base/templates/themes/sk/internal.html:52
+#: base/templates/themes/sk/internal.html:124
+#: bugs/templates/bugs/report.html:4 bugs/templates/bugs/report.html.py:5
+msgid "Report bug"
+msgstr "Rapportera fel"
+
+#: base/templates/themes/default/internal.html:53
+#: base/templates/themes/sk/internal.html:53
+#: bugs/templates/bugs/report.html:16
+msgid ""
+"<ul><li>What did you do?</li><li>What happened?</li><li>What did you expect?"
+"</li></ul>"
+msgstr ""
+"<ul><li>Vad gjorde du?</li><li>Vad hände?</li><li>Vad förväntade du dig?</"
+"li></ul>"
+
+#: base/templates/themes/default/internal.html:57
+#: base/templates/themes/sk/internal.html:57
+#: bugs/templates/bugs/report.html:23
+#: forums/templates/forums/view_thread.html:74
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: base/templates/themes/default/internal.html:61
+#: base/templates/themes/sk/internal.html:61
+#: bugs/templates/bugs/report.html:22
+msgid "Report"
+msgstr "Rapportera"
+
+#: base/templates/themes/default/internal.html:113
+#: base/templates/themes/sk/internal.html:113
+msgid "Database administration"
+msgstr "Databasadministration"
+
+#: bugs/models.py:6 bugs/views.py:11
+#: bugs/templates/bugs/new_bug_admin_email.html:29 calendars/models.py:18
+#: calendars/views.py:78 files/models.py:16 files/views.py:26
+#: files/views.py:65 images/models.py:12 images/models.py:38
+#: images/views.py:32 images/views.py:101 images/views.py:222
+#: images/views.py:251
+msgid "Description"
+msgstr "Beskrivning"
+
+#: bugs/models.py:7 bugs/templates/bugs/new_bug_admin_email.html:26
+msgid "Reporter"
+msgstr "Rapporterare"
+
+#: bugs/models.py:9
+msgid "URLs"
+msgstr "URLer"
+
+#: bugs/models.py:10 bugs/templates/bugs/new_bug_admin_email.html:28
+msgid "Browser"
+msgstr "Webbläsare"
+
+#: bugs/models.py:15
+msgid "Deletion reason"
+msgstr "Anledning för radering"
+
+#: bugs/views.py:29
+#, python-format
+msgid "%s has reported a bug"
+msgstr "%s har rapporterat en bugg"
+
+#: bugs/templates/bugs/new_bug_admin_email.html:23
+msgid "New bug posted"
+msgstr "Ny bugg inlagd"
+
+#: bugs/templates/bugs/new_bug_admin_email.html:27
+msgid "URL"
+msgstr "URL"
+
+#: bugs/templates/bugs/report.html:12
+msgid "Return to the site"
+msgstr "Tillbaka till sidan"
+
+#: calendars/models.py:9 documents/models.py:10 files/models.py:13
+#: forums/models.py:11 images/models.py:16 images/models.py:41
+#: labels/models.py:12 notifications/models.py:14 notifications/models.py:86
+#: notifications/models.py:141
+msgid "Owner user"
+msgstr "Ägaranvändare"
+
+#: calendars/models.py:9 documents/models.py:10 files/models.py:13
+#: forums/models.py:11 images/models.py:16 images/models.py:41
+#: labels/models.py:12
+msgid "owner user"
+msgstr "Ägaranvändare"
+
+#: calendars/models.py:10 documents/models.py:11 files/models.py:14
+#: forums/models.py:12 images/models.py:17 images/models.py:42
+#: labels/models.py:13 notifications/models.py:15 notifications/models.py:87
+#: notifications/models.py:142
+msgid "Owner group"
+msgstr "Ägargrupp"
+
+#: calendars/models.py:10 documents/models.py:11 files/models.py:14
+#: forums/models.py:12 images/models.py:17 images/models.py:42
+#: labels/models.py:13
+msgid "owner group"
+msgstr "Ägargrupp"
+
+#: calendars/models.py:15
+msgid "Event parent"
+msgstr "Originalaktivitet"
+
+#: calendars/models.py:20 calendars/views.py:79
+msgid "Start time"
+msgstr "Start"
+
+#: calendars/models.py:21
+msgid "End time"
+msgstr "Slut"
+
+#: calendars/models.py:22
+msgid "All day"
+msgstr "Heldag"
+
+#: calendars/models.py:24
+msgid "Day"
+msgstr "Dag"
+
+#: calendars/models.py:25
+msgid "Week"
+msgstr "Vecka"
+
+#: calendars/models.py:26
+msgid "Month"
+msgstr "Månad"
+
+#: calendars/models.py:27
+msgid "Year"
+msgstr "År"
+
+#: calendars/models.py:29
+msgid "Repeat"
+msgstr "Upprepa"
+
+#: calendars/models.py:30
+msgid "End repeat"
+msgstr "Slut av upprepning"
+
+#: calendars/models.py:46
+msgid "event"
+msgstr "Aktivitet"
+
+#: calendars/models.py:47
+msgid "events"
+msgstr "Aktiviteter"
+
+#: calendars/models.py:58
+msgid "today"
+msgstr "idag"
+
+#: calendars/models.py:61
+msgid "tomorrow"
+msgstr "imorgon"
+
+#: calendars/models.py:63
+#, python-format
+msgid "%s days"
+msgstr "%s dagar"
+
+#: calendars/models.py:96
+msgid "Unsure"
+msgstr "Osäker"
+
+#: calendars/models.py:100 calendars/views.py:76
+#: calendars/templates/calendars/event_list.html:8
+msgid "Event"
+msgstr "Aktivitet"
+
+#: calendars/models.py:104 calendars/views.py:183 calendars/views.py:326
+msgid "Comment"
+msgstr "Kommentar"
+
+#: calendars/models.py:116
+msgid "reply"
+msgstr "Svara"
+
+#: calendars/models.py:117
+msgid "replies"
+msgstr "Svar"
+
+#: calendars/views.py:54
+msgid "This event has been deleted by its creator."
+msgstr "Denna aktivitet har raderats av sin skapare."
+
+#: calendars/views.py:76
+msgid "The title will be visible in the calendar"
+msgstr "Titeln syns i kalendern"
+
+#: calendars/views.py:77 files/views.py:25 files/views.py:64
+#: forums/views.py:397 images/views.py:221 images/views.py:250
+msgid "Help your friends find this item"
+msgstr "Nyckelorden gör det lättare för dina vänner att söka"
+
+#: calendars/views.py:325
+msgid "Will you participate in this event?"
+msgstr "Ska du närvara på denna aktivitet?"
+
+#: calendars/views.py:326
+msgid "Leave a comment with your reply"
+msgstr "Lämna en kommentar med ditt svar"
+
+#: calendars/templates/calendars/add.html:4
+#: calendars/templates/calendars/add.html:5
+#: calendars/templates/calendars/view_agenda.html:10
+msgid "Add event"
+msgstr "Lägg till aktivitet"
+
+#: calendars/templates/calendars/event_list.html:6
+msgid "Date"
+msgstr "Datum"
+
+#: calendars/templates/calendars/event_list.html:7
+msgid "Time"
+msgstr "Tid"
+
+#: calendars/templates/calendars/event_list.html:46
+#: calendars/templates/calendars/event_list.html:58
+#: calendars/templates/calendars/show_replies.html:16
+msgid "Maybe"
+msgstr "Vet inte"
+
+#: calendars/templates/calendars/event_list.html:47
+#, python-format
+msgid "-: %(escaped)s "
+msgstr "-: %(escaped)s "
+
+#: calendars/templates/calendars/event_list.html:50
+msgid "Your reply"
+msgstr "Ditt svar"
+
+#: calendars/templates/calendars/event_list.html:62
+msgid "You have not replied to this event"
+msgstr "Du har inte svarat på denna aktivitet"
+
+#: calendars/templates/calendars/event_list.html:69
+msgid "Change your reply"
+msgstr "Ändra ditt svar"
+
+#: calendars/templates/calendars/event_list.html:75
+msgid "There are no events in the near future"
+msgstr "Det finns inga händelser i den närmaste framtiden."
+
+#: calendars/templates/calendars/reply.html:4
+#: calendars/templates/calendars/reply.html:5
+msgid "Reply to event"
+msgstr "Svar på aktivitet"
+
+#: calendars/templates/calendars/reply.html:30
+#: calendars/templates/calendars/reply_to_event.html:27
+#: calendars/templates/calendars/view_event.html:105
+#: forums/templates/forums/message.html:35
+msgid "Reply"
+msgstr "Svara"
+
+#: calendars/templates/calendars/reply_to_event.html:4
+#: calendars/templates/calendars/reply_to_event.html:5
+#, python-format
+msgid "Reply to %(title)s"
+msgstr "Svar på %(title)s"
+
+#: calendars/templates/calendars/show_replies.html:4
+#: calendars/templates/calendars/show_replies.html:5
+#: forums/templates/forums/thread_list.html:10
+msgid "Replies"
+msgstr "Svar"
+
+#: calendars/templates/calendars/show_replies.html:20
+msgid "The following people have not replied yet"
+msgstr "Följande personer har inte svarat än"
+
+#: calendars/templates/calendars/view.html:5
+msgid "Agenda view"
+msgstr "Agendavy"
+
+#: calendars/templates/calendars/view.html:26
+msgid ""
+"Do you want to delete the event \\\"\"+calendar_data[key][i].fields.title+"
+"\"\\\"?"
+msgstr ""
+"Vill du ta bort aktiviteten \\\"\"+calendar_data[key][i].fields.title+\"\\\"?"
+
+#: calendars/templates/calendars/view.html:27
+#: calendars/templates/calendars/view_event.html:20
+msgid "Deleted events will still be viewable by administrators."
+msgstr ""
+"Borttagna aktiviteter kommer fortfarande att kunna ses av administratörer."
+
+#: calendars/templates/calendars/view_agenda.html:27
+msgid "Are you sure you want to delete this event?"
+msgstr "Är du säker på att du vill ta bort den här aktiviteten?"
+
+#: calendars/templates/calendars/view_event.html:19
+#, python-format
+msgid "Do you want to delete the event \\\"%(event)s\\\"?"
+msgstr "Vill du ta bort aktiviteten \\\"%(event)s\\\"?"
+
+#: calendars/templates/calendars/view_event.html:49
+msgid "Changes your answer to no."
+msgstr "Ändrar ditt svar till nej."
+
+#: calendars/templates/calendars/view_event.html:60
+msgid "All day event."
+msgstr "Aktiviteten gäller hela dagen."
+
+#: calendars/templates/calendars/view_event.html:64
+msgid "Starts at"
+msgstr "Startar klockan"
+
+#: calendars/templates/calendars/view_event.html:65
+msgid "Ends at"
+msgstr "Slutar klockan"
+
+#: calendars/templates/calendars/view_event.html:70
+msgid "Answered yes"
+msgstr "Svarade ja"
+
+#: calendars/templates/calendars/view_event.html:77
+msgid "Answered no"
+msgstr "Svarade nej"
+
+#: calendars/templates/calendars/view_event.html:84
+msgid "Are unsure"
+msgstr "Är osäkra"
+
+#: calendars/templates/calendars/view_event.html:91
+msgid "Hasn't answered"
+msgstr "Har inte svarat"
+
+#: calendars/templates/calendars/view_event.html:101
+msgid "Change your answer:"
+msgstr "Ändra ditt svar:"
+
+#: debts/models.py:15
+msgid "Current balance"
+msgstr "Saldo"
+
+#: debts/models.py:18
+#, python-format
+msgid "%(user)s %(balance)s"
+msgstr "%(user)s %(balance)s"
+
+#: debts/models.py:25
+msgid "From"
+msgstr "Från"
+
+#: debts/models.py:26
+msgid "To"
+msgstr "Till"
+
+#: debts/models.py:27
+msgid "Cost"
+msgstr "Kostnad"
+
+#: debts/models.py:32
+msgid "Rejected"
+msgstr "Bestriden"
+
+#: debts/models.py:33
+msgid "Rejected by"
+msgstr "Bestriden av"
+
+#: debts/models.py:34
+msgid "Rejection time"
+msgstr "Tidpunkt för bestridning"
+
+#: debts/views.py:13
+msgid "%s has added a debt"
+msgstr "%s har lagt till en skuld"
+
+#: debts/views.py:16
+msgid "%s has rejected a debt"
+msgstr "%s har bestridit en skuld"
+
+#: debts/views.py:57
+msgid "Description must not be empty"
+msgstr "Beskrivningen får inte vara tom"
+
+#: debts/views.py:62
+msgid "Description must start with the amount"
+msgstr "Beskrivningen måste starta med mängden"
+
+#: debts/templates/debts/base.html:4 debts/templates/debts/base.html.py:5
+msgid "Debts"
+msgstr "Skulder"
+
+#: debts/templates/debts/index.html:56
+msgid "People with negative balance"
+msgstr "Personer med negativt saldo"
+
+#: debts/templates/debts/index.html:58
+msgid "People with positive balance"
+msgstr "Personer med positivt saldo"
+
+#: debts/templates/debts/index.html:65
+#: forums/templates/forums/view_thread.html:173
+msgid "Show all"
+msgstr "Visa alla"
+
+#: debts/templates/debts/index.html:71 debts/templates/debts/index.html:75
+#: debts/templates/debts/transaction_added_email.html:11
+#: debts/templates/debts/transaction_added_email.html:15
+#, python-format
+msgid "You have borrowed <strong>%(balance)s</strong>"
+msgstr "Du har lånat <strong>%(balance)s</strong>"
+
+#: debts/templates/debts/index.html:79
+#: debts/templates/debts/transaction_added_email.html:19
+#, python-format
+msgid "You have lended <strong>%(balance)s</strong>"
+msgstr "Du ligger ute med <strong>%(balance)s</strong>"
+
+#: debts/templates/debts/index.html:83
+msgid "Show log"
+msgstr "Visa logg"
+
+#: debts/templates/debts/index.html:91
+#, python-format
+msgid "%(from_user)s rejected owing you %(description)s"
+msgstr "%(from_user)s bestred att han/hon är skyldig dig %(description)ss)"
+
+#: debts/templates/debts/index.html:95
+msgid "Clear all"
+msgstr "Rensa alla"
+
+#: debts/templates/debts/index.html:106
+#, python-format
+msgid "%(from_user)s owes you %(description)s"
+msgstr "%(from_user)s är skyldig dig %(description)s"
+
+#: debts/templates/debts/transaction_added_email.html:3
+msgid "Added debt"
+msgstr "Tillagd skuld"
+
+#: debts/templates/debts/transaction_added_email.html:5
+#, python-format
+msgid "%(created_by)s added a debt:"
+msgstr "%(created_by)s lade in en skuld:"
+
+#: debts/templates/debts/transaction_rejected_email.html:3
+msgid "Rejected debt"
+msgstr "Bestriden skuld"
+
+#: debts/templates/debts/transaction_rejected_email.html:5
+#, python-format
+msgid "%(rejected_by)s rejected a debt:"
+msgstr "%(rejected_by)s bestred en skuld:"
+
+#: documents/models.py:13
+msgid "Is presentation"
+msgstr "Är presentation"
+
+#: documents/models.py:41
+msgid "document"
+msgstr "Text"
+
+#: documents/models.py:42
+msgid "documents"
+msgstr "Texter"
+
+#: documents/models.py:86
+msgid "version"
+msgstr "Version"
+
+#: documents/models.py:87
+msgid "versions"
+msgstr "Versioner"
+
+#: documents/views.py:47
+#, python-format
+msgid "%s is not a valid group or user name"
+msgstr "%s är inte ett giltigt grupp- eller användarnamn"
+
+#: documents/views.py:52
+#, python-format
+msgid "Could not find document %s"
+msgstr "Kunde inte hitta texten %s"
+
+#: documents/views.py:166
+msgid ""
+"Document was changed after you began editing it, please review the changes "
+"and then press save again"
+msgstr ""
+"Dokumentet har ändrats sedan du började ändra det, kolla ändringarna och "
+"tryck sen spara igen"
+
+#: documents/templates/documents/add.html:4
+#: documents/templates/documents/add.html:5
+msgid "Add document"
+msgstr "Lägg till en text"
+
+#: documents/templates/documents/document_list.html:4
+#: documents/templates/documents/index.html:4
+#: documents/templates/documents/index.html:5
+msgid "Documents"
+msgstr "Texter"
+
+#: documents/templates/documents/document_list.html:17
+msgid "You have not created any documents yet."
+msgstr "Du har inte skapat några texter ännu."
+
+#: documents/templates/documents/document_list.html:19
+msgid "There are no documents here."
+msgstr "Det finns inga dokument här."
+
+#: documents/templates/documents/index.html:13
+msgid "No documents are available."
+msgstr "Inga texter är tillgängliga"
+
+#: documents/templates/documents/version.html:5
+#, python-format
+msgid "last edited %(document.creation_time)s by %(owner)s "
+msgstr "Senast ändrad %(document.creation_time)s av %(owner)s "
+
+#: documents/templates/documents/version.html:6
+msgid "Edit this page"
+msgstr "Ändra denna sida"
+
+#: documents/templates/documents/version.html:13
+msgid "Send message"
+msgstr "Skicka meddelande"
+
+#: documents/templates/documents/version.html:35
+#, python-format
+msgid ""
+"Last edited by <a href=\"%(owner_url)s\">%(owner)s</a> %(creation_time)s"
+msgstr ""
+"Senast ändrat av <a href=\"%(owner_url)s\">%(owner)s</a> %(creation_time)s"
+
+#: documents/templates/documents/version.html:37
+msgid "View versions"
+msgstr "Versioner"
+
+#: documents/templates/documents/version_list.html:4
+#: documents/templates/documents/version_list.html:5
+msgid "Versions of"
+msgstr "Versioner av"
+
+#: documents/templates/documents/version_list.html:15
+msgid "No versions are available."
+msgstr "Inga versioner är tillgängliga."
+
+#: documents/templates/documents/version_panel.html:5
+#: documents/templates/documents/version_panel.html:8
+msgid "This document was deleted at"
+msgstr "Detta dokument raderades"
+
+#: documents/templates/documents/version_panel.html:16
+msgid "Revert to this version"
+msgstr "Gå tillbaka till denna version."
+
+#: files/models.py:11 files/views.py:27
+msgid "File"
+msgstr "Fil"
+
+#: files/models.py:34
+msgid "file"
+msgstr "Fil"
+
+#: files/models.py:35
+msgid "files"
+msgstr "Filer"
+
+#: files/views.py:24 files/views.py:63
+msgid "The title will be visible in the file list"
+msgstr "Titeln syns i listan av filer"
+
+#: files/views.py:114 files/templates/files/view_files.html:30
+#: files/templates/files/view_files.html:36
+msgid "Upload file"
+msgstr "Ladda upp fil"
+
+#: files/templates/files/add.html:4 files/templates/files/add.html.py:5
+msgid "Add file"
+msgstr "Lägg till fil"
+
+#: files/templates/files/file_list.html:44
+msgid "You have not saved any files yet."
+msgstr "Du har inte sparat några filer ännu."
+
+#: files/templates/files/file_list.html:46
+msgid "There are no files here."
+msgstr "Det finns inga filer här."
+
+#: files/templates/files/file_list.html:61
+msgid "Are you sure you want to delete this file?"
+msgstr "Är du säker på att du vill ta bort den här filen?"
+
+#: files/templates/files/view_files.html:12
+#: forums/templates/forums/view_forum.html:10
+#: labels/templates/labels/add_suggested_label.html:4
+#: labels/templates/labels/add_suggested_label.html:5
+msgid "Edit tabs"
+msgstr "Ändra flikar"
+
+#: files/templates/files/view_files.html:17
+#: forums/templates/forums/view_forum.html:15
+msgid "All"
+msgstr "Allt"
+
+#: files/templates/files/view_files.html:51
+msgid "Do you want to delete the suggested label \"'+title+'\"?"
+msgstr "Vill du ta bort snabbsökningen \"'+title+'\"?"
+
+#: files/templates/files/view_files.html:52
+msgid "Deleting a suggested label will not delete any files."
+msgstr "Inga filer raderas om du tar bort en snabbsökning"
+
+#: forums/models.py:14
+msgid "Last changed time"
+msgstr "Senast ändrad"
+
+#: forums/models.py:18
+msgid "Last changed by"
+msgstr "Senast ändrad av"
+
+#: forums/models.py:19
+msgid "Number of replies"
+msgstr "Antal svar"
+
+#: forums/models.py:42
+msgid "thread"
+msgstr "tråd"
+
+#: forums/models.py:43
+msgid "threads"
+msgstr "Trådar"
+
+#: forums/models.py:53
+msgid "Body"
+msgstr "Text"
+
+#: forums/models.py:54
+msgid "Thread"
+msgstr "Tråd"
+
+#: forums/models.py:55
+msgid "Parent message"
+msgstr "Svar på"
+
+#: forums/models.py:57
+msgid "Owner"
+msgstr "Ägare"
+
+#: forums/models.py:73
+msgid "message"
+msgstr "Meddelande"
+
+#: forums/models.py:74
+msgid "messages"
+msgstr "Meddelanden"
+
+#: forums/views.py:49 forums/templates/forums/add.html:4
+#: forums/templates/forums/add.html.py:5
+#: forums/templates/forums/view_forum.html:29
+msgid "Create thread"
+msgstr "Skapa tråd"
+
+#: forums/views.py:234 forums/views.py:334 messages/models.py:13
+#: messages/views.py:24 messages/views.py:28
+msgid "Message"
+msgstr "Meddelande"
+
+#: forums/views.py:396
+msgid "The title will be visible in the thread list"
+msgstr "Titeln syns i trådlistan"
+
+#: forums/templates/forums/base.html:6
+msgid "My groups"
+msgstr "Mina grupper"
+
+#: forums/templates/forums/edit.html:4 forums/templates/forums/edit.html:5
+#, python-format
+msgid "edit %(thread)s"
+msgstr "Ändra %(thread)s"
+
+#: forums/templates/forums/index.html:13
+msgid "No forums are available."
+msgstr "Inga trådar är tillgängliga."
+
+#: forums/templates/forums/message.html:12
+msgid "Unread"
+msgstr "Oläst"
+
+#: forums/templates/forums/message.html:14
+#, python-format
+msgid "Deleted by <a href=\"%(url)s\">%(user)s</a>"
+msgstr "Borttagen av <a href=\"%(url)s\">%(user)s</a>"
+
+#: forums/templates/forums/message.html:39
+msgid "answer to"
+msgstr "Svar till"
+
+#: forums/templates/forums/message.html:39
+msgid "Show"
+msgstr "Visa"
+
+#: forums/templates/forums/thread_list.html:13
+#: images/templates/images/set_list.html:12
+msgid "Created"
+msgstr "Skapad"
+
+#: forums/templates/forums/thread_list.html:13
+msgid "Latest"
+msgstr "Senaste"
+
+#: forums/templates/forums/thread_list.html:27
+#: forums/templates/forums/thread_list.html:29
+#, python-format
+msgid "%(time)s by <a href=\"%(user_url)s\">%(user)s</a>"
+msgstr "%(time)s av <a href=\"%(user_url)s\">%(user)s</a>"
+
+#: forums/templates/forums/thread_list.html:39
+msgid "No threads are available."
+msgstr "Inga trådar är tillgängliga."
+
+#: forums/templates/forums/thread_toolbar.html:5
+msgid "Write"
+msgstr "Skriv"
+
+#: forums/templates/forums/thread_toolbar.html:10
+msgid "Keep unread"
+msgstr "Oläst"
+
+#: forums/templates/forums/thread_toolbar.html:13
+msgid "Hide deleted"
+msgstr "Göm raderade"
+
+#: forums/templates/forums/thread_toolbar.html:15
+msgid "Show deleted"
+msgstr "Visa raderade"
+
+#: forums/templates/forums/view_forum.html:36
+msgid "New thread"
+msgstr "Ny tråd"
+
+#: forums/templates/forums/view_thread.html:39
+msgid "This thread was deleted at"
+msgstr "Denna tråd raderades"
+
+#: forums/templates/forums/view_thread.html:74
+#, python-format
+msgid "Reply to %s:"
+msgstr "Svar på %s:"
+
+#: forums/templates/forums/view_thread.html:110
+msgid "Are you sure you want to delete this thread?"
+msgstr "Är du säker på att du vill ta bort den här tråden?"
+
+#: forums/templates/forums/view_thread.html:142
+msgid "Do you want to delete this message?"
+msgstr "Är du säker på att du vill ta bort detta meddelande?"
+
+#: forums/templates/forums/view_thread.html:173
+msgid "<span id=\"id_num_hidden_messages\"></span>&nbsp;messages hidden."
+msgstr "<span id=\"id_num_hidden_messages\"></span>&nbsp;gömda meddelanden."
+
+#: forums/templates/forums/view_thread.html:190
+#: messages/templates/messages/message_list.html:62
+#: messages/templates/messages/message_list.html:75
+#: registration/templates/registration/index.html:11
+#: registration/templates/registration/register.html:11
+#: registration/templates/registration/request_new_password.html:13
+msgid "Send"
+msgstr "Skicka"
+
+#: homepage/models.py:9
+msgid "Order"
+msgstr "Ordning"
+
+#: homepage/models.py:13 notifications/models.py:85
+#: notifications/models.py:111
+msgid "Url"
+msgstr "Url"
+
+#: homepage/models.py:23
+msgid "menu item"
+msgstr "Menyalternativ"
+
+#: homepage/models.py:24
+msgid "menu items"
+msgstr "Menyalternativ"
+
+#: homepage/views.py:26
+msgid "<No parent>"
+msgstr "<Ingen förälder>"
+
+#: homepage/views.py:32
+msgid "Text"
+msgstr "Text"
+
+#: homepage/views.py:59
+msgid "Home"
+msgstr "Hem"
+
+#: homepage/templates/homepage/add_menu_item.html:6
+#: homepage/templates/homepage/overview.html:38
+msgid "Add page"
+msgstr "Lägg till sida"
+
+#: homepage/templates/homepage/admin_index.html:4
+#: homepage/templates/homepage/admin_index.html:62
+#, python-format
+msgid "%(community)s Homepage Administration"
+msgstr "%(community)s Hemsideadministration"
+
+#: homepage/templates/homepage/admin_index.html:17
+#: homepage/templates/homepage/admin_index.html:59
+msgid "Hide overview"
+msgstr "Göm överblick"
+
+#: homepage/templates/homepage/admin_index.html:22
+msgid "Show overview"
+msgstr "Visa överblick"
+
+#: homepage/templates/homepage/admin_index.html:55
+#, python-format
+msgid "&lt;&lt; Back to %(community)s "
+msgstr "&lt;&lt; Tillbaka till %(community)s "
+
+#: homepage/templates/homepage/overview.html:4
+msgid "Overview"
+msgstr "Överblick"
+
+#: homepage/templates/homepage/overview.html:22
+msgid "Main menu"
+msgstr "Huvudmeny"
+
+#: images/models.py:13
+msgid "Width"
+msgstr "Bredd"
+
+#: images/models.py:14
+msgid "Height"
+msgstr "Höjd"
+
+#: images/models.py:15
+msgid "Image"
+msgstr "Bild"
+
+#: images/models.py:33 images/views.py:34
+msgid "image"
+msgstr "Bild"
+
+#: images/models.py:34
+msgid "images"
+msgstr "Bilder"
+
+#: images/models.py:40
+msgid "Representative image"
+msgstr "Representativ bild"
+
+#: images/models.py:44
+msgid "Number of images"
+msgstr "Antal bilder"
+
+#: images/models.py:60
+msgid "image set"
+msgstr "Fotoalbum"
+
+#: images/models.py:61
+msgid "images sets"
+msgstr "Fotoalbum"
+
+#: images/views.py:80
+msgid "Invalid zip file"
+msgstr "Ogiltig zip-fil"
+
+#: images/views.py:220 images/views.py:249
+#: images/templates/images/set_list.html:7
+msgid "Album title"
+msgstr "Albumtitel"
+
+#: images/views.py:220 images/views.py:249
+msgid "The title will be visible in the set list"
+msgstr "Titeln syns i albumlistan"
+
+#: images/templates/images/add.html:4 images/templates/images/add.html.py:5
+#: images/templates/images/view_set.html:19
+msgid "Add image"
+msgstr "Lägg till bild"
+
+#: images/templates/images/add.html:8
+msgid "Did you know:"
+msgstr "Visste du att:"
+
+#: images/templates/images/add.html:8
+msgid ""
+"If you upload a zipped file full of images, all the images will be saved."
+msgstr "Om du laddar upp en zip-fil med bilder i så läggs alla bilderna till."
+
+#: images/templates/images/set_list.html:38
+#, python-format
+msgid "%(time)s by <a href=\"%(user_url)s\">%(first_name)s %(last_name)s"
+msgstr "%(time)s av <a href=\"%(user_url)s\">%(first_name)s %(last_name)s"
+
+#: images/templates/images/view.html:9 images/templates/images/view.html:12
+msgid "This image was deleted at"
+msgstr "Denna bild raderades"
+
+#: images/templates/images/view.html:29
+msgid "Are you sure you want to delete this image?"
+msgstr "Är du säker på att du vill ta bort den här bilden?"
+
+#: images/templates/images/view_set.html:3
+#: images/templates/images/view_set.html:4
+msgid "Deleted set"
+msgstr "Raderat album"
+
+#: images/templates/images/view_set.html:23
+msgid "Delete image set"
+msgstr "Ta bort fotoalbum"
+
+#: images/templates/images/view_set.html:34
+msgid "Set as representative image"
+msgstr "Sätt som representativ bild"
+
+#: images/templates/images/view_set.html:36
+msgid "Representative Image"
+msgstr "Representativ bild"
+
+#: images/templates/images/view_set.html:48
+msgid "You have not saved any pictures yet."
+msgstr "Du har inte sparat några bilder än."
+
+#: images/templates/images/view_set.html:50
+msgid "There are no pictures here."
+msgstr "Det finns inga bilder här."
+
+#: images/templates/images/view_set.html:56
+msgid "This image set has been deleted."
+msgstr "Detta album har raderats"
+
+#: images/templates/images/view_set.html:67
+msgid "Do you want to delete this set of images?"
+msgstr "Är du säker på att du vill ta bort detta album?"
+
+#: images/templates/images/view_set.html:98
+msgid "Do you want to delete this image?"
+msgstr "Är du säker på att du vill ta bort den här bilden?"
+
+#: images/templates/images/view_sets.html:7
+msgid "Add image-set"
+msgstr "Lägg till album"
+
+#: images/templates/images/view_sets.html:13
+msgid "You have not saved any image sets yet."
+msgstr "Du har inte sparat några album ännu."
+
+#: images/templates/images/view_sets.html:15
+msgid "There are no image sets here."
+msgstr "Det finns inga album här."
+
+#: labels/models.py:45
+msgid "label"
+msgstr "Nyckelord"
+
+#: labels/models.py:46
+msgid "labels"
+msgstr "Nyckelord"
+
+#: labels/models.py:53 notifications/models.py:129
+msgid "Label"
+msgstr "Nyckelord"
+
+#: labels/models.py:71
+msgid "suggested label"
+msgstr "Snabbsök"
+
+#: labels/models.py:72
+msgid "suggested labels"
+msgstr "Snabbsök"
+
+#: labels/views.py:24
+msgid "New tab"
+msgstr "Ny flik"
+
+#: labels/views.py:24
+msgid "Items with this label will automatically appear in the tab."
+msgstr "En flik visar automatiskt allt med det givna nyckelordet."
+
+#: labels/templates/labels/add_suggested_label.html:15
+#, python-format
+msgid "Tab \"%(added_label)s\" added."
+msgstr "Flik \"%(added_label)s\" tillagd."
+
+#: labels/templates/labels/add_suggested_label.html:32
+msgid "Do you want to delete this tab?"
+msgstr "Är du säker på att du vill ta bort den här fliken?"
+
+#: labels/templates/labels/add_suggested_label.html:33
+msgid "Deleting a tab will not delete any item."
+msgstr "Inget tas bort om du tar bort en flik."
+
+#: messages/views.py:27
+msgid "Receiver"
+msgstr "Mottagare"
+
+#: messages/views.py:38
+msgid "You cannot send a message to yourself."
+msgstr "Du kan inte skicka meddelanden till dig själv."
+
+#: messages/views.py:42
+msgid "No user with that name exists"
+msgstr "Det finns ingen användare med det namnet."
+
+#: messages/templates/messages/add.html:4
+#: messages/templates/messages/add.html:5
+msgid "Add message"
+msgstr "Nytt meddelande"
+
+#: messages/templates/messages/message_list.html:4
+msgid "Messages"
+msgstr "Meddelanden"
+
+#: notifications/__init__.py:232
+#, python-format
+msgid "%(count)s new %(item)s"
+msgstr "%(count)s ny %(item)s"
+
+#: notifications/__init__.py:234
+#, python-format
+msgid "%(count)s new %(items)s"
+msgstr "%(count)s nya %(items)s"
+
+#: notifications/models.py:16
+msgid "Negate"
+msgstr "Negera"
+
+#: notifications/models.py:27
+msgid "not "
+msgstr "inte "
+
+#: notifications/models.py:33
+msgid "all "
+msgstr "alla "
+
+#: notifications/models.py:35
+msgid "everything "
+msgstr "allt "
+
+#: notifications/models.py:77
+msgid "watcher"
+msgstr "Bevakning"
+
+#: notifications/models.py:78
+msgid "watchers"
+msgstr "Bevakningar"
+
+#: notifications/models.py:104
+msgid "notification"
+msgstr "Notifiering"
+
+#: notifications/models.py:105
+msgid "notifications"
+msgstr "Notifieringar"
+
+#: notifications/models.py:123 times/models.py:14
+msgid "Bookmark"
+msgstr "Genväg"
+
+#: notifications/templates/bookmark-obj-link.html:2
+msgid "Remove"
+msgstr "Ta bort"
+
+#: notifications/templates/bookmark-obj-link.html:2
+msgid "add"
+msgstr "Lägg till"
+
+#: notifications/templates/bookmark-obj-link.html:2
+msgid "bookmark"
+msgstr "Genväg"
+
+#: notifications/templates/notifications/view_new_objects.html:4
+#, python-format
+msgid "New %(content_type_name)s"
+msgstr "Nya %(content_type_name)s"
+
+#: notifications/templates/notifications/view_new_objects.html:33
+msgid "Clear list"
+msgstr "Töm listan"
+
+#: registration/models.py:9
+msgid "Created from"
+msgstr "Skapad från"
+
+#: registration/views.py:28
+msgid "E-mail addresses of friends to invite"
+msgstr "E-postaddresser till vänner du vill bjuda in"
+
+#: registration/views.py:28
+msgid ""
+"Separate with comma to invite several people at once, e.g a@a.com, b@b.com"
+msgstr ""
+"För att bjuda in flera personer, separera adresserna med komma: erik@example."
+"com, anna@example.com"
+
+#: registration/views.py:29
+msgid "Personal message"
+msgstr "Personligt meddelande"
+
+#: registration/views.py:75
+#, python-format
+msgid "%s has invited you to %s"
+msgstr "%s har bjudit in dig till %s"
+
+#: registration/views.py:101
+msgid "E-mail address"
+msgstr "E-postaddress"
+
+#: registration/views.py:136
+msgid "Confirm e-mail for %s"
+msgstr "Bekräfta e-postaddress för %s"
+
+#: registration/views.py:173
+msgid "code"
+msgstr "Kod"
+
+#: registration/views.py:176
+msgid "email"
+msgstr "E-post"
+
+#: registration/views.py:177
+msgid ""
+"I have read and accepted the <a href=\"/registration/user_agreement/\" "
+"target=\"blank\">user agreement</a>"
+msgstr ""
+"Jag har läst och accepterat <a href=\"/registration/user_agreement/\" target="
+"\"blank\">användaravtalet</a>"
+
+#: registration/views.py:185 registration/views.py:310
+msgid "You must accept the user agreement."
+msgstr "Du måste acceptera användaravtalet"
+
+#: registration/views.py:191
+msgid "You have not been invited to this community"
+msgstr "Du har inte blivit inbjuden till detta commmunity"
+
+#: registration/views.py:284
+msgid "Organization"
+msgstr "Organisation"
+
+#: registration/views.py:285
+msgid "Happening"
+msgstr "Evenemang"
+
+#: registration/views.py:286
+msgid "Project group"
+msgstr "Projektgrupp"
+
+#: registration/views.py:287
+msgid "Online group"
+msgstr "Online-grupp"
+
+#: registration/views.py:288
+msgid "Other group"
+msgstr "Annan grupp"
+
+#: registration/views.py:292
+msgid "Name of community"
+msgstr "Community-namn"
+
+#: registration/views.py:293
+msgid "Domain"
+msgstr "Domän"
+
+#: registration/views.py:294
+msgid "Your e-mail address"
+msgstr "Din e-postaddress"
+
+#: registration/views.py:295
+msgid "Confirm your e-mail address"
+msgstr "Bekräfta din e-postaddress"
+
+#: registration/views.py:296
+msgid "Describe yourself"
+msgstr "Beskriv er"
+
+#: registration/views.py:297
+msgid ""
+"I have read and accepted the <a href=\"/registration/administrator_agreement/"
+"\" target=\"blank\">administrator agreement</a>"
+msgstr ""
+"Jag har läst och accepterat <a href=\"/registration/administrator_agreement/"
+"\" target=\"blank\">administratöravtalet</a>"
+
+#: registration/views.py:313
+msgid "Emails did not match."
+msgstr "Lösenorden stämmer inte överrens."
+
+#: registration/views.py:317
+msgid "That name is already taken."
+msgstr "Namnet är taget."
+
+#: registration/views.py:324
+#, python-format
+msgid "You may not call your community %s."
+msgstr "Namnet %s är upptaget."
+
+#: registration/views.py:329
+#, python-format
+msgid "You may not use the domain name %s.eldmyra.se"
+msgstr "Domännamnet %s.eldmyra.se är taget"
+
+#: registration/views.py:338
+msgid "Domain name is taken, please choose another"
+msgstr "Domännamnet är taget, välj ett annat"
+
+#: registration/views.py:374
+#, python-format
+msgid "Your community %s has been registered at Eldmyra.se!"
+msgstr "Ditt community %s har blivit registrerat på Eldmyra.se"
+
+#: registration/views.py:398
+msgid "Events"
+msgstr "Aktiviteter"
+
+#: registration/views.py:399
+msgid "Links"
+msgstr "Länkar"
+
+#: registration/views.py:421
+msgid "There is no user with this email"
+msgstr "Det finns ingen användare med den e-postaddressen"
+
+#: registration/views.py:434
+msgid "New password request on Eldmyra.se"
+msgstr "Nytt lösenord på eldmyra.se"
+
+#: registration/views.py:459
+msgid "New password"
+msgstr "Nytt lösenord"
+
+#: registration/templates/registration/administrator_agreement.html:4
+#: registration/templates/registration/administrator_agreement.html:5
+msgid "User agreement - administrator"
+msgstr "Användaravtal - adminstratör"
+
+#: registration/templates/registration/community_email.html:1
+#, python-format
+msgid "You have created %(community)s at Eldmyra.se"
+msgstr "Du har skapat %(community)s på Eldmyra.se"
+
+#: registration/templates/registration/community_email.html:6
+#: registration/templates/registration/community_email.html:8
+#: registration/templates/registration/register_email.html:5
+msgid "Complete the registration at "
+msgstr "Acceptera inbjudan här: "
+
+#: registration/templates/registration/community_email.html:6
+#: registration/templates/registration/community_email.html:8
+#: registration/templates/registration/register_email.html:5
+#, python-format
+msgid ""
+"Once you have completed the registration you will be able to log in at <a "
+"href=\"http://%(domain)s\">http://%(domain)s</a>"
+msgstr ""
+"När du accepterat inbjudan kan du logga in på <a href=\"http://%(domain)s"
+"\">http://%(domain)s</a>"
+
+#: registration/templates/registration/create_community.html:4
+#: registration/templates/registration/create_community.html:5
+msgid "Create community"
+msgstr "Skapa community"
+
+#: registration/templates/registration/create_community_done.html:4
+#: registration/templates/registration/create_community_done.html:5
+msgid "Thank you!"
+msgstr "Tack!"
+
+#: registration/templates/registration/create_community_done.html:8
+#, python-format
+msgid ""
+"We have sent you an e-mail. Follow the instructions within to complete the "
+"registration.\n"
+"    Your community %(community)s can then be reached at <a href=\"%(url)s\">%"
+"(url)s</a>. "
+msgstr ""
+"Vi har skickat ett e-brev till dig. Följ instruktionerna i det för att "
+"fullborda registreringen.\n"
+"    Du kan komma åt ditt community %(community)s på adressen <a href=\"%(url)"
+"s\">%(url)s</a>. "
+
+#: registration/templates/registration/email.html:1
+#, python-format
+msgid "%(inviter)s has invited you to %(community)s"
+msgstr "%(inviter)s har bjudit in dig till %(community)s"
+
+#: registration/templates/registration/email.html:6
+#: registration/templates/registration/email.html:8
+msgid "Accept the invitation at "
+msgstr "Acceptera inbjudan här: "
+
+#: registration/templates/registration/email.html:6
+#: registration/templates/registration/email.html:8
+#, python-format
+msgid ""
+"Once you have accepted the invitation you will be able to log in at <a href="
+"\"http://%(domain)s\">http://%(domain)s</a>"
+msgstr ""
+"När du accepterat inbjudan kan du logga in på <a href=\"http://%(domain)s"
+"\">http://%(domain)s</a>"
+
+#: registration/templates/registration/email_sent.html:4
+#: registration/templates/registration/email_sent.html:5
+#: registration/templates/registration/register_email_sent.html:4
+#: registration/templates/registration/register_email_sent.html:5
+#: registration/templates/registration/request_email_sent.html:4
+#: registration/templates/registration/request_email_sent.html:5
+msgid "E-mail sent"
+msgstr "E-post skickat"
+
+#: registration/templates/registration/email_sent.html:9
+msgid ""
+"An invitation e-mail has been sent. Now all we can do is cross our fingers."
+msgstr "Ett inbjudningsmejl har skickats. Nu kan vi bara hålla tummarna."
+
+#: registration/templates/registration/enter_code.html:4
+#: registration/templates/registration/enter_code.html:5
+msgid "Accept invitation"
+msgstr "Acceptera inbjudan"
+
+#: registration/templates/registration/index.html:4
+#: registration/templates/registration/index.html:5
+msgid "Invite"
+msgstr "Bjud in"
+
+#: registration/templates/registration/index.html:20
+msgid "The following people have been invited, but have not answered yet:"
+msgstr "Följande personer har blivit inbjudna men har inte svarat än:"
+
+#: registration/templates/registration/index.html:41
+msgid "Do you want to delete this invitation?"
+msgstr "Är du säker på att du vill ta bort den här inbjudan?"
+
+#: registration/templates/registration/index.html:42
+msgid "This user will no longer be able to join your community."
+msgstr "Denna användare kommer inte längre kunna gå med i ditt community."
+
+#: registration/templates/registration/register.html:4
+#: registration/templates/registration/register.html:5
+msgid "Register"
+msgstr "Registrera"
+
+#: registration/templates/registration/register_email.html:1
+#, python-format
+msgid "You have registered to join %(community)s"
+msgstr "Du har registrerat dig för %(community)s"
+
+#: registration/templates/registration/register_email_sent.html:9
+msgid ""
+"An e-mail has been sent to your address. Please follow the instructions "
+"within to complete your registration."
+msgstr "Vi har skickat ett mejl till dig. Följ instruktionerna i mejlet för att fullborda registreringen."
+
+#: registration/templates/registration/request_email_sent.html:9
+msgid ""
+"Instructions on how to change your password has been sent to the specified "
+"email."
+msgstr ""
+"Instruktioner för hur du ändrar ditt lösenord has skickats till din e-"
+"postaddress."
+
+#: registration/templates/registration/request_new_password.html:8
+msgid "Request new password"
+msgstr "Begär nytt lösenord"
+
+#: registration/templates/registration/request_new_password.html:11
+msgid ""
+"Please supply your e-mail address and we will send an e-mail with further "
+"instructions to you."
+msgstr ""
+"Skriv in din e-postadress så skickar vi instruktioner för hur du väljer ett "
+"nytt lösenord."
+
+#: registration/templates/registration/retrieve.html:2
+msgid ""
+"You have clicked the \"forgot my password\"-button on Eldmyra.se, follow the "
+"link below to register a new password. If you don't want to change your "
+"password or if you received this without pressing the \"forgot my password\"-"
+"button, then you may safely ignore this email."
+msgstr ""
+"Du har klickat \"Glömt ditt lösenord?\"-knappen på Eldmyra.se. Klicka på "
+"länken nedan för att registrera ett nytt lösenord. Om du inte vill ändra "
+"lösenord eller om du fått detta mejl utan att du klickat på \"Glömt ditt "
+"lösenord?'\"-knappen så kan du bara kasta detta mejl."
+
+#: registration/templates/registration/retrieve.html:4
+#, python-format
+msgid ""
+"Change your password at <a href=\"http://%(domain)s/registration/"
+"set_new_password/?code=%(password)s&amp;email=%(email)s\">http://%(domain)s/"
+"registration/set_new_password/?code=%(password)s&amp;email=%(email)s</a>"
+msgstr ""
+"Gå till <a href=\"http://%(domain)s/registration/set_new_password/?code=%"
+"(password)s&amp;email=%(email)s\">http://%(domain)s/registration/"
+"set_new_password/?code=%(password)s&amp;email=%(email)s</a> för att ändra "
+"ditt lösenord."
+
+#: registration/templates/registration/set_new_password.html:4
+#: registration/templates/registration/set_new_password.html:5
+msgid "Set new password"
+msgstr "Sätt nytt lösenord"
+
+#: registration/templates/registration/set_new_password.html:8
+msgid "Select a new password:"
+msgstr "Välj nytt lösenord"
+
+#: registration/templates/registration/user_agreement.html:4
+#: registration/templates/registration/user_agreement.html:5
+msgid "User agreement"
+msgstr "Användaravtal"
+
+#: templates/admin/base_site.html:4 templates/admin_/base_site.html:4
+msgid "Django site admin"
+msgstr "Databasadministration"
+
+#: templates/admin/base_site.html:7 templates/admin_/base_site.html:7
+msgid "Django administration"
+msgstr "Databasadministration"
+
+#: templates/admin_/index.html:17
+#, python-format
+msgid "Models available in the %(name)s application."
+msgstr "Modeller tillgängliga i %(name)s-applikationen"
+
+#: templates/admin_/index.html:18
+#, python-format
+msgid "%(name)s"
+msgstr "%(name)s"
+
+#: templates/admin_/index.html:34
+msgid "Change"
+msgstr "Ändra"
+
+#: templates/admin_/index.html:44
+msgid "You don't have permission to edit anything."
+msgstr "Du har inga ändra-rättigheter"
+
+#: templates/admin_/index.html:52
+msgid "Recent Actions"
+msgstr "Senaste händelser"
+
+#: templates/admin_/index.html:53
+msgid "My Actions"
+msgstr "Mina händelser"
+
+#: templates/admin_/index.html:57
+msgid "None available"
+msgstr "Inga tillgängliga"
+
+#: times/models.py:13
+msgid "Last viewed"
+msgstr "Senast tittad på"
+
+#: times/models.py:36
+msgid "time"
+msgstr "Tid"
+
+#: times/models.py:37
+msgid "times"
+msgstr "Tider"
+
+#: times/templates/times/index.html:13
+msgid "No bookmarks are available."
+msgstr "Inga genvägar är tillgängliga."
+
+#~ msgid "Icon"
+#~ msgstr "Ikon"
+
+#~ msgid "Thumbnail"
+#~ msgstr "Tumnagel"
+
+#~ msgid "Reject"
+#~ msgstr "Bestrid"
+
+#~ msgid "Y: %(escaped)s "
+#~ msgstr "J: %(escaped)s"
+
+#~ msgid "N: %(escaped)s "
+#~ msgstr "N: %(escaped)s"
+
+#~ msgid "?: %(escaped)s "
+#~ msgstr "?: %(escaped)s "

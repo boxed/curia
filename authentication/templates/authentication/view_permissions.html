@@ -1,0 +1,97 @@
+{% extends base %}{% load i18n %}{% load auth %}
+
+{% block title %}{% blocktrans %}Permissions on {{ obj }}{% endblocktrans %}{% endblock %}
+{% block header %}{% blocktrans %}Permissions on {{ obj }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+{% if errors %}
+	{% for error in errors %}
+		{{ error }}
+	{% endfor %}
+	{{ errors }}
+{% endif %}
+
+{% if user.is_staff %}
+	<a href="advanced/">{{ _("Advanced permissions") }}</a>
+{% endif %}
+
+<style>
+ul
+{
+	margin-top: 0;
+}
+textarea
+{
+	width: 200px;
+}
+</style>
+
+<script>
+function hide_extra()
+{
+	document.getElementById('id_external').style.display = 'none';
+	document.getElementById('id_blocked').style.display = 'none';
+}
+function show_extra()
+{
+	document.getElementById('id_external').style.display = 'inline';
+	document.getElementById('id_blocked').style.display = 'inline';
+}
+</script>
+
+<form method="post" enctype="multipart/form-data">
+	<table>
+		{% ifequal content_type.name "group" %}
+			<tr>
+				<td>
+					<div>
+						<label><input onClick="hide_extra();"  {% ifequal access_type "hidden" %} checked="checked" {% endifequal %} type="radio" id="id_access_type_0" value="hidden" name="access_type" /> {{ _("Hidden") }}</label>
+						<ul>
+							<li>Gruppen syns inte för icke-medlemmar</li>
+							<li>Bara medlemmar kan göra saker i gruppen</li>
+						</ul>
+					</div>
+					<div>
+						<label><input onClick="show_extra();"  {% ifequal access_type "closed" %} checked="checked" {% endifequal %} type="radio" id="id_access_type_1" value="closed" name="access_type" /> {{ _("Closed") }}</label>
+						<ul>
+							<li>Gruppen syns för icke-medlemmar</li>
+				  			<li>Icke-medlemmar kan titta på allt utom trådar</li>
+				  			<li>Icke-medlemmar kan ansöka om att få bli medlemmar</li>
+					  	</ul>
+					</div>
+					<div>
+						<label><input onClick="show_extra();" {% ifequal access_type "open" %} checked="checked" {% endifequal %} type="radio" id="id_access_type_2" value="open" name="access_type" /> {{ _("Open") }}</label>
+						<ul>
+							<li>Gruppen syns för icke-medlemmar</li>
+							<li>Gruppen syns även om man inte är inloggad</li>
+						  	<li>Alla kan skriva i trådar</li>
+						  	<li>Vem som helst kan gå med i gruppen</li>
+					  	</ul>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="id_external" {% ifequal access_type "hidden" %}style="display:none;"{% endifequal %}>
+						{{ form.external_editing }}<label for="id_external_editing"> {{ _("Non-members can edit") }}</label>
+					</div>	
+				</td>
+			</tr>
+		{% endifequal %}
+		<tr>
+			<td>
+				<div id="id_blocked" {% ifequal access_type "hidden" %}style="display:none;"{% endifequal %}>
+					<label for="id_blocked_users"> {{ _("Blocked users") }}: </label>{{ form.blocked_users }} <span style="margin-top: {% ifequal content_type.name "group" %}50px{% else %}-100px{% endifequal %};" class="help">{{ _("Separate user names with comma") }}<span class="help-pointer">&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" />
+			</td>
+		</tr>
+	</table>
+</form>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "themes/default/external_with_homepage.html" %}
+{% load i18n %}{% load auth %}
+
+
+{% block body %}
+	<h1>{{_("Add page")}}</h1>
+
+	<form method="post" action="/homepage/menu/add/">
+		<table>
+			{% include "form.html" %}
+			<tr><td></td><td><input type="submit" value="{{_("Add")}}"></td></tr>
+		</table>
+	</form>
+{% endblock %}

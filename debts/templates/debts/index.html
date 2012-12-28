@@ -1,0 +1,117 @@
+{% extends "debts/base.html" %}
+{% load auth %}{% load i18n %}
+
+{% block extra_head %}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script src="{{ MEDIA_URL }}js/jquery.autocomplete.pack.js"></script>
+    <link rel="stylesheet" media="screen" type="text/css" href="{{ MEDIA_URL }}jquery.autocomplete.css" />
+{% endblock %}
+
+{% block content %}
+    <style>
+    #id_debt_header {
+        height: 100px;
+        color: white;
+    }
+    #id_debt_header a {
+        text-decoration: underline;
+        color: white;
+    }
+
+    #id_debt_top_users {
+        float: right;
+    }
+
+    #id_debt_status {
+    }
+
+    #id_debt_status_log {
+    }
+
+    .neutral_debt {
+        background: #cbc197;
+    }
+    .negative_debt {
+        background: #c72227;
+    }
+    .positive_debt {
+        background: #1ba94a;
+    }
+    .neutral_debt, .negative_debt, .positive_debt {
+        padding: 5px;
+    }
+
+    #id_debt_add {
+        border: 2px solid #d1d1ba;
+        padding: 10px;
+        padding-bottom: 0;
+        background: #f9f8f2;
+        position: relative;
+        top: 30px;
+    }
+    </style>
+
+    <div id="id_debt_header" class="{{ status }}_debt">
+        <div id="id_debt_top_users">
+            {% ifequal status "positive" %}
+                {{ _("People with negative balance") }}:<br />
+            {% else %}
+                {{ _("People with positive balance") }}:<br />
+            {% endifequal %}
+
+            {% for user in top_users %}
+                {{ user }}<br />
+            {% endfor %}
+
+            <a href="{% ifequal status "positive" %}negative/{% else %}positive/{% endifequal %}">{{ _("Show all") }}</a>
+        </div>
+
+        <div id="id_debt_status">
+            <div style="font-size: 25px;">
+                {% ifequal status "neutral" %}
+                    {% blocktrans with account.balance|absolute as balance %}You have borrowed <strong>{{ balance }}</strong>{% endblocktrans %}
+                {% endifequal %}
+
+                {% ifequal status "negative" %}
+                    {% blocktrans with account.balance|absolute as balance %}You have borrowed <strong>{{ balance }}</strong>{% endblocktrans %}
+                {% endifequal %}
+
+                {% ifequal status "positive" %}
+                    {% blocktrans with account.balance|absolute as balance %}You have lended <strong>{{ balance }}</strong>{% endblocktrans %}
+                {% endifequal %}
+            </div>
+
+            <a id="id_debt_status_log" href="log/">{{ _("Show log") }}</a>
+        </div>
+    </div>
+
+    {% if rejected_transactions %}
+        <div id="id_debt_rejected">
+            <table>
+                {% for transaction in rejected_transactions %}
+                    <tr><td>{% blocktrans with transaction.from_user as from_user and transaction.description as description %}{{ from_user }} rejected owing you {{ description }}{% endblocktrans %}</td></tr>
+                {% endfor %}
+            </table>
+
+            <a href="clear_rejected/">{{ _("Clear all") }}</a>
+        </div>
+    {% endif %}
+
+    {% for key, value in form.errors.items %}
+        {% for x in value %}
+            {{ x }}
+        {% endfor %}
+    {% endfor %}
+    <div id="id_debt_add">
+        <form method="post">
+            {% blocktrans with form.from_user as from_user and form.description as description %}{{ from_user }} owes you {{ description }}{% endblocktrans %} <input type="submit" value="{{ _("Add") }}" />
+        </form>
+    </div>
+
+    <script>
+        var data = "Core Selectors Attributes Traversing Manipulation CSS Events Effects Ajax Utilities".split(" ");
+        jQuery.get('/autocomplete/members/', function(request) {
+            jQuery("#id_from_user").autocomplete(eval(request));
+        });
+    </script>
+{% endblock %}
