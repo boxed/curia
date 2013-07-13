@@ -1,9 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User,Group
-from django.db import transaction, connection
 from curia.notifications import enable_notifications
 from django.db.models import signals
-from django.dispatch import dispatcher
 from django.utils.translation import ugettext_lazy as _
 
 class Thread(models.Model):
@@ -44,11 +42,6 @@ class Thread(models.Model):
 
 enable_notifications(Thread)
 
-def encode(id):
-    from binascii import b2a_uu
-    from struct import pack
-    return b2a_uu(pack('!L', id))[0:-1]
-
 class Message(models.Model):
     body = models.TextField(name=_('Body'))
     parent_thread = models.ForeignKey(Thread, related_name='child_message', name=_('Thread'))
@@ -72,11 +65,16 @@ class Message(models.Model):
     class Meta:
         verbose_name = _('message')
         verbose_name_plural = _('messages')
-    
+
+def encode(pk):
+    from binascii import b2a_uu
+    from struct import pack
+    return b2a_uu(pack('!L', pk))[0:-1]
+
 def set_cache_hierarchy(sender, instance, **kwargs):
-    if not hasattr(instance, 'avoid_infinite_loop'):
+    if not hasattr(instance, 'avoid_infinite_loop') and instance.cache_heirarchy is None:
         instance.avoid_infinite_loop = True
-        if (instance.parent_message):
+        if instance.parent_message:
             instance.cache_hierarchy = Message.objects.get(id=instance.parent_message.id).cache_hierarchy+encode(instance.id)
         else:
             instance.cache_hierarchy = encode(instance.id)

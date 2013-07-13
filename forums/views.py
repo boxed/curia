@@ -1,13 +1,10 @@
-import codecs
 from datetime import datetime
-from time import strptime
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
+from django.db.models import F
 from django.utils.translation import ugettext as _
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.paginator import Paginator, InvalidPage
-from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.shortcuts import *
-from django.db import connection
 from django.conf import settings
 from curia import *
 from curia.forums.models import Thread, Message
@@ -15,9 +12,8 @@ from curia.times import set_time_on, get_time_from
 from curia.shortcuts import *
 from curia.authentication import check_access
 from curia.notifications.models import *
-from curia.labels import handle_labels, mark_labels_as_deleted, search_objects_from, get_labels, get_objects_with_label
+from curia.labels import handle_labels, search_objects_from, get_labels
 from curia.labels.models import SuggestedLabel
-from curia.authentication.models import UserPermission
 
 def get_add_form():
     import django.forms
@@ -247,11 +243,13 @@ def view_thread(request, thread_id, page=None):
             body = form.cleaned_data['body']
             body = replacer.sub(' ', body)
             if body != '':
-                message = Message.objects.create(parent_thread=thread, parent_message=parent_message, owner=request.user, body=body)
-                thread.number_of_replies += 1
+                Message.objects.create(parent_thread=thread, parent_message=parent_message, owner=request.user, body=body)
                 thread.last_changed_by = request.user
                 thread.last_changed_time = datetime.now()
                 thread.save()
+
+                Thread.objects.filter(pk=thread.id).update(count=F('number_of_replies')+1)
+
                 set_time_on(thread, user=None)
 
             try:
@@ -309,9 +307,8 @@ def delete_message(request, message_id):
         check_access(request.user, command='administrate thread', obj=thread)
         
     delete_object(message)
-    thread.number_of_replies -= 1
-    thread.save()
-    if thread.number_of_replies == -1:
+    Thread.objects.filter(pk=thread.id).update(count=F('number_of_replies')+1)
+    if thread.number_of_replies == 0:
         delete_object(thread)
     
     # disconnect replies
