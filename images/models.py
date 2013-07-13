@@ -8,17 +8,17 @@ from curia.notifications import enable_notifications
 import os
 
 class Image(models.Model):
-    title = models.CharField(max_length=1024, name=_('Title'))
-    description = models.TextField(blank=True, name=_('Description'))
-    width = models.IntegerField(blank=True, null=True, name=_('Width'))
-    height = models.IntegerField(blank=True, null=True, name=_('Height'))
-    image = models.ImageField(width_field='width', height_field='height', upload_to='images', name=_('Image'))
-    owner_user = models.ForeignKey(User, blank=True, null=True, verbose_name=_('Owner user'), name=_('owner user'))
-    owner_group = models.ForeignKey(Group, blank=True, null=True, verbose_name=_('Owner group'), name=_('owner group'))
-    creation_time = models.DateTimeField(auto_now_add=True, name=_('Creation time'))
-    deleted = models.BooleanField(default=False, name=_('Deleted'))
-    deleted_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name="deleted_images", name=_('Deleted by'))
-    deletion_time = models.DateTimeField(blank=True, null=True, name=_('Deletion time'))
+    title = models.CharField(max_length=1024, verbose_name=_('Title'))
+    description = models.TextField(blank=True, verbose_name=_('Description'))
+    width = models.IntegerField(blank=True, null=True, verbose_name=_('Width'))
+    height = models.IntegerField(blank=True, null=True, verbose_name=_('Height'))
+    image = models.ImageField(width_field='width', height_field='height', upload_to='images', verbose_name=_('Image'))
+    owner_user = models.ForeignKey(User, blank=True, null=True, verbose_name=_('Owner user'))
+    owner_group = models.ForeignKey(Group, blank=True, null=True, verbose_name=_('Owner group'))
+    creation_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation time'))
+    deleted = models.BooleanField(default=False, verbose_name=_('Deleted'))
+    deleted_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name="deleted_images", verbose_name=_('Deleted by'))
+    deletion_time = models.DateTimeField(blank=True, null=True, verbose_name=_('Deletion time'))
     
     def __unicode__(self):
         return self.title
@@ -34,17 +34,17 @@ class Image(models.Model):
         verbose_name_plural = _('images')
 
 class ImageSet(models.Model):
-    title = models.CharField(max_length=1024, name=_('Title'))
-    description = models.TextField(blank=True, name=_('Description'))
-    images = models.ManyToManyField(Image, blank=True, name=_('Images'), related_name='sets')
-    representative_image = models.ForeignKey(Image, blank=True, null=True, name=_('Representative image'), related_name='represented_in_sets')
-    owner_user = models.ForeignKey(User, blank=True, null=True, verbose_name=_('Owner user'), name=_('owner user'))
-    owner_group = models.ForeignKey(Group, blank=True, null=True, verbose_name=_('Owner group'), name=_('owner group'))
-    creation_time = models.DateTimeField(auto_now_add=True, name=_('Creation time'))
-    number_of_images = models.IntegerField(name=_('Number of images'), default=0)
-    deleted = models.BooleanField(default=False, name=_('Deleted'))
-    deleted_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name="deleted_sets", name=_('Deleted by'))
-    deletion_time = models.DateTimeField(blank=True, null=True, name=_('Deletion time'))
+    title = models.CharField(max_length=1024, verbose_name=_('Title'))
+    description = models.TextField(blank=True, verbose_name=_('Description'))
+    images = models.ManyToManyField(Image, blank=True, verbose_name=_('Images'), related_name='sets')
+    representative_image = models.ForeignKey(Image, blank=True, null=True, verbose_name=_('Representative image'), related_name='represented_in_sets')
+    owner_user = models.ForeignKey(User, blank=True, null=True, verbose_name=_('Owner user'))
+    owner_group = models.ForeignKey(Group, blank=True, null=True, verbose_name=_('Owner group'))
+    creation_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation time'))
+    number_of_images = models.IntegerField(verbose_name=_('Number of images'), default=0)
+    deleted = models.BooleanField(default=False, verbose_name=_('Deleted'))
+    deleted_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name="deleted_sets", verbose_name=_('Deleted by'))
+    deletion_time = models.DateTimeField(blank=True, null=True, verbose_name=_('Deletion time'))
 
     def __unicode__(self):
         return self.title

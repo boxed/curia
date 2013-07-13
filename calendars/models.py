@@ -6,28 +6,28 @@ from django.db.models import signals
 from django.dispatch import dispatcher
 
 class Event(models.Model):
-    owner_user = models.ForeignKey(User, blank=True, null=True, verbose_name=_('Owner user'), name=_('owner user'))
-    owner_group = models.ForeignKey(Group, blank=True, null=True, verbose_name=_('Owner group'), name=_('owner group'))
-    creation_time = models.DateTimeField(auto_now_add=True, name=_('Creation time'))
-    deleted = models.BooleanField(default=False, name=_('Deleted'))
-    deleted_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name='deleted_events', name=_('Deleted by'))
-    deletion_time = models.DateTimeField(blank=True, null=True, name=_('Deletion time'))
-    event_parent = models.ForeignKey('self', blank=True, null=True, default=None, related_name='event_children', name=_('Event parent'))
+    owner_user = models.ForeignKey(User, blank=True, null=True, verbose_name=_('Owner user'))
+    owner_group = models.ForeignKey(Group, blank=True, null=True, verbose_name=_('Owner group'))
+    creation_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation time'))
+    deleted = models.BooleanField(default=False, verbose_name=_('Deleted'))
+    deleted_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name='deleted_events', verbose_name=_('Deleted by'))
+    deletion_time = models.DateTimeField(blank=True, null=True, verbose_name=_('Deletion time'))
+    event_parent = models.ForeignKey('self', blank=True, null=True, default=None, related_name='event_children', verbose_name=_('Event parent'))
 
-    title = models.CharField(max_length=1024, name=_('Title'))
-    description = models.TextField(blank=True, name=_('Description'))
+    title = models.CharField(max_length=1024, verbose_name=_('Title'))
+    description = models.TextField(blank=True, verbose_name=_('Description'))
 
-    start_time = models.DateTimeField(name=_('Start time'))
-    end_time = models.DateTimeField(name=_('End time'))
-    all_day = models.BooleanField(default=False, name=_('All day'))
+    start_time = models.DateTimeField(verbose_name=_('Start time'))
+    end_time = models.DateTimeField(verbose_name=_('End time'))
+    all_day = models.BooleanField(default=False, verbose_name=_('All day'))
     REPEAT_CHOICES = (
         ('D', _('Day')),
         ('W', _('Week')),
         ('M', _('Month')),
         ('Y', _('Year')),
     )
-    repeat = models.CharField(max_length=1, choices=REPEAT_CHOICES, blank=True, name=_('Repeat'))
-    end_repeat = models.DateTimeField(blank=True, null=True, name=_('End repeat'))
+    repeat = models.CharField(max_length=1, choices=REPEAT_CHOICES, blank=True, verbose_name=_('Repeat'))
+    end_repeat = models.DateTimeField(blank=True, null=True, verbose_name=_('End repeat'))
     
     def get_absolute_url(self):
         return '/calendars/events/%d/' % self.id
@@ -97,11 +97,11 @@ class Reply(models.Model):
         ('-', _('No reply')),
     )
     
-    event = models.ForeignKey(Event, name=_('Event'))
-    user = models.ForeignKey(User, related_name='event_replies', name=_('User'))
-    inviter = models.ForeignKey(User, related_name='event_invited_users', name=_('Inviter'))
-    choice = models.CharField(max_length=1, choices=REPLY_CHOICES, default='-', name=_('Choice'))
-    comment = models.CharField(max_length=767, blank=True, name=_('Comment'))
+    event = models.ForeignKey(Event, verbose_name=_('Event'))
+    user = models.ForeignKey(User, related_name='event_replies', verbose_name=_('User'))
+    inviter = models.ForeignKey(User, related_name='event_invited_users', verbose_name=_('Inviter'))
+    choice = models.CharField(max_length=1, choices=REPLY_CHOICES, default='-', verbose_name=_('Choice'))
+    comment = models.CharField(max_length=767, blank=True, verbose_name=_('Comment'))
     
     def __unicode__(self):
         if self.choice == '-':

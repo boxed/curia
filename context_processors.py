@@ -114,7 +114,7 @@ def external(request):
         }
     
 def domain(request):
-    return {'domain':request.domain, 'port':request.port, 'is_homepage_admin':request.mode == 'admin', 'is_homepage':request.mode == 'homepage'}
+    return {'domain':request.domain, 'port':request.META['SERVER_PORT'], 'is_homepage_admin':request.mode == 'admin', 'is_homepage':request.mode == 'homepage'}
     
 LEADING_PAGE_RANGE_DISPLAYED = TRAILING_PAGE_RANGE_DISPLAYED = 10
 LEADING_PAGE_RANGE = TRAILING_PAGE_RANGE = 8
@@ -127,7 +127,7 @@ def digg_paginator(context):
     except:
         context["search"] = None
     if 'paginator' in context:
-        " Initialize variables "
+        # Initialize variables
         in_leading_range = in_trailing_range = False
         pages_outside_leading_range = pages_outside_trailing_range = range(0)
         

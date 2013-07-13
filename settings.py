@@ -4,8 +4,6 @@
 # set defaults
 class LocalSettings:
     pass
-    
-from distutils.sysconfig import get_python_lib
 
 local_settings = LocalSettings()
 local_settings.DATABASE_ENGINE = 'sqlite3'
@@ -13,7 +11,7 @@ local_settings.DATABASE_NAME = '../curiadb'
 local_settings.DATABASE_USER = ''
 local_settings.DATABASE_PASSWORD  = ''
 local_settings.ADMINS = ()
-local_settings.ROOT_DIR = get_python_lib()
+local_settings.ROOT_DIR = __file__.rsplit('/', 2)[0]
 local_settings.EMAIL_USE_TLS = ''
 local_settings.EMAIL_HOST = ''
 local_settings.EMAIL_HOST_USER = ''
@@ -23,14 +21,6 @@ local_settings.THREADED_FORUMS = False
 local_settings.REGISTRATION_SYSTEM = 'invite'
 local_settings.REGISTRATION_SYSTEM = 'invite'
 local_settings.SECRET_KEY = 'PD4LqI9n7Eni2KXZMnYFrMgLTR2NZ4gDCUoNcthy'
-
-try:
-    import local_settings as s
-    for setting in dir(s):
-        if not setting.startswith('__'):
-            setattr(local_settings, setting, getattr(s, setting))
-except:
-    print 'no local_settings.py found, using defaults...'
 
 SESSION_COOKIE_DOMAIN = '.kodare.net'
 
@@ -88,15 +78,15 @@ SECRET_KEY = 'rl8bc-2n(yulg+yce-=yru^#02iu_3)pk29ll9ufha(2wrww-$'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader'
 )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'curia.middleware.CuriaMiddleware',
@@ -108,10 +98,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'curia.context_processors.site',
     'curia.context_processors.external',
     'curia.context_processors.domain',
-    'django.core.context_processors.auth',
+    'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
 )
 
 SITE_ID=1
@@ -176,3 +169,9 @@ INSTALLED_APPS = (
 
 REGISTRATION_SYSTEM = local_settings.REGISTRATION_SYSTEM
 THREADED_FORUMS = local_settings.THREADED_FORUMS
+
+try:
+    from local_settings import *
+except ImportError:
+    print 'no local_settings.py found, using defaults...'
+

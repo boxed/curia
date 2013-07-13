@@ -108,7 +108,7 @@ class CuriaMiddleware(object):
         host = request.META['HTTP_HOST']
         if host.startswith('www.'):
             return HttpResponseRedirect('http://%s%s' % (request.META['HTTP_HOST'][4:], request.path))
-                
+
         first_domain_part = host[0:host.find('.')]
         request.external = True
         if first_domain_part == 'admin':
@@ -137,6 +137,10 @@ class CuriaMiddleware(object):
             request.community = MetaGroup.objects.get(domain__iexact=domain).group
         except MetaGroup.DoesNotExist:
             request.community = None
+        request.external = False
+        request.domain = 'kodare.net'
+        request.mode = 'community'
+        request.community = None
             
         # threadlocals middleware
         from curia import _thread_locals

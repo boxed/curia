@@ -7,13 +7,13 @@ from curia.notifications import notify
 from django.utils.encoding import smart_unicode
 
 class Document(models.Model):
-    owner_user = models.ForeignKey(User, blank=True, null=True, verbose_name=_('Owner user'), name=_('owner user'))
-    owner_group = models.ForeignKey(Group, blank=True, null=True, verbose_name=_('Owner group'), name=_('owner group'))
-    creation_time = models.DateTimeField(auto_now_add=True, name=_('Creation time'))
-    is_presentation = models.BooleanField(default=False, name=_('Is presentation'))
-    deleted = models.BooleanField(default=False, name=_('Deleted'))
-    deleted_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name="deleted_documents", name=_('Deleted by'))
-    deletion_time = models.DateTimeField(blank=True, null=True, name=_('Deletion time'))
+    owner_user = models.ForeignKey(User, blank=True, null=True, verbose_name=_('Owner user'))
+    owner_group = models.ForeignKey(Group, blank=True, null=True, verbose_name=_('Owner group'))
+    creation_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation time'))
+    is_presentation = models.BooleanField(default=False, verbose_name=_('Is presentation'))
+    deleted = models.BooleanField(default=False, verbose_name=_('Deleted'))
+    deleted_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name="deleted_documents", verbose_name=_('Deleted by'))
+    deletion_time = models.DateTimeField(blank=True, null=True, verbose_name=_('Deletion time'))
     title = models.CharField(max_length=1024,blank=True, default='<Document without version>')
     
     def get_latest_version(self):
@@ -57,7 +57,7 @@ class Version(models.Model):
     title = models.CharField(max_length=1024,blank=True)
     contents = models.TextField(blank=True)
     owner = models.ForeignKey(User)
-    creation_time = models.DateTimeField(auto_now_add=True, name=_('Creation time'))
+    creation_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation time'))
 
     def get_absolute_url(self):
         return '/documents/%d/version/%d/' % (self.document.id, self.id)

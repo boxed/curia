@@ -61,7 +61,7 @@ urlpatterns += patterns('',
 urlpatterns += patterns('',
     (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'packages': 'django.conf'}),
 
-    (r'^admin/(.*)', admin.site.root),
+    (r'^admin/', include(admin.site.urls)),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
         
     # static content

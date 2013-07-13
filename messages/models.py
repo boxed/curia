@@ -10,8 +10,8 @@ from django.utils.encoding import smart_unicode
 class Message(models.Model):
     sender = models.ForeignKey(User, related_name='private_messages_sent_set')
     receiver = models.ForeignKey(User, related_name='private_message_received_set')
-    message = models.TextField(name=_('Message'))
-    creation_time = models.DateTimeField(auto_now_add=True, name=_('Creation time'))
+    message = models.TextField(verbose_name=_('Message'))
+    creation_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation time'))
     
     def get_absolute_url(self):
         return '/messages/%s/?user=%s' % (self.receiver.id, self.sender.id)

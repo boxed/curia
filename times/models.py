@@ -7,11 +7,11 @@ from django.utils.encoding import smart_unicode
 from datetime import datetime
 
 class Time(models.Model):
-    user = models.ForeignKey(User, null=True, name=_('User'))
-    content_type = models.ForeignKey(ContentType, name=_('Content type'))
-    object_id = models.IntegerField(_('Object ID'), name=_('Object ID'))
-    last_viewed = models.DateTimeField(name=_('Last viewed'), default=datetime(1900, 01, 01))
-    bookmark = models.BooleanField(default=False, name=_('Bookmark'))
+    user = models.ForeignKey(User, null=True, verbose_name=_('User'))
+    content_type = models.ForeignKey(ContentType, verbose_name=_('Content type'))
+    object_id = models.IntegerField(verbose_name=_('Object ID'))
+    last_viewed = models.DateTimeField(verbose_name=_('Last viewed'), default=datetime(1900, 01, 01))
+    bookmark = models.BooleanField(default=False, verbose_name=_('Bookmark'))
     
     def __unicode__(self):
         if self.user is None:

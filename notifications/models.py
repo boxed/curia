@@ -8,12 +8,12 @@ from django.utils.encoding import smart_unicode
 from datetime import datetime
 
 class Watcher(models.Model):
-    user = models.ForeignKey(User, related_name='watchers', name=_('User'))
-    content_type = models.ForeignKey(ContentType, null=True, blank=True, name=_('Content type'))
-    object_id = models.IntegerField(_('Object ID'), null=True, blank=True, name=_('Object ID'))
-    owner_user = models.ForeignKey(User, null=True, blank=True, related_name='registered_watchers', name=_('Owner user'))
-    owner_group = models.ForeignKey(Group, null=True, blank=True, related_name='registered_watchers', name=_('Owner group'))
-    inverse = models.BooleanField(default=False, name=_('Negate'))
+    user = models.ForeignKey(User, related_name='watchers', verbose_name=_('User'))
+    content_type = models.ForeignKey(ContentType, null=True, blank=True, verbose_name=_('Content type'))
+    object_id = models.IntegerField(null=True, blank=True, verbose_name=_('Object ID'))
+    owner_user = models.ForeignKey(User, null=True, blank=True, related_name='registered_watchers', verbose_name=_('Owner user'))
+    owner_group = models.ForeignKey(Group, null=True, blank=True, related_name='registered_watchers', verbose_name=_('Owner group'))
+    inverse = models.BooleanField(default=False, verbose_name=_('Negate'))
     
     def __unicode__(self):
         return smart_unicode(self.user)+u': '+smart_unicode(self.short_description())
@@ -78,13 +78,13 @@ class Watcher(models.Model):
         verbose_name_plural = _('watchers')
         
 class Notification(models.Model):
-    user = models.ForeignKey(User, name=_('User'))
-    content_type = models.ForeignKey(ContentType, name=_('Content type'))
-    object_id = models.IntegerField(_('Object ID'), name=_('Object ID'))
-    title = models.CharField(max_length=1024, name=_('Name'))
-    url = models.CharField(max_length=1024, name=_('Url'))
-    originator_user = models.ForeignKey(User, null=True, blank=True, related_name='generated_notifications', name=_('Owner user'))
-    originator_group = models.ForeignKey(Group, null=True, blank=True, related_name='generated_notifications', name=_('Owner group'))
+    user = models.ForeignKey(User, verbose_name=_('User'))
+    content_type = models.ForeignKey(ContentType, verbose_name=_('Content type'))
+    object_id = models.IntegerField(verbose_name=_('Object ID'))
+    title = models.CharField(max_length=1024, verbose_name=_('Name'))
+    url = models.CharField(max_length=1024, verbose_name=_('Url'))
+    originator_user = models.ForeignKey(User, null=True, blank=True, related_name='generated_notifications', verbose_name=_('Owner user'))
+    originator_group = models.ForeignKey(Group, null=True, blank=True, related_name='generated_notifications', verbose_name=_('Owner group'))
     
     def __unicode__(self):
         return self.title
@@ -106,9 +106,9 @@ class Notification(models.Model):
         ordering = ('id',)
         
 class Bookmark(models.Model):
-    user = models.ForeignKey(User, related_name='bookmarks', name=_('User'))
-    title = models.CharField(max_length=1024, name=_('Name'))
-    url = models.CharField(max_length=1024, name=_('Url'))
+    user = models.ForeignKey(User, related_name='bookmarks', verbose_name=_('User'))
+    title = models.CharField(max_length=1024, verbose_name=_('Name'))
+    url = models.CharField(max_length=1024, verbose_name=_('Url'))
 
     def __unicode__(self):
         return self.title
@@ -126,7 +126,7 @@ class Bookmark(models.Model):
         
 class IgnoreLabel(models.Model):
     user = models.ForeignKey(User)
-    label = models.CharField(max_length=100, name=_('Label'))
+    label = models.CharField(max_length=100, verbose_name=_('Label'))
     
     def __unicode__(self):
         return '%s ignores %s' % (self.user, self.label)
@@ -136,10 +136,10 @@ class IgnoreLabel(models.Model):
         
 class SubscriptionResult(models.Model):
     user = models.ForeignKey(User)
-    content_type = models.ForeignKey(ContentType, name=_('Content type'))
-    object_id = models.IntegerField(_('Object ID'), name=_('Object ID'))
-    originator_user = models.ForeignKey(User, null=True, blank=True, related_name='generated_subscription_results', name=_('Owner user'))
-    originator_group = models.ForeignKey(Group, null=True, blank=True, related_name='generated_subscription_results', name=_('Owner group'))
+    content_type = models.ForeignKey(ContentType, verbose_name=_('Content type'))
+    object_id = models.IntegerField(verbose_name=_('Object ID'))
+    originator_user = models.ForeignKey(User, null=True, blank=True, related_name='generated_subscription_results', verbose_name=_('Owner user'))
+    originator_group = models.ForeignKey(Group, null=True, blank=True, related_name='generated_subscription_results', verbose_name=_('Owner group'))
     
     def __unicode__(self):
         return u'%s %s %s' % (self.user, self.content_type, self.object_id)

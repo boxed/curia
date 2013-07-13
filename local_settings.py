@@ -1,9 +1,11 @@
 ROOT_DIR = '/Users/boxed/Projects'
-                                
-DATABASE_ENGINE = 'sqlite3'  
-DATABASE_NAME = '../curiadb'         
-DATABASE_USER = ''      
-DATABASE_PASSWORD = ''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '../curiadb'
+    }
+}
 
 ADMINS = (('Anders', 'boxed@killingar.net',),)
 

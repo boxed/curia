@@ -26,6 +26,6 @@ elif registration_system == 'register':
     )
 
 urlpatterns += patterns('django.views.generic.simple',
-    (r'^administrator_agreement/$', 'direct_to_template', {'template': 'registration/administrator_agreement.html'}),
-    (r'^user_agreement/$', 'direct_to_template', {'template': 'registration/user_agreement.html'}),
+    # (r'^administrator_agreement/$', 'direct_to_template', {'template': 'registration/administrator_agreement.html'}),
+    # (r'^user_agreement/$', 'direct_to_template', {'template': 'registration/user_agreement.html'}),
 )

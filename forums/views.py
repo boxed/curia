@@ -159,12 +159,12 @@ def view_thread(request, thread_id, page=None):
     if threaded:
         try:
           # get "first" (i.e. the upper most on the page) new message: the message with lowest cache_hierarchy, of the messages that have a timestamp set after "time"
-          if time == None:
+          if time is None:
               time = datetime.fromordinal(1)
           first_message = Message.objects.filter(parent_thread=thread, creation_time__gt=time).order_by(message_order_by)[0]
 
           # if we didn't get an explicit request for a specific page and the current page does not include the "first" (i.e. the upper most on the page) unread message
-          if got_page_size == False:
+          if not got_page_size:
               while first_message not in messages and page > 1:
                   # extend one page
                   end_page = page
@@ -200,13 +200,13 @@ def view_thread(request, thread_id, page=None):
     suggested_label = None
     parents = None    
     forum = False
-    if thread.owner_group == None:
+    if thread.owner_group is None:
         forum = True
         parents = []
         try:
             suggested_label = request.GET['suggested_label']
             tp = SuggestedLabel.objects.get(title=suggested_label)
-        except:
+        except (KeyError, SuggestedLabel.DoesNotExist):
             tp = None
         suggested_label = tp
         suggested_labels = get_objects_from(SuggestedLabel, deleted=False, parent=tp)
@@ -216,7 +216,7 @@ def view_thread(request, thread_id, page=None):
         else:
             if tp.parent:
                 has_parent = True
-                while has_parent == True:
+                while has_parent:
                     parents.append(tp.parent)
                     m = tp.parent
                     if not m.parent:

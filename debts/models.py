@@ -11,8 +11,8 @@ def get_account_for_user(user):
         return Account.objects.create(user=user)
 
 class Account(models.Model):
-    user = models.OneToOneField(User, primary_key=True, name=_('User'))
-    balance = models.DecimalField(decimal_places=2, max_digits=50, blank=False, default=0, name=_('Current balance'))
+    user = models.OneToOneField(User, primary_key=True, verbose_name=_('User'))
+    balance = models.DecimalField(decimal_places=2, max_digits=50, blank=False, default=0, verbose_name=_('Current balance'))
     
     def __unicode__(self):
         return _(u'%(user)s %(balance)s') % {'user':self.user, 'balance':self.balance}
@@ -22,16 +22,16 @@ class Account(models.Model):
     
 class Transaction(models.Model):
     description = models.CharField(max_length=1024,blank=True)
-    from_user = models.ForeignKey(User, related_name='outgoing_transactions', name=_('From'))
-    to_user = models.ForeignKey(User, related_name='incoming_transactions', name=_('To'))
-    cost = models.DecimalField(decimal_places=2, max_digits=50, blank=False, name=_('Cost'))
+    from_user = models.ForeignKey(User, related_name='outgoing_transactions', verbose_name=_('From'))
+    to_user = models.ForeignKey(User, related_name='incoming_transactions', verbose_name=_('To'))
+    cost = models.DecimalField(decimal_places=2, max_digits=50, blank=False, verbose_name=_('Cost'))
 
-    created_by = models.ForeignKey(User, related_name="created_transactions", name=_('Created by'))
-    creation_time = models.DateTimeField(auto_now_add=True, name=_('Creation time'))
+    created_by = models.ForeignKey(User, related_name="created_transactions", verbose_name=_('Created by'))
+    creation_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation time'))
 
-    rejected = models.BooleanField(default=False, name=_('Rejected'))
-    rejected_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name="rejected_transactions", name=_('Rejected by'))
-    rejection_time = models.DateTimeField(blank=True, null=True, name=_('Rejection time'))
+    rejected = models.BooleanField(default=False, verbose_name=_('Rejected'))
+    rejected_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name="rejected_transactions", verbose_name=_('Rejected by'))
+    rejection_time = models.DateTimeField(blank=True, null=True, verbose_name=_('Rejection time'))
     rejected_description = models.CharField(max_length=1024,blank=True)
     
     def __unicode__(self):

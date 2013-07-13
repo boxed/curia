@@ -1,5 +1,5 @@
 from django.template import Library, TemplateSyntaxError, Node, TemplateDoesNotExist, resolve_variable, Context
-from django.template.loader import get_template, get_template_from_string, find_template_source
+from django.template.loader import get_template
 from django.conf import settings
 from django.template.defaultfilters import capfirst
 from django.contrib.auth.models import Group
@@ -9,7 +9,6 @@ from curia.notifications import user_is_watching
 from curia import split_and_honor_quotation_marks
 from curia import get_content_type
 from curia.context_processors import digg_paginator
-from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext as _
 from django.template.defaultfilters import stringfilter
 
@@ -22,14 +21,12 @@ register.inclusion_tag("digg_paginator.html", takes_context=True)(digg_paginator
 @stringfilter
 def embed_data(value):
     import re
-    from django.utils.encoding import smart_unicode
     links = list(re.finditer(r'(\[(.*?)\])', value)) # list() because we might need to reverse it later
     
     # examples of use:
     # [images/groups/1/sets/3]
 
-    from django.core import exceptions, urlresolvers
-    from django.core.mail import mail_admins
+    from django.core import urlresolvers
     from django.conf import settings
 
     links.reverse() # replace from the end as to not change the string in a way that interferes with the following replace operation
@@ -51,8 +48,8 @@ def embed_data(value):
         request.REQUEST = {}
         response = callback(request, *callback_args, **callback_kwargs)
         #replaced = get_content_for(link.groups()[1])
-        foo = dir(response)
-        bar = response.content
+        # foo = dir(response)
+        # bar = response.content
         value = value.replace(link.groups()[0], response.content)
             
     return value
@@ -60,7 +57,7 @@ def embed_data(value):
 @register.filter
 def add_on_click_handler(value):
     import re
-    p = re.compile(r'\<a href\=\"(.*?)\"')
+    p = re.compile(r'<a href=\"(.*?)\"')
     return p.sub(r'<a href="\1" class="g"', value)
 
 @register.filter
@@ -154,7 +151,7 @@ def truncateletters(value, arg):
     Argument: Number of letters to truncate after
     """
     def truncate_letters(s, num):
-        "Truncates a string after a certain number of letters."
+        """Truncates a string after a certain number of letters."""
         length = int(num)
         letters = [l for l in s]
         if len(letters) > length:
@@ -218,7 +215,7 @@ class IncludeNode(Node):
             context.pop()
             return result
             
-        except TemplateSyntaxError, e:
+        except TemplateSyntaxError:
             if settings.TEMPLATE_DEBUG:
                 raise
             return ''
@@ -232,6 +229,7 @@ def curia_include(parser, token):
 
         {% include "foo/some_include" object=user %}
     """
+    del parser
     bits = split_and_honor_quotation_marks(token.contents)
     if len(bits) < 2:
         raise TemplateSyntaxError, "%r tag takes one argument: the name of the template to be included" % bits[0]
@@ -279,7 +277,7 @@ class WatcherLinkNode(Node):
             
             return result
 
-        except TemplateSyntaxError, e:
+        except TemplateSyntaxError:
             if settings.TEMPLATE_DEBUG:
                 raise
             return ''
@@ -293,6 +291,7 @@ def watcher_link(parser, token):
 
         {% watcher_link owner=user content_type="document" %}
     """
+    del parser
     bits = split_and_honor_quotation_marks(token.contents)
     if len(bits) < 2:
         raise TemplateSyntaxError, "%r tag at least one argument" % bits[0]
@@ -311,16 +310,13 @@ class BasePermissionNode(Node):
             if 'obj' in parameters:
                 obj = parameters['obj']
 
-            if obj == None:
+            if obj is None:
                 obj = context['user']
 
             if callable(obj):
                 obj = obj()
 
-            try:
-                url = obj.get_absolute_url()
-            except:
-                url = ''
+            url = obj.get_absolute_url()
 
             command = 'view'
             if 'command' in parameters:
@@ -361,7 +357,7 @@ class BasePermissionNode(Node):
             else:
                 return self.no_permission(context, url, css_command, title, perm.motivation)
 
-        except TemplateSyntaxError, e:
+        except TemplateSyntaxError:
             if settings.TEMPLATE_DEBUG:
                 raise
             return ''
@@ -369,6 +365,7 @@ class BasePermissionNode(Node):
 
 class LinkNode(BasePermissionNode):
     def has_permission(self, context, url, css_command, title, motivation):
+        del context
         if css_command == 'view':
             return '<a href="'+url+'">'+title+'</a>'
         
@@ -377,6 +374,7 @@ class LinkNode(BasePermissionNode):
         return '<a href="%s" title="%s"><img src="%scommands/%s.png" alt="%s" /></a><!-- %s -->' % (url, title, settings.MEDIA_URL, css_command.split(' ')[0], title, motivation)
     
     def no_permission(self, context, url, css_command, title, motivation):
+        del context, url, css_command, title
         return '<!-- '+motivation+'-->'
 
 @register.tag
@@ -389,6 +387,7 @@ def link(parser, token):
 
         {% link obj=document command="edit" %}
     """
+    del parser
     bits = split_and_honor_quotation_marks(token.contents)
     if len(bits) < 2:
         raise TemplateSyntaxError, "%r tag at least one argument" % bits[0]
@@ -397,14 +396,17 @@ def link(parser, token):
 
 class HasPermissionNode(BasePermissionNode):
     def __init__(self, parameters, nodelist_true, nodelist_false):
+        super(HasPermissionNode, self).__init__(parameters)
         self.parameters = parameters
         self.nodelist_false = nodelist_false
         self.nodelist_true = nodelist_true
     
     def has_permission(self, context, url, css_command, title, motivation):
+        del url, css_command, title
         return '<!-- '+motivation+'-->' + self.nodelist_true.render(context)
     
     def no_permission(self, context, url, css_command, title, motivation):
+        del url, css_command, title
         return '<!-- '+motivation+'-->' + self.nodelist_false.render(context)
     
 @register.tag

@@ -10,10 +10,10 @@ from curia.notifications import enable_notifications
 from curia import *
 
 class Detail(models.Model):
-    owner_user = models.ForeignKey(User, blank=True, null=True, related_name='user_details', name=_('User'))
-    owner_group = models.ForeignKey(Group, blank=True, null=True, related_name='group_details', name=_('Group'))
-    name = models.CharField(max_length=1024, name=_('Name'))
-    value = models.TextField(blank=True, name=_('Value'))
+    owner_user = models.ForeignKey(User, blank=True, null=True, related_name='user_details', verbose_name=_('User'))
+    owner_group = models.ForeignKey(Group, blank=True, null=True, related_name='group_details', verbose_name=_('Group'))
+    name = models.CharField(max_length=1024, verbose_name=_('Name'))
+    value = models.TextField(blank=True, verbose_name=_('Value'))
 
     def __unicode__(self):
         if self.owner_user:
@@ -30,11 +30,11 @@ class Detail(models.Model):
         ordering = ('id',)
         
 class UserPermission(models.Model):
-    user = models.ForeignKey(User, name=_('User'))
-    command = models.CharField(name=_('Command'), max_length=50)
-    content_type = models.ForeignKey(ContentType, name=_('Content type'))
-    object_id = models.IntegerField(name=_('Object ID'))
-    deny = models.BooleanField(default=False, name=_('Deny'))
+    user = models.ForeignKey(User, verbose_name=_('User'))
+    command = models.CharField(verbose_name=_('Command'), max_length=50)
+    content_type = models.ForeignKey(ContentType, verbose_name=_('Content type'))
+    object_id = models.IntegerField(verbose_name=_('Object ID'))
+    deny = models.BooleanField(default=False, verbose_name=_('Deny'))
     
     def __unicode__(self):
         if self.deny:
@@ -57,11 +57,11 @@ class UserPermission(models.Model):
         verbose_name_plural = _('user permissions')
         
 class GroupPermission(models.Model):
-    group = models.ForeignKey(Group, name=_('Group'))
-    command = models.CharField(name=_('Command'), max_length=50)
-    content_type = models.ForeignKey(ContentType, name=_('Content type'))
-    object_id = models.IntegerField(name=_('Object ID'))
-    deny = models.BooleanField(default=False, name=_('Deny'))
+    group = models.ForeignKey(Group, verbose_name=_('Group'))
+    command = models.CharField(verbose_name=_('Command'), max_length=50)
+    content_type = models.ForeignKey(ContentType, verbose_name=_('Content type'))
+    object_id = models.IntegerField(verbose_name=_('Object ID'))
+    deny = models.BooleanField(default=False, verbose_name=_('Deny'))
 
     def __unicode__(self):
         if self.deny:
@@ -94,18 +94,18 @@ class MetaUser(models.Model):
         ('E', _('On every event')),
     )
     
-    user = models.OneToOneField(User, primary_key=True, related_name='meta', name=_('User'))
-    birthday = models.DateField(blank=True, null=True, name=_('Birthday'))
-    picture = models.ImageField(upload_to='user-pictures',blank=True, name=_('Picture'))
-    gender = models.CharField(name=_('Gender'), choices = Gender_Choices, max_length=10)
-    location = models.CharField(name=_('Location'), max_length=200)
-    inviter = models.ForeignKey(User, blank=True, null=True, related_name='invites', name=_('Inviter'))
-    friends = models.ForeignKey(Group, related_name='friends_of', blank=True, null=True, name=_('Friends'))
-    language = models.CharField(name=_('Language'), max_length=10)
-    deleted_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name='deleted_users', name=_('Deleted by'))
-    deletion_time = models.DateTimeField(blank=True, null=True, name=_('Deletion time'))
-    last_notification_email_time = models.DateTimeField(blank=True, null=True, name=_('Notification e-mail time'))
-    notification_style = models.CharField(name=_('Notification Style'), choices = NotificationStyle_Choices, max_length=10, default='D')
+    user = models.OneToOneField(User, primary_key=True, related_name='meta', verbose_name=_('User'))
+    birthday = models.DateField(blank=True, null=True, verbose_name=_('Birthday'))
+    picture = models.ImageField(upload_to='user-pictures',blank=True, verbose_name=_('Picture'))
+    gender = models.CharField(verbose_name=_('Gender'), choices = Gender_Choices, max_length=10)
+    location = models.CharField(verbose_name=_('Location'), max_length=200)
+    inviter = models.ForeignKey(User, blank=True, null=True, related_name='invites', verbose_name=_('Inviter'))
+    friends = models.ForeignKey(Group, related_name='friends_of', blank=True, null=True, verbose_name=_('Friends'))
+    language = models.CharField(verbose_name=_('Language'), max_length=10)
+    deleted_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name='deleted_users', verbose_name=_('Deleted by'))
+    deletion_time = models.DateTimeField(blank=True, null=True, verbose_name=_('Deletion time'))
+    last_notification_email_time = models.DateTimeField(blank=True, null=True, verbose_name=_('Notification e-mail time'))
+    notification_style = models.CharField(verbose_name=_('Notification Style'), choices = NotificationStyle_Choices, max_length=10, default='D')
 
     def presentation(self):
         try:
@@ -150,17 +150,17 @@ def group_external_absolute_url(self):
 Group.get_external_absolute_url = group_external_absolute_url
 
 class MetaGroup(models.Model):
-    group = models.OneToOneField(Group, primary_key=True, related_name='meta', name=_('Group'))
-    created_by = models.ForeignKey(User, blank=True, null=True, related_name='created_groups', name=_('Created by'))
+    group = models.OneToOneField(Group, primary_key=True, related_name='meta', verbose_name=_('Group'))
+    created_by = models.ForeignKey(User, blank=True, null=True, related_name='created_groups', verbose_name=_('Created by'))
     children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)
-    friend_group = models.BooleanField(default=False, blank=True, name=_('Friend group'))
-    logo = models.ImageField(upload_to='group-logos', blank=True, name=_('Logo'))
-    deleted = models.BooleanField(default=False, name=_('Deleted'))
-    deleted_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name='deleted_groups', name=_('Deleted by'))
-    deletion_time = models.DateTimeField(blank=True, null=True, name=_('Deletion time'))
-    domain = models.CharField(blank=True, null=True, max_length=200, unique=True, name=_('Domain name'))
-    external_theme = models.CharField(blank=True, max_length=100, name=_('External theme'))
-    internal_theme = models.CharField(blank=True, max_length=100, name=_('Internal theme'))
+    friend_group = models.BooleanField(default=False, blank=True, verbose_name=_('Friend group'))
+    logo = models.ImageField(upload_to='group-logos', blank=True, verbose_name=_('Logo'))
+    deleted = models.BooleanField(default=False, verbose_name=_('Deleted'))
+    deleted_by = models.ForeignKey(User, blank=True, null=True, default=None, related_name='deleted_groups', verbose_name=_('Deleted by'))
+    deletion_time = models.DateTimeField(blank=True, null=True, verbose_name=_('Deletion time'))
+    domain = models.CharField(blank=True, null=True, max_length=200, unique=True, verbose_name=_('Domain name'))
+    external_theme = models.CharField(blank=True, max_length=100, verbose_name=_('External theme'))
+    internal_theme = models.CharField(blank=True, max_length=100, verbose_name=_('Internal theme'))
     
     def presentation(self):
         try:
@@ -186,10 +186,10 @@ class Invite(models.Model):
         ('-', _('No reply')),
     )
     
-    group = models.ForeignKey(Group, name=_('Group'))
-    user = models.ForeignKey(User, related_name='group_answers', name=_('User'))
-    inviter = models.ForeignKey(User, related_name='group_invited_users', name=_('Inviter'))
-    choice = models.CharField(max_length=1, choices=REPLY_CHOICES, default='-', name=_('Choice'))
+    group = models.ForeignKey(Group, verbose_name=_('Group'))
+    user = models.ForeignKey(User, related_name='group_answers', verbose_name=_('User'))
+    inviter = models.ForeignKey(User, related_name='group_invited_users', verbose_name=_('Inviter'))
+    choice = models.CharField(max_length=1, choices=REPLY_CHOICES, default='-', verbose_name=_('Choice'))
     message = models.TextField(blank=True)
     
     def __unicode__(self):
