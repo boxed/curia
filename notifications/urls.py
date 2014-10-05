@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 urlpatterns = patterns('curia.notifications.views',
     (r'^(?P<notification_id>\d+)/delete/$', 'delete_notification'),    

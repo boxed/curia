@@ -257,7 +257,7 @@ def check_perm(user, obj, command):
 def add_patterns(urlpatterns, cls):
     from django.conf import settings
     if 'curia.notifications' in settings.INSTALLED_APPS:
-        from django.conf.urls.defaults import patterns
+        from django.conf.urls import patterns
         urlpatterns += patterns('curia.authentication.views',
             (r'^(?P<object_id>\d+)/permissions/$', 'view_permissions', {'type': cls}),
             (r'^(?P<object_id>\d+)/permissions/advanced/$', 'view_advanced_permissions', {'type': cls}),

@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from django.conf import settings
 
 try:
@@ -24,8 +24,3 @@ elif registration_system == 'register':
         (r'^$', 'register'),
         (r'^complete/$', 'accept'),
     )
-
-urlpatterns += patterns('django.views.generic.simple',
-    # (r'^administrator_agreement/$', 'direct_to_template', {'template': 'registration/administrator_agreement.html'}),
-    # (r'^user_agreement/$', 'direct_to_template', {'template': 'registration/user_agreement.html'}),
-)

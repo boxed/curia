@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from curia.forums.models import Thread
 from curia import labels, authentication, notifications
 

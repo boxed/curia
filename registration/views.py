@@ -1,24 +1,21 @@
 import re
-from datetime import datetime, timedelta
-from django.contrib.auth.models import User, Group
-from django.http import HttpResponse, HttpResponseRedirect
+
+from django.contrib.auth.models import Group
+from django.core.validators import EmailValidator
 from django.shortcuts import *
-from django.contrib.auth import login, authenticate
-from django.utils.translation import ugettext as _
-from django.core.validators import email_re
+from django.contrib.auth import login
 import django.forms
 from django.contrib.auth.views import login_required
 from curia import *
 from curia.shortcuts import *
-from curia.authentication.models import MetaUser, Detail, MetaGroup, Invite
+from curia.authentication.models import MetaUser, MetaGroup, Invite
 from curia.authentication import get_everyone_group, get_public_user
 from curia.documents.models import Document, Version
 from curia.notifications.models import Bookmark, SubscriptionResult
-from curia.labels import handle_labels
 from curia.labels.models import Label
 from curia.registration.models import *
 from curia.widgets import CheckboxInput
-from curia.calendars.models import Event, Reply
+
 
 @login_required
 def invite(request):    
@@ -36,7 +33,7 @@ def invite(request):
         emails = email_seperator.split(form.data['emails'])
         for email in emails:
             if email != '':
-                if not email_re.match(email):
+                if not EmailValidator(email):
                     form.errors['emails'].append(_('%s is not a valid email address') % email)
         
         if form.is_valid():
@@ -105,7 +102,7 @@ def register(request):
 
         # validate email
         email = form.data['email']
-        if not email_re.match(email):
+        if not EmailValidator(email):
             form.errors['email'].append(_('%s is not a valid email address') % email)
 
         if form.is_valid():
@@ -302,7 +299,7 @@ def create_community(request):
         
         email = form.data["email"]
         if email != '':
-            if not email_re.match(email):
+            if not EmailValidator(email):
                 form.errors['email'] = (_('%s is not a valid email address') % email,)
                         
         try: 

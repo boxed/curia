@@ -1,26 +1,18 @@
-import time
-import datetime
-from django.core.validators import email_re
-from datetime import datetime, date
-from curia import *
 from curia.authentication import *
 from curia.authentication.models import *
-from curia.forums.models import Thread
 from curia.documents.models import *
-from curia.files.models import File
-from curia.images.models import Image
 from curia.notifications.models import *
 from curia.shortcuts import *
 from curia.labels import get_labels
-from curia.labels.models import Label
 from curia.labels import handle_labels
 from curia.notifications import *
 from curia.authentication import check_access
 from curia.notifications.models import SubscriptionResult
 from django.contrib.auth import authenticate
+from django.core.validators import EmailValidator
 from django.http import HttpResponseRedirect
 from django.template.defaultfilters import capfirst
-from django.core.paginator import Paginator, InvalidPage
+from django.core.paginator import Paginator
 from django.utils.translation import ugettext as _
 import django.forms
 
@@ -179,12 +171,12 @@ def edit_user_settings(request, user_id):
 
         email = form.data["email"]
         if email != '':
-            if not email_re.match(email):
+            if not EmailValidator(email):
                 form.errors['email'] = (_('%s is not a valid email address') % email,)
         
         try:
             existing_user = User.objects.get(email=form.data['email'])
-        except:
+        except User.DoesNotExist:
             existing_user = None
         if existing_user and existing_user != user:
             form.errors['email'] = _('The selected e-mail address was invalid.')
@@ -629,12 +621,12 @@ def delete_permission(request, permission_id):
     permission = get_object_or_404_and_check_access(request, UserPermission, id=permission_id, command='delete')
 
     if request.method == 'POST':
-         permission.delete()
-         return render_to_response(request, 'empty.html')
+        permission.delete()
+        return render_to_response(request, 'empty.html')
 
     raise Exception()     
     
-def validate_invites(form,event=None):
+def validate_invites(form, event=None):
     usernames = map(lambda x: x.strip(), form.data['invite_users'].split(','))
         
     users = []
@@ -644,8 +636,8 @@ def validate_invites(form,event=None):
             try:
                 user = User.objects.get(username=username)
                 try:
-                    Inviteobjects.get(user=user,group=group)
-                except:
+                    Invite.objects.get(user=user)
+                except Invite.DoesNotExist:
                     users.append(user)
             except User.DoesNotExist:
                 errors.append('no username "%s"' % username)

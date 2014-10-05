@@ -50,8 +50,8 @@
 	{{ errors }}
     <div id="login_box">
         <table>
-            <tr><td><input id="id_username" name="username" {% if login_form.username.data %}value="{{ login_form.username.data }}{% endif %}" default_value="{{ login_form.username.label }}" type="text" /></td></tr>
-            <tr><td><input id="id_password" name="password" {% if login_form.password.data %}value="{{ login_form.password.data }}{% endif %}" default_value="{{ login_form.password.label }}" type="password" /></td></tr>
+            <tr><td><input id="id_username" name="username" {% if login_form.username.data %}value="{{ login_form.username.data }}{% endif %}" default_value="{{ login_form.username.label }}" type="text" />{{ login_form.username.errors }}</td></tr>
+            <tr><td><input id="id_password" name="password" {% if login_form.password.data %}value="{{ login_form.password.data }}{% endif %}" default_value="{{ login_form.password.label }}" type="password" /> {{ login_form.password.errors }}</td></tr>
             <tr>
                 <th></th>
                 <td>

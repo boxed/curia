@@ -177,7 +177,7 @@ def user_is_watching(user, owner_user=None, owner_group=None, owner=None, conten
                 return user_is_watching(user, owner_user, owner_group)
                 
 def add_patterns(urlpatterns, cls, prefix=''):
-    from django.conf.urls.defaults import patterns
+    from django.conf.urls import patterns
     urlpatterns += patterns('curia.notifications.views',
         (r'^'+prefix+r'(?P<object_id>\d+)/watch/$', 'watch', {'cls': cls}),
         (r'^'+prefix+r'(?P<object_id>\d+)/ignore/$', 'ignore', {'cls': cls}),

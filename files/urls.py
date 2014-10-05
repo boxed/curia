@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from curia.files.models import File
 from curia import labels, authentication, notifications
 

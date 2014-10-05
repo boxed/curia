@@ -9,7 +9,7 @@ from curia.files.models import File
 from curia.labels.models import Label
 
 def add_patterns(urlpatterns, cls, prefix=''):
-    from django.conf.urls.defaults import patterns
+    from django.conf.urls import patterns
     urlpatterns += patterns('curia.labels.views',
         (r'^'+prefix+r'(?P<group_id>\d+)/add_suggested_label/$', 'add_suggested_label', {'cls': cls}),
         (r'^'+prefix+r'(?P<group_id>\d+)/delete_suggested_label/(?P<label>.*)/$', 'delete_suggested_label', {'cls': cls}),

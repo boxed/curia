@@ -187,10 +187,10 @@ def stylesheet(request, template, mimetype='text/css'):
         browser = 'unknown'
     
     from django.template import loader
-    from django.http import HttpResponse, Http404
+    from django.http import HttpResponse
     from django.template import RequestContext
         
-    return HttpResponse(loader.render_to_string(template, context_instance=RequestContext(request), dictionary={'browser':browser, 'user_agent':user_agent}), mimetype=mimetype)
+    return HttpResponse(loader.render_to_string(template, context_instance=RequestContext(request), dictionary={'browser': browser, 'user_agent': user_agent}), content_type=mimetype)
         
 def portal(request):
     if request.community == None:
