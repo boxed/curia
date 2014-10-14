@@ -25,7 +25,7 @@ def view_month_for_user(request, user_id, year, month):
     dump = dumps({'year':year, 'month':month, 'events':u'<replace>'}, ensure_ascii=False)
     result = dump.replace(u'"<replace>"', smart_unicode(serializers.serialize("json", events, ensure_ascii=False)))
 
-    return HttpResponse(result, mimetype="text/json; charset=UTF-8")
+    return HttpResponse(result, content_type="text/json; charset=UTF-8")
 
 def view_month_for_group(request, year, month, group_id=None):
     if group_id != None:
@@ -38,7 +38,7 @@ def view_month_for_group(request, year, month, group_id=None):
     #TODO: repeat_events = Event.objects.filter(owner_group=group, start_time__lt=end_span, end_repeat__gt=start_span, repeat__not='')
     from django.core import serializers
 
-    return HttpResponse(dumps({'year':year, 'month':month, 'events':'<replace>'}, ensure_ascii=False).replace('"<replace>"', serializers.serialize("json", events)), mimetype="text/json; charset=UTF-8")
+    return HttpResponse(dumps({'year':year, 'month':month, 'events':'<replace>'}, ensure_ascii=False).replace('"<replace>"', serializers.serialize("json", events)), content_type="text/json; charset=UTF-8")
 
 def delete_event(request, event_id):
     from curia import delete_object
@@ -66,7 +66,7 @@ def delete_event(request, event_id):
     mark_labels_as_deleted(event, request.user)
   
     from django.core import serializers
-    return HttpResponse(dumps(event_id, ensure_ascii=False), mimetype="text/json; charset=UTF-8")
+    return HttpResponse(dumps(event_id, ensure_ascii=False), content_type="text/json; charset=UTF-8")
 
 # this function is needed because there is some problem with import ordering that intermittently produces errors for this file    
 def get_event_form():

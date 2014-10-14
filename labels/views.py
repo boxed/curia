@@ -41,4 +41,4 @@ def delete_suggested_label(request, group_id, label_id):
     SuggestedLabel.objects.get(pk=label_id).delete()
     
     from django.core import serializers
-    return HttpResponse(dumps(label_id, ensure_ascii=False), mimetype="text/json; charset=UTF-8")
+    return HttpResponse(dumps(label_id, ensure_ascii=False), content_type="text/json; charset=UTF-8")

@@ -139,7 +139,7 @@ def delete_image(request, image_id):
     mark_labels_as_deleted(image, request.user)
 
     from django.utils.simplejson import dumps 
-    return HttpResponse(dumps(image.id, ensure_ascii=False), mimetype="text/json; charset=UTF-8")
+    return HttpResponse(dumps(image.id, ensure_ascii=False), content_type="text/json; charset=UTF-8")
 
 def view_sets_of_group(request, group_id=None, page=None):
     if group_id != None:
@@ -287,4 +287,4 @@ def delete_image_set(request, set_id):
         delete_object(image)
 
     from django.utils.simplejson import dumps 
-    return HttpResponse(dumps(image_set.owner_group.id, ensure_ascii=False), mimetype="text/json; charset=UTF-8")
+    return HttpResponse(dumps(image_set.owner_group.id, ensure_ascii=False), content_type="text/json; charset=UTF-8")

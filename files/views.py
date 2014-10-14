@@ -54,7 +54,7 @@ def delete_file(request, file_id):
     from curia import delete_object
     delete_object(file)
     
-    return HttpResponse(dumps(file_id, ensure_ascii=False), mimetype="text/json; charset=UTF-8")
+    return HttpResponse(dumps(file_id, ensure_ascii=False), content_type="text/json; charset=UTF-8")
 
 def edit_file(request, file_id):
     file = get_object_or_404_and_check_access(request, File, pk=file_id, command='edit')

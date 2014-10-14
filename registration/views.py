@@ -6,6 +6,7 @@ from django.shortcuts import *
 from django.contrib.auth import login
 import django.forms
 from django.contrib.auth.views import login_required
+from django.utils.translation import ugettext as _
 from curia import *
 from curia.shortcuts import *
 from curia.authentication.models import MetaUser, MetaGroup, Invite
@@ -91,7 +92,7 @@ def delete_invite(request, invite_id):
     Invite.objects.filter(pk=invite_id).delete()
      
     from django.utils.simplejson import dumps 
-    return HttpResponse(dumps([invite_id], ensure_ascii=False), mimetype='text/json; charset=UTF-8')
+    return HttpResponse(dumps([invite_id], ensure_ascii=False), content_type='text/json; charset=UTF-8')
 
 def register(request):    
     class RegisterForm(django.forms.Form):

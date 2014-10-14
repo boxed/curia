@@ -317,7 +317,7 @@ def delete_message(request, message_id):
         reply.save()
         
     from django.utils.simplejson import dumps 
-    return HttpResponse(dumps([message.id], ensure_ascii=False), mimetype='text/json; charset=UTF-8')
+    return HttpResponse(dumps([message.id], ensure_ascii=False), content_type='text/json; charset=UTF-8')
 
 def edit_message(request, message_id):
     message = get_object_or_404(Message, pk=message_id)
@@ -413,4 +413,4 @@ def delete_thread(request, thread_id):
     delete_object(thread)
 
     from django.utils.simplejson import dumps 
-    return HttpResponse(dumps(thread.id, ensure_ascii=False), mimetype="text/json; charset=UTF-8")
+    return HttpResponse(dumps(thread.id, ensure_ascii=False), content_type="text/json; charset=UTF-8")

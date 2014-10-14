@@ -16,4 +16,4 @@ def autocomplete(request, key):
     from django.utils.simplejson import dumps
     if key == 'members':
         results = [unicode(x) for x in request.community.user_set.all()]
-        return HttpResponse(dumps(results, ensure_ascii=False), mimetype="text/json; charset=UTF-8")
+        return HttpResponse(dumps(results, ensure_ascii=False), content_type="text/json; charset=UTF-8")

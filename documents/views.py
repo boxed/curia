@@ -220,7 +220,7 @@ def delete_document(request, document_id):
         except MenuItem.DoesNotExist:
             pass
         
-    return HttpResponse(dumps(document_id, ensure_ascii=False), mimetype="text/json; charset=UTF-8")
+    return HttpResponse(dumps(document_id, ensure_ascii=False), content_type="text/json; charset=UTF-8")
     
 def view_documents_of_user(request, user_id):
     user = get_object_or_404_and_check_access(request, User, pk=user_id, command='view')
